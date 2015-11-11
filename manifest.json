@@ -13,5 +13,18 @@
     "browser_action": {
         "default_title": "FuzzyIt",
         "default_icon": "48x48.png"
+    },
+
+    "commands": {
+        "show-matcher": {
+            "suggested_key": {
+                "default": "Ctrl+P"
+            },
+            "description": "Open matcher"
+        }
+    },
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": false
     }
  }
