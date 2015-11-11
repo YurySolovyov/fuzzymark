@@ -1,4 +1,4 @@
 # fuzzymark
-chrome ext for beookmarks with fuzzy search
+chrome ext for bookmarks with fuzzy search
 
 Work in progress
