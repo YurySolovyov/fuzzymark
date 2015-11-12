@@ -77,6 +77,7 @@ $(function() {
         render();
     }).on('keydown', function(e) {
         if (keyHandlers.has(e.keyCode)) {
+            e.preventDefault();
             keyHandlers.get(e.keyCode)();
         }
     });
