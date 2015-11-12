@@ -15,6 +15,8 @@ $(function() {
     const store = new Map();
     const keyHandlers = new Map();
 
+    const highlighter = new MatchHighlighter;
+
     const getRawBookmarks = function() {
         return new Promise(function(resolve) {
             chrome.bookmarks.getTree(resolve);
@@ -40,7 +42,8 @@ $(function() {
         const elements = matched.slice(0, 20).map(function(item, index) {
             const rootClasses = index === 0 ? 'bookmark selected' : 'bookmark';
             const root = $('<li />').addClass(rootClasses);
-            const title = $('<span class="bookmarkTitle" />').text(item.title || item.url);
+            const wrappedTitle = highlighter.call(value, item.title || item.url);
+            const title = $('<span class="bookmarkTitle" />').html(wrappedTitle);
             const url = $('<span class="bookmarkUrl" />').text(item.url);
 
             return root.append(title, url);
