@@ -15,6 +15,10 @@
         "default_icon": "48x48.png"
     },
 
+    "permissions": [
+        "bookmarks"
+    ],
+
     "commands": {
         "show-matcher": {
             "suggested_key": {
