@@ -7,6 +7,10 @@ $(function() {
     const upKey = 38;
     const downKey = 40;
     const enterKey = 13;
+    const escKey = 27;
+
+    const maxResults = 20;
+    const propertyKey = 'title';
 
     const store = new Map();
     const keyHandlers = new Map();
@@ -26,7 +30,10 @@ $(function() {
     const render = function() {
         const bookmarks = store.get('bookmarks');
         const value = store.get('value');
-        const matched = Fuzzaldrin.filter(bookmarks, value, { key: 'title' });
+        const matched = Fuzzaldrin.filter(bookmarks, value, {
+            key: propertyKey,
+            maxResults: maxResults
+        });
 
         results.empty();
 
@@ -40,6 +47,11 @@ $(function() {
         });
 
         results.append(elements);
+    };
+
+    const clearResults = function() {
+        results.empty();
+        input.val('');
     };
 
     const selectNext = function() {
@@ -66,6 +78,11 @@ $(function() {
             type: 'open_tab',
             url: url
         });
+        clearResults();
+    };
+
+    const dismiss = function() {
+        clearResults();
     };
 
     getRawBookmarks().then(flattenBookmarks).then(function(bookmarks) {
@@ -85,6 +102,7 @@ $(function() {
     keyHandlers.set(upKey, selectPrev);
     keyHandlers.set(downKey, selectNext);
     keyHandlers.set(enterKey, openSelected);
+    keyHandlers.set(escKey, dismiss);
 
     $('#input').focus();
 });
