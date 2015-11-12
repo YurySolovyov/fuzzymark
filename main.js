@@ -26,7 +26,7 @@ $(function() {
     const render = function() {
         const bookmarks = store.get('bookmarks');
         const value = store.get('value');
-        const matched = Fuzzaldrin.filter(bookmarks, value, { key: 'url' });
+        const matched = Fuzzaldrin.filter(bookmarks, value, { key: 'title' });
 
         results.empty();
 
@@ -43,17 +43,19 @@ $(function() {
     };
 
     const selectNext = function() {
-        let next = results.find('.selected').removeClass('selected').next();
+        const selected = results.find('.selected');
+        let next = selected.removeClass('selected').next();
         if (next.length === 0) {
-            next = results.find('.selected').first();
+            next = selected.first();
         }
         next.addClass('selected');
     };
 
     const selectPrev = function() {
-        let prev = results.find('.selected').removeClass('selected').prev();
+        const selected = results.find('.selected');
+        let prev = selected.removeClass('selected').prev();
         if (prev.length === 0) {
-            prev = results.find('.selected').last();
+            prev = selected.last();
         }
         prev.addClass('selected');
     };
