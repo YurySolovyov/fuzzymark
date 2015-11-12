@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "FuzzyMark",
-    "version": "1.0",
+    "version": "0.1",
 
     "icons": {
         "16": "16x16.png",
