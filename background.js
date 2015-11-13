@@ -16,6 +16,10 @@
        createOrSelectTab(optionsUrl);
     });
 
+    chrome.browserAction.onClicked.addListener(function(tab) {
+       createOrSelectTab(optionsUrl);
+    });
+
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         if (request.type === 'open_tab') {
             createOrSelectTab(request.url);
