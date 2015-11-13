@@ -75,7 +75,7 @@ $(function() {
         const titleSpan = $('<span class="bookmarkTitle" />').html(infoValues.title);
 
         const faviconSpan = $('<img class="bookmarkFavicon" />').prop('src', infoValues.favicon);
-        const urlSpan = $('<span class="bookmarkUrl" />').text(infoValues.url);
+        const urlSpan = $('<a class="bookmarkUrl" />').prop('href', infoValues.url).text(infoValues.url);
 
         if (infoValues.score > 0) {
             bookmarkHeader.append(scoreSpan);
