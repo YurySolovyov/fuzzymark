@@ -16,7 +16,8 @@
     },
 
     "permissions": [
-        "bookmarks"
+        "bookmarks",
+        "chrome://favicon/"
     ],
 
     "commands": {
