@@ -51,6 +51,9 @@ body, html {
     font-size: 16px;
     line-height: normal;
     padding: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .bookmarkUrl {
@@ -59,4 +62,7 @@ body, html {
     font-size: 16px;
     line-height: normal;
     padding: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
