@@ -29,6 +29,10 @@ $(function() {
         }, []);
     };
 
+    const getFaviconUrl = function(url) {
+        return 'chrome://favicon/' + url;
+    };
+
     const render = function() {
         const bookmarks = store.get('bookmarks');
         const value = store.get('value');
@@ -43,7 +47,13 @@ $(function() {
             const title = item.title || item.url;
             const score = Math.floor(Fuzzaldrin.score(title, value) * 100);
             const wrappedTitle = highlighter.call(value, title);
-            return generateDom(index, {score: score, title: wrappedTitle, url: item.url});
+            const favicon = getFaviconUrl(item.url);
+            return generateDom(index, {
+                score: score,
+                title: wrappedTitle,
+                url: item.url,
+                favicon: favicon
+            });
         });
 
         results.append(elements);
@@ -63,13 +73,15 @@ $(function() {
 
         const scoreSpan = $('<span class="bookmarkScore" />').text(infoValues.score);
         const titleSpan = $('<span class="bookmarkTitle" />').html(infoValues.title);
+
+        const faviconSpan = $('<img class="bookmarkFavicon" />').prop('src', infoValues.favicon);
         const urlSpan = $('<span class="bookmarkUrl" />').text(infoValues.url);
 
         if (infoValues.score > 0) {
             bookmarkHeader.append(scoreSpan);
         }
         bookmarkHeader.append(titleSpan);
-        bookmarkFooter.append(urlSpan);
+        bookmarkFooter.append(faviconSpan, urlSpan);
 
         return root.append(bookmarkHeader, bookmarkFooter);
     }

@@ -71,3 +71,10 @@ body, html {
     color: #09c;
     margin-right: 16px;
 }
+
+.bookmarkFavicon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin: -4px 12px 0 -4px;
+}
