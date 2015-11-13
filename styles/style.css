@@ -72,6 +72,14 @@ body, html {
     margin-right: 16px;
 }
 
+.bookmarkUrl {
+    color: #09c;
+}
+
+.bookmarkUrl:hover {
+    text-decoration: underline;
+}
+
 .bookmarkFavicon {
     display: inline-block;
     width: 16px;
