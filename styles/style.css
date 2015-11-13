@@ -66,3 +66,17 @@ body, html {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.bookmarkScoreInfo {
+    float: left;
+    width: 3%;
+    text-align: right;
+    line-height: 2.5;
+    font-size: 18px;
+    color: #09c;
+}
+
+.bookmarkInfo {
+    float: right;
+    width: 97%;
+}
