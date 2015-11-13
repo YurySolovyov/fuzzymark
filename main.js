@@ -58,19 +58,20 @@ $(function() {
         const rootClasses = index === 0 ? 'bookmark selected' : 'bookmark';
         const root = $('<li />').addClass(rootClasses);
 
-        const scoreInfo = $('<div class="bookmarkScoreInfo" />');
-        const bookmarkInfo = $('<div class="bookmarkInfo" />');
+        const bookmarkHeader = $('<span class="bookmarkHeader" />');
+        const bookmarkFooter = $('<span class="bookmarkFooter" />');
 
         const scoreSpan = $('<span class="bookmarkScore" />').text(infoValues.score);
         const titleSpan = $('<span class="bookmarkTitle" />').html(infoValues.title);
         const urlSpan = $('<span class="bookmarkUrl" />').text(infoValues.url);
 
-        bookmarkInfo.append(titleSpan, urlSpan)
         if (infoValues.score > 0) {
-            scoreInfo.append(scoreSpan);
+            bookmarkHeader.append(scoreSpan);
         }
+        bookmarkHeader.append(titleSpan);
+        bookmarkFooter.append(urlSpan);
 
-        return root.append(scoreInfo, bookmarkInfo);
+        return root.append(bookmarkHeader, bookmarkFooter);
     }
 
     const selectNext = function() {
