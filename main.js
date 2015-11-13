@@ -40,13 +40,10 @@ $(function() {
         results.empty();
 
         const elements = matched.slice(0, 20).map(function(item, index) {
-            const rootClasses = index === 0 ? 'bookmark selected' : 'bookmark';
-            const root = $('<li />').addClass(rootClasses);
-            const wrappedTitle = highlighter.call(value, item.title || item.url);
-            const title = $('<span class="bookmarkTitle" />').html(wrappedTitle);
-            const url = $('<span class="bookmarkUrl" />').text(item.url);
-
-            return root.append(title, url);
+            const title = item.title || item.url;
+            const score = Math.floor(Fuzzaldrin.score(title, value) * 100);
+            const wrappedTitle = highlighter.call(value, title);
+            return generateDom(index, {score: score, title: wrappedTitle, url: item.url});
         });
 
         results.append(elements);
@@ -56,6 +53,25 @@ $(function() {
         results.empty();
         input.val('');
     };
+
+    const generateDom = function(index, infoValues) {
+        const rootClasses = index === 0 ? 'bookmark selected' : 'bookmark';
+        const root = $('<li />').addClass(rootClasses);
+
+        const scoreInfo = $('<div class="bookmarkScoreInfo" />');
+        const bookmarkInfo = $('<div class="bookmarkInfo" />');
+
+        const scoreSpan = $('<span class="bookmarkScore" />').text(infoValues.score);
+        const titleSpan = $('<span class="bookmarkTitle" />').html(infoValues.title);
+        const urlSpan = $('<span class="bookmarkUrl" />').text(infoValues.url);
+
+        bookmarkInfo.append(titleSpan, urlSpan)
+        if (infoValues.score > 0) {
+            scoreInfo.append(scoreSpan);
+        }
+
+        return root.append(scoreInfo, bookmarkInfo);
+    }
 
     const selectNext = function() {
         const selected = results.find('.selected');
@@ -107,5 +123,5 @@ $(function() {
     keyHandlers.set(enterKey, openSelected);
     keyHandlers.set(escKey, dismiss);
 
-    $('#input').focus();
+    input.focus();
 });
