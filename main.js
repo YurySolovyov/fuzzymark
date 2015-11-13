@@ -123,5 +123,5 @@ $(function() {
     keyHandlers.set(enterKey, openSelected);
     keyHandlers.set(escKey, dismiss);
 
-    $('#input').focus();
+    input.focus();
 });
