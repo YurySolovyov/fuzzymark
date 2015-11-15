@@ -1,7 +1,7 @@
 function MatchHighlighter() {
     'use strict';
 
-    this.call = function(input, result) {
+    this.highlight = function(input, result) {
         let letters = input.toLowerCase().split('');
         let wrappedResult = result.split('');
 

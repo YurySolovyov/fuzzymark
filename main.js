@@ -61,7 +61,7 @@ $(function() {
         const elements = matched.map(function(item, index) {
             const title = item.title;
             const score = FuzzaldrinPlus.score(title, value);
-            const wrappedTitle = highlighter.call(value, title);
+            const wrappedTitle = highlighter.highlight(value, title);
             return generateDom({
                 selected: index === 0,
                 score: score,
