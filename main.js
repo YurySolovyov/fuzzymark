@@ -9,9 +9,6 @@ $(function() {
     const enterKey = 13;
     const escKey = 27;
 
-    const maxResults = 20;
-    const propertyKey = 'title';
-
     const store = new Map();
     const keyHandlers = new Map();
 
@@ -33,7 +30,7 @@ $(function() {
     const simplifyBookmarks = function(flatBookmarks) {
         return flatBookmarks.map(function(bookmark) {
             return {
-                title: bookmark.title || getSimplifiedUrl(bookmark.url),
+                title: bookmark[settings.propertyKey] || getSimplifiedUrl(bookmark.url),
                 url: bookmark.url,
                 favicon: 'chrome://favicon/' + bookmark.url
             };
@@ -53,14 +50,14 @@ $(function() {
         const bookmarks = store.get('bookmarks');
         const value = store.get('value');
         const matched = FuzzaldrinPlus.filter(bookmarks, value, {
-            key: propertyKey,
-            maxResults: maxResults
+            key: settings.propertyKey,
+            maxResults: settings.maxResults
         });
 
         results.empty();
 
         const elements = matched.map(function(item, index) {
-            const title = item.title;
+            const title = item[settings.propertyKey];
             const score = FuzzaldrinPlus.score(title, value);
             const wrappedTitle = highlighter.highlight(value, title);
             return generateDom({
