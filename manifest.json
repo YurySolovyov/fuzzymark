@@ -35,7 +35,11 @@
         }
     },
     "background": {
-        "scripts": ["background.js"],
+        "scripts": [
+            "background/settings-store.js",
+            "background/store-message-processor.js",
+            "background.js"
+        ],
         "persistent": false
     }
  }
