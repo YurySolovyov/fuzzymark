@@ -33,6 +33,11 @@ $(function() {
         return 'chrome://favicon/' + url;
     };
 
+    const getSimplifiedUrl = function(url) {
+        const obj = new URL(url);
+        return obj.host + (obj.pathname.length > 1 ? obj.pathname : '');
+    };
+
     const render = function() {
         const bookmarks = store.get('bookmarks');
         const value = store.get('value');
@@ -44,7 +49,7 @@ $(function() {
         results.empty();
 
         const elements = matched.slice(0, 20).map(function(item, index) {
-            const title = item.title || item.url;
+            const title = item.title || getSimplifiedUrl(item.url);
             const score = Math.floor(Fuzzaldrin.score(title, value) * 100);
             const wrappedTitle = highlighter.call(value, title);
             const favicon = getFaviconUrl(item.url);
