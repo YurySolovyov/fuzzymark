@@ -1,23 +1,21 @@
 function MatchHighlighter() {
     'use strict';
 
-    this.highlight = function(input, result) {
-        let letters = input.toLowerCase().split('');
-        let wrappedResult = result.split('');
-
-        for (let i = 0; i < wrappedResult.length; ++i) {
-            if (wrappedResult[i].toLowerCase() === letters[0]) {
-                wrappedResult[i] = wrapLetter(wrappedResult[i]);
-                letters.shift();
-            }
-        }
-
-        return wrappedResult.join('');
+    const wrapHighlight = function(letter) {
+        return '<b>' + letter + '</b>';
     };
 
-    const wrapLetter = function(letter) {
-        return "<b>" + letter + "</b>";
-    }
+    this.highlight = function(input, result) {
+        const matched = FuzzaldrinPlus.match(result, input);
+
+        const letters = result.split('');
+
+        matched.forEach(function(letterIndex) {
+            letters[letterIndex] = wrapHighlight(letters[letterIndex]);
+        });
+
+        return letters.join('');
+    };
 
     return this;
 };
