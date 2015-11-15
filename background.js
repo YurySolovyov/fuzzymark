@@ -1,7 +1,6 @@
 (function(self) {
     'use strict';
     const optionsUrl = chrome.extension.getURL('index.html');
-    const settingsStore = new SettingsStore;
 
     const createOrSelectTab = function(url) {
         chrome.tabs.query({ url: url }, function(tabs) {
@@ -22,33 +21,52 @@
     });
 
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-        if (request.type === 'settings') {
-            settingsStore.all().then(function(value) {
-                sendResponse(value);
-            })
-        };
-
-        if (request.type === 'set_setting') {
-            settingsStore.set(request.key, request.value).then(function(value) {
-                sendResponse({status: true})
-            });
-        };
-
-        if (request.type === 'get_setting') {
-            settingsStore.get(request.key).then(function(value) {
-                sendResponse(value);
-            });
-        };
-
         if (request.type === 'open_tab') {
             createOrSelectTab(request.url);
         }
-
-        return true;
     });
 
+    chrome.runtime.onMessage.addListener(new StoreMessageProcessor);
 })(this);
 
+function StoreMessageProcessor() {
+    'use strict'
+
+    const settingsStore = new SettingsStore;
+
+    const settings = function(request, sender, sendResponse) {
+        settingsStore.all().then(function(value) {
+            sendResponse(value);
+        })
+    }
+
+    const setSetting = function(request, sender, sendResponse) {
+        settingsStore.set(request.key, request.value).then(function(value) {
+            sendResponse({status: true});
+        });
+    }
+
+    const getSetting = function(request, sender, sendResponse) {
+        settingsStore.get(request.key).then(function(value) {
+            sendResponse(value);
+        });
+    }
+
+    this.call = function(request, sender, sendResponse) {
+        const processor = {
+            'settings' : settings,
+            'set_setting' : setSetting,
+            'get_setting' : getSetting
+        }[request.type];
+
+        if (processor) {
+            processor(request, sender, sendResponse);
+        }
+        return true;
+    };
+
+    return this.call;
+}
 
 function SettingsStore() {
     'use strict';
@@ -56,17 +74,17 @@ function SettingsStore() {
     const storage = chrome.storage.sync;
 
     this.get = function(key) {
-      return new Promise(function(resolve, reject) {
-        storage.get(key, resolve);
-      });
+        return new Promise(function(resolve, reject) {
+            storage.get(key, resolve);
+        });
     };
 
     this.set = function(key, value) {
-      return new Promise(function(resolve, reject) {
-        const values = {};
-        values[key] = value;
-        storage.set(values, resolve);
-      });
+        return new Promise(function(resolve, reject) {
+            const values = {};
+            values[key] = value;
+            storage.set(values, resolve);
+        });
     }
 
     this.all = function() {
