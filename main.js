@@ -29,8 +29,18 @@ $(function() {
         }, []);
     };
 
-    const getFaviconUrl = function(url) {
-        return 'chrome://favicon/' + url;
+    const simplifyBookmarks = function(flatBookmarks) {
+        return flatBookmarks.map(function(bookmark) {
+            return {
+                title: bookmark.title || getSimplifiedUrl(bookmark.url),
+                url: bookmark.url,
+                favicon: 'chrome://favicon/' + bookmark.url
+            };
+        });
+    };
+
+    const setBookmarks = function(bookmarks) {
+        store.set('bookmarks', bookmarks);
     };
 
     const getSimplifiedUrl = function(url) {
@@ -41,23 +51,23 @@ $(function() {
     const render = function() {
         const bookmarks = store.get('bookmarks');
         const value = store.get('value');
-        const matched = Fuzzaldrin.filter(bookmarks, value, {
+        const matched = FuzzaldrinPlus.filter(bookmarks, value, {
             key: propertyKey,
             maxResults: maxResults
         });
 
         results.empty();
 
-        const elements = matched.slice(0, 20).map(function(item, index) {
-            const title = item.title || getSimplifiedUrl(item.url);
-            const score = Math.floor(Fuzzaldrin.score(title, value) * 100);
+        const elements = matched.map(function(item, index) {
+            const title = item.title;
+            const score = FuzzaldrinPlus.score(title, value);
             const wrappedTitle = highlighter.call(value, title);
-            const favicon = getFaviconUrl(item.url);
-            return generateDom(index, {
+            return generateDom({
+                selected: index === 0,
                 score: score,
                 title: wrappedTitle,
                 url: item.url,
-                favicon: favicon
+                favicon: item.favicon
             });
         });
 
@@ -69,23 +79,20 @@ $(function() {
         input.val('');
     };
 
-    const generateDom = function(index, infoValues) {
-        const rootClasses = index === 0 ? 'bookmark selected' : 'bookmark';
+    const generateDom = function(data) {
+        const rootClasses = data.selected ? 'bookmark selected' : 'bookmark';
         const root = $('<li />').addClass(rootClasses);
 
         const bookmarkHeader = $('<span class="bookmarkHeader" />');
         const bookmarkFooter = $('<span class="bookmarkFooter" />');
 
-        const scoreSpan = $('<span class="bookmarkScore" />').text(infoValues.score);
-        const titleSpan = $('<span class="bookmarkTitle" />').html(infoValues.title);
+        const scoreSpan = $('<span class="bookmarkScore" />').text(data.score);
+        const titleSpan = $('<span class="bookmarkTitle" />').html(data.title);
 
-        const faviconSpan = $('<img class="bookmarkFavicon" />').prop('src', infoValues.favicon);
-        const urlSpan = $('<a class="bookmarkUrl" />').prop('href', infoValues.url).text(infoValues.url);
+        const faviconSpan = $('<img class="bookmarkFavicon" />').prop('src', data.favicon);
+        const urlSpan = $('<a class="bookmarkUrl" />').prop('href', data.url).text(data.url);
 
-        if (infoValues.score > 0) {
-            bookmarkHeader.append(scoreSpan);
-        }
-        bookmarkHeader.append(titleSpan);
+        bookmarkHeader.append(scoreSpan, titleSpan);
         bookmarkFooter.append(faviconSpan, urlSpan);
 
         return root.append(bookmarkHeader, bookmarkFooter);
@@ -122,9 +129,7 @@ $(function() {
         clearResults();
     };
 
-    getRawBookmarks().then(flattenBookmarks).then(function(bookmarks) {
-        store.set('bookmarks', bookmarks);
-    });
+    getRawBookmarks().then(flattenBookmarks).then(simplifyBookmarks).then(setBookmarks);
 
     input.on('input', function(e) {
         store.set('value', e.target.value);
