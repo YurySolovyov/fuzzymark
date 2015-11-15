@@ -16,9 +16,15 @@
     },
 
     "permissions": [
+        "storage",
         "bookmarks",
         "chrome://favicon/"
     ],
+
+    "options_ui": {
+        "page": "options.html",
+        "chrome_style": true
+    },
 
     "commands": {
         "show-matcher": {

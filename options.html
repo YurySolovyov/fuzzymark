@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Options page</title>
+        <link rel="stylesheet" href="styles/sanitize.css" />
+        <link rel="stylesheet" href="styles/options.css" />
+    </head>
+    <body>
+        <fieldset class="settings">
+            <h3 class="results">Saved</h3>
+            <legend>Settings</legend>
+            <div class="inputs">
+                <label for="maxResults">Max results per request:</label>
+                <input id="maxResults" name="maxResults" type="number">
+                <label for="propertyKey">Property key:</label>
+                <select id="propertyKey" name="propertyKey">
+                    <option value="title">Titlte</option>
+                    <option value="url">URL</option>
+                </select>
+            </div>
+        </fieldset>
+        <script defer type="text/javascript" src="lib/jquery.min.js"></script>
+        <script defer type="text/javascript" src="options.js"></script>
+    </body>
+</html>
+
+

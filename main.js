@@ -16,6 +16,7 @@ $(function() {
     const keyHandlers = new Map();
 
     const highlighter = new MatchHighlighter;
+    const settings = { maxResults: 20, propertyKey: 'title' };
 
     const getRawBookmarks = function() {
         return new Promise(function(resolve) {
@@ -129,6 +130,14 @@ $(function() {
         clearResults();
     };
 
+    const loadSettings = function() {
+        chrome.extension.sendMessage({
+            type: "settings"
+        }, function(response) {
+            $.extend(settings, response);
+        });
+    }
+
     getRawBookmarks().then(flattenBookmarks).then(simplifyBookmarks).then(setBookmarks);
 
     input.on('input', function(e) {
@@ -146,5 +155,6 @@ $(function() {
     keyHandlers.set(enterKey, openSelected);
     keyHandlers.set(escKey, dismiss);
 
+    loadSettings();
     input.focus();
 });
