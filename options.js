@@ -6,7 +6,7 @@ $(function() {
     $(':input').each(function(index, element) {
         const inputName = this.name;
 
-        chrome.extension.sendMessage({
+        chrome.runtime.sendMessage({
             type: 'get_setting',
             key: inputName
         }, function(response) {
@@ -15,21 +15,17 @@ $(function() {
     });
 
     $('.inputs').on('change', ':input', function() {
-        const result = true;
-
         results.hide();
 
-        chrome.extension.sendMessage({
+        chrome.runtime.sendMessage({
             type: 'set_setting',
             key: this.name,
             value: this.value
         }, function(response) {
-            result = response.status;
+            if (response.status) {
+                results.stop().fadeIn('slow').fadeOut('slow');
+            }
         });
-
-        if (result) {
-            results.stop().fadeIn('slow').fadeOut('slow');
-        }
     });
 });
 

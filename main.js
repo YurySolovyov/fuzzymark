@@ -134,7 +134,7 @@ $(function() {
     };
 
     const loadSettings = function() {
-        chrome.extension.sendMessage({
+        chrome.runtime.sendMessage({
             type: 'settings'
         }, function(response) {
             Object.assign(settings, response);
