@@ -7,11 +7,10 @@ function MatchHighlighter() {
             const currentIndex = indexes[pos];
             const nextIndex = indexes[pos + 1] || 0;
 
-            if (currentIndex === nextIndex - 1 || currentIndex === prevIndex + 1) {
+            if (currentIndex === nextIndex - 1 || currentIndex === prevIndex + 1 || indexes.length === 1) {
                 obj.ranges[obj.rangeIndex].push(currentIndex);
-            } else {
+            } else if (currentIndex > 0 && indexes.length > 1) {
                 obj.rangeIndex = obj.ranges.push([currentIndex]);
-                obj.ranges.push([]);
             }
             return obj;
         }, {
