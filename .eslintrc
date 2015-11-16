@@ -29,7 +29,7 @@
         ],
         "no-unused-vars": [
             2,
-            { "vars": "local", "args": "none" }
+            { "vars": "local", "args": "after-used", "argsIgnorePattern": "^_" }
         ],
         "no-param-reassign": [
             2,
