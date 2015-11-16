@@ -84,7 +84,9 @@
         "FuzzaldrinPlus": true,
         "chrome": true,
         "module": true,
-        "MatchHighlighter": true
+        "MatchHighlighter": true,
+        "StoreMessageProcessor": true,
+        "SettingsStore": true
     },
     "extends": "eslint:recommended"
 }

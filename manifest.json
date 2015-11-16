@@ -16,9 +16,15 @@
     },
 
     "permissions": [
+        "storage",
         "bookmarks",
         "chrome://favicon/"
     ],
+
+    "options_ui": {
+        "page": "options.html",
+        "chrome_style": true
+    },
 
     "commands": {
         "show-matcher": {
@@ -29,7 +35,11 @@
         }
     },
     "background": {
-        "scripts": ["background.js"],
+        "scripts": [
+            "background/settings-store.js",
+            "background/store-message-processor.js",
+            "background.js"
+        ],
         "persistent": false
     }
  }

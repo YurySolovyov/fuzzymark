@@ -26,4 +26,5 @@
         }
     });
 
+    chrome.runtime.onMessage.addListener(new StoreMessageProcessor);
 })(this);
