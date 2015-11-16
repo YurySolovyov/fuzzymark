@@ -127,11 +127,18 @@ $(function() {
         clearResults();
     };
 
+    const renderStyles = function() {
+        $("<style type='text/css' />)")
+            .text(settings.styleCss)
+            .appendTo("body");
+    }
+
     const loadSettings = function() {
         chrome.extension.sendMessage({
             type: "settings"
         }, function(response) {
             $.extend(settings, response);
+            renderStyles();
         });
     }
 
