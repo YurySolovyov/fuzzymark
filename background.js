@@ -13,11 +13,11 @@
     };
 
     chrome.commands.onCommand.addListener(function(command) {
-       createOrSelectTab(optionsUrl);
+        createOrSelectTab(optionsUrl);
     });
 
     chrome.browserAction.onClicked.addListener(function(tab) {
-       createOrSelectTab(optionsUrl);
+        createOrSelectTab(optionsUrl);
     });
 
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {

@@ -18,4 +18,4 @@ function MatchHighlighter() {
     };
 
     return this;
-};
+}

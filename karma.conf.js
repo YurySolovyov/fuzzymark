@@ -5,7 +5,7 @@ module.exports = function(config) {
         files: [
             'lib/*.js',
             '*.js',
-            'test/*-spec.js',
+            'test/*-spec.js'
         ],
         exclude: [
             'background.js',
@@ -26,6 +26,6 @@ module.exports = function(config) {
             'karma-mocha-reporter',
             'karma-chrome-launcher'
         ]
-    }
+    };
     config.set(configuration);
-}
+};

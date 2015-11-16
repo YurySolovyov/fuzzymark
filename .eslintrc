@@ -29,7 +29,7 @@
         ],
         "no-unused-vars": [
             2,
-            { "vars": "local", "args": "after-used" }
+            { "vars": "local", "args": "none" }
         ],
         "no-param-reassign": [
             2,
@@ -83,7 +83,8 @@
         "$": true,
         "FuzzaldrinPlus": true,
         "chrome": true,
-        "module": true
+        "module": true,
+        "MatchHighlighter": true
     },
     "extends": "eslint:recommended"
 }

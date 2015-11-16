@@ -96,7 +96,7 @@ $(function() {
         bookmarkFooter.append(faviconSpan, urlSpan);
 
         return root.append(bookmarkHeader, bookmarkFooter);
-    }
+    };
 
     const selectNext = function() {
         const selected = results.find('.selected');
