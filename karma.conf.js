@@ -1,5 +1,5 @@
 module.exports = function(config) {
-    config.set({
+    var configuration = {
         basePath: '',
         frameworks: ['jasmine'],
         files: [
@@ -8,7 +8,8 @@ module.exports = function(config) {
             'test/*-spec.js',
         ],
         exclude: [
-            'background.js'
+            'background.js',
+            'main.js'
         ],
         preprocessors: {
         },
@@ -25,5 +26,6 @@ module.exports = function(config) {
             'karma-mocha-reporter',
             'karma-chrome-launcher'
         ]
-    })
+    }
+    config.set(configuration);
 }
