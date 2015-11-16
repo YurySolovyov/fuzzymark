@@ -1,0 +1,90 @@
+{
+    "ecmaFeatures" : {
+        "blockBindings": true
+    },
+    "rules": {
+        "indent": [
+            2,
+            4
+        ],
+        "quotes": [
+            2,
+            "single"
+        ],
+        "block-spacing": [
+            2,
+            "always"
+        ],
+        "linebreak-style": [
+            2,
+            "unix"
+        ],
+        "semi": [
+            2,
+            "always"
+        ],
+        "dot-notation": [
+            2,
+            { "allowKeywords": false }
+        ],
+        "no-unused-vars": [
+            2,
+            { "vars": "local", "args": "after-used", "argsIgnorePattern": "^_" }
+        ],
+        "no-param-reassign": [
+            2,
+            { "props": false }
+        ],
+        "no-useless-concat": [
+            2
+        ],
+        "radix": [
+            2
+        ],
+        "one-var": [
+            2,
+            "never"
+        ],
+        "yoda": [
+            2,
+            "never",
+            { "exceptRange": true }
+        ],
+        "comma-spacing": [
+            2,
+            {"before": false, "after": true}
+        ],
+        "comma-style": [
+            2,
+            "last"
+        ],
+        "quote-props": [
+            2,
+            "as-needed",
+            { "keywords": true }
+        ],
+        "object-curly-spacing": [
+            2,
+            "always"
+        ],
+        "space-before-blocks": [
+            2,
+            "always"
+        ],
+        "space-after-keywords": [
+            2,
+            "always"
+        ]
+    },
+    "env": {
+        "browser": true
+    },
+    "globals": {
+        "$": true,
+        "FuzzaldrinPlus": true,
+        "chrome": true,
+        "module": true,
+        "MatchHighlighter": true
+    },
+    "extends": "eslint:recommended"
+}
