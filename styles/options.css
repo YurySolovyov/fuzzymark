@@ -67,3 +67,7 @@ fieldset.settings option {
     white-space: pre;
     min-height: 1.2em;
 }
+
+.savingInfo {
+    height: 10px;
+}

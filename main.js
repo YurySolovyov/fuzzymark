@@ -137,7 +137,7 @@ $(function() {
         chrome.extension.sendMessage({
             type: 'settings'
         }, function(response) {
-            $.extend(settings, response);
+            Object.assign(settings, response);
             renderStyles();
         });
     };

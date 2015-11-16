@@ -21,7 +21,7 @@ function StoreMessageProcessor() {
         });
     };
 
-    this.call = function(request, sender, sendResponse) {
+    this.initialize = function(request, sender, sendResponse) {
         const processor = {
             settings : settings,
             set_setting : setSetting,
@@ -34,5 +34,5 @@ function StoreMessageProcessor() {
         return true;
     };
 
-    return this.call;
+    return this.initialize;
 }
