@@ -1,4 +1,4 @@
-(function(self) {
+(function(_self) {
     'use strict';
     const optionsUrl = chrome.extension.getURL('index.html');
 
@@ -12,15 +12,15 @@
         });
     };
 
-    chrome.commands.onCommand.addListener(function(command) {
-       createOrSelectTab(optionsUrl);
+    chrome.commands.onCommand.addListener(function(_command) {
+        createOrSelectTab(optionsUrl);
     });
 
-    chrome.browserAction.onClicked.addListener(function(tab) {
-       createOrSelectTab(optionsUrl);
+    chrome.browserAction.onClicked.addListener(function(_tab) {
+        createOrSelectTab(optionsUrl);
     });
 
-    chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    chrome.runtime.onMessage.addListener(function(request, _sender, _sendResponse) {
         if (request.type === 'open_tab') {
             createOrSelectTab(request.url);
         }

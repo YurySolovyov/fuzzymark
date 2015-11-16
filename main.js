@@ -94,7 +94,7 @@ $(function() {
         bookmarkFooter.append(faviconSpan, urlSpan);
 
         return root.append(bookmarkHeader, bookmarkFooter);
-    }
+    };
 
     const selectNext = function() {
         const selected = results.find('.selected');
@@ -128,19 +128,19 @@ $(function() {
     };
 
     const renderStyles = function() {
-        $("<style type='text/css' />)")
+        $('<style type="text/css" />)')
             .text(settings.styleCss)
-            .appendTo("body");
-    }
+            .appendTo('body');
+    };
 
     const loadSettings = function() {
         chrome.extension.sendMessage({
-            type: "settings"
+            type: 'settings'
         }, function(response) {
             $.extend(settings, response);
             renderStyles();
         });
-    }
+    };
 
     getRawBookmarks().then(flattenBookmarks).then(simplifyBookmarks).then(setBookmarks);
 
