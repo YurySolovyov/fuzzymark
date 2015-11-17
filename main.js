@@ -47,29 +47,28 @@ $(function() {
     };
 
     const render = function() {
-        const bookmarks = store.get('bookmarks');
         const value = store.get('value');
-        const matched = FuzzaldrinPlus.filter(bookmarks, value, {
+        const bookmarks = FuzzaldrinPlus.filter(store.get('bookmarks'), value, {
             key: settings.propertyKey,
             maxResults: settings.maxResults
-        });
-
-        results.empty();
-
-        const elements = matched.map(function(item, index) {
+        }).map(function(item, index) {
             const title = item[settings.propertyKey];
             const score = FuzzaldrinPlus.score(title, value);
             const wrappedTitle = highlighter.highlight(value, title);
-            return generateDom({
+            return {
                 selected: index === 0,
                 score: score,
                 title: wrappedTitle,
                 url: item.url,
                 favicon: item.favicon
-            });
+            };
         });
 
-        results.append(elements);
+        const renderedTemplates = renderTemplates({
+            bookmarks: bookmarks
+        });
+
+        results.html(renderedTemplates);
     };
 
     const clearResults = function() {
@@ -77,23 +76,15 @@ $(function() {
         input.val('');
     };
 
-    const generateDom = function(data) {
-        const rootClasses = data.selected ? 'bookmark selected' : 'bookmark';
-        const root = $('<li />').addClass(rootClasses);
+    const loadTemplates = function() {
+        $.get('templates/bookmarks.html').then(function(template) {
+            store.set('template', template);
+        });
+    };
 
-        const bookmarkHeader = $('<span class="bookmarkHeader" />');
-        const bookmarkFooter = $('<span class="bookmarkFooter" />');
-
-        const scoreSpan = $('<span class="bookmarkScore" />').text(data.score);
-        const titleSpan = $('<span class="bookmarkTitle" />').html(data.title);
-
-        const faviconSpan = $('<img class="bookmarkFavicon" />').prop('src', data.favicon);
-        const urlSpan = $('<a class="bookmarkUrl" />').prop('href', data.url).text(data.url);
-
-        bookmarkHeader.append(scoreSpan, titleSpan);
-        bookmarkFooter.append(faviconSpan, urlSpan);
-
-        return root.append(bookmarkHeader, bookmarkFooter);
+    const renderTemplates = function(data) {
+        const template = store.get('template');
+        return Mustache.to_html(template, data);
     };
 
     const selectNext = function() {
@@ -159,6 +150,7 @@ $(function() {
     keyHandlers.set(enterKey, openSelected);
     keyHandlers.set(escKey, dismiss);
 
+    loadTemplates();
     loadSettings();
     input.focus();
 });

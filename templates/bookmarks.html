@@ -1,0 +1,12 @@
+{{#bookmarks}}
+<li class="{{#selected }} selected {{/selected}} bookmark">
+    <span class="bookmarkHeader">
+        <span class="bookmarkScore">{{score}}</span>
+        <span class="bookmarkTitle">{{{title}}}</span>
+    </span>
+    <span class="bookmarkFooter">
+        <img class="bookmarkFavicon" src="{{favicon}}" />
+        <a href="{{url}}" class="bookmarkUrl">{{url}}</a>
+    </span>
+</li>
+{{/bookmarks}}
