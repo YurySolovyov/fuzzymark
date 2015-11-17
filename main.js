@@ -47,16 +47,11 @@ $(function() {
     };
 
     const render = function() {
-        const bookmarks = store.get('bookmarks');
         const value = store.get('value');
-        const matched = FuzzaldrinPlus.filter(bookmarks, value, {
+        const bookmarks = FuzzaldrinPlus.filter(store.get('bookmarks'), value, {
             key: settings.propertyKey,
             maxResults: settings.maxResults
-        });
-
-        results.empty();
-
-        const elements = matched.map(function(item, index) {
+        }).map(function(item, index) {
             const title = item[settings.propertyKey];
             const score = FuzzaldrinPlus.score(title, value);
             const wrappedTitle = highlighter.highlight(value, title);
@@ -69,11 +64,11 @@ $(function() {
             };
         });
 
-        const html = generateDom({
-            bookmarks: elements
+        const renderedTemplates = renderTemplates({
+            bookmarks: bookmarks
         });
 
-        results.append(html);
+        results.html(renderedTemplates);
     };
 
     const clearResults = function() {
@@ -87,7 +82,7 @@ $(function() {
         });
     };
 
-    const generateDom = function(data) {
+    const renderTemplates = function(data) {
         const template = store.get('template');
         return Mustache.to_html(template, data);
     };
