@@ -10,7 +10,7 @@ function MatchHighlighter() {
             if (currentIndex === nextIndex - 1 || currentIndex === prevIndex + 1 || indexes.length === 1) {
                 obj.ranges[obj.rangeIndex].push(currentIndex);
             } else if (currentIndex > 0 && indexes.length > 1) {
-                obj.rangeIndex = obj.ranges.push([currentIndex]);
+                obj.rangeIndex = obj.ranges.push([currentIndex]) - 1;
             }
             return obj;
         }, {
