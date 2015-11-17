@@ -4,19 +4,19 @@
     "version": "0.1",
 
     "icons": {
-        "16": "16x16.png",
-        "32": "32x32.png",
-        "48": "48x48.png",
-        "128": "128x128.png"
+        "16": "static/img/16x16.png",
+        "32": "static/img/32x32.png",
+        "48": "static/img/48x48.png",
+        "128": "static/img/128x128.png"
     },
 
     "browser_action": {
         "default_title": "FuzzyIt",
-        "default_icon": "48x48.png"
+        "default_icon": "static/img/48x48.png"
     },
 
     "web_accessible_resources": [
-        "templates/*.html"
+        "static/templates/*.html"
     ],
 
     "permissions": [
@@ -26,7 +26,7 @@
     ],
 
     "options_ui": {
-        "page": "options.html",
+        "page": "static/options.html",
         "chrome_style": true
     },
 
@@ -40,9 +40,9 @@
     },
     "background": {
         "scripts": [
-            "background/settings-store.js",
-            "background/store-message-processor.js",
-            "background.js"
+            "src/backend/background/settings-store.js",
+            "src/backend/background/store-message-processor.js",
+            "src/backend/background/background.js"
         ],
         "persistent": false
     }
