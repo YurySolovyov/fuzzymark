@@ -82,6 +82,7 @@
     "globals": {
         "$": true,
         "FuzzaldrinPlus": true,
+        "Mustache": true,
         "chrome": true,
         "module": true,
         "MatchHighlighter": true,
