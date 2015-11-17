@@ -1,6 +1,6 @@
 (function(_self) {
     'use strict';
-    const optionsUrl = chrome.extension.getURL('index.html');
+    const optionsUrl = chrome.extension.getURL('static/index.html');
 
     const createOrSelectTab = function(url) {
         chrome.tabs.query({ url: url }, function(tabs) {

@@ -4,12 +4,12 @@ module.exports = function(config) {
         frameworks: ['jasmine'],
         files: [
             'lib/*.js',
-            '*.js',
+            'src/**/*.js',
             'test/*-spec.js'
         ],
         exclude: [
-            'background.js',
-            'main.js'
+            'src/backend/background/background.js',
+            'src/frontend/main.js'
         ],
         preprocessors: {
         },
