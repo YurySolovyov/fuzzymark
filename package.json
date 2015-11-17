@@ -15,6 +15,6 @@
     },
     "scripts": {
         "test": "./node_modules/karma/bin/karma start --single-run --browsers Chrome",
-        "lint": "./node_modules/eslint/bin/eslint.js *.js background/*.js"
+        "lint": "./node_modules/eslint/bin/eslint.js src/**/"
     }
 }
