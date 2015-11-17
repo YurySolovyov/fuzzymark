@@ -4,6 +4,7 @@
         "type": "git",
         "url": "git://github.com/YuriSolovyov/fuzzymark.git"
     },
+    "license": "MIT",
     "devDependencies": {
         "jasmine-core": "^2.3.4",
         "karma": "^0.13.15",
