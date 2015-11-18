@@ -86,6 +86,7 @@
         "chrome": true,
         "module": true,
         "MatchHighlighter": true,
+        "RangesReducer": true,
         "StoreMessageProcessor": true,
         "SettingsStore": true
     },
