@@ -9,15 +9,14 @@ function MatchHighlighter() {
 
     this.highlight = function(input, result) {
         const matched = FuzzaldrinPlus.match(result, input);
-        const substrings = reducer.reduce(matched).map(function(range) {
+        const matchPattern = reducer.reduce(matched).map(function(range) {
             return range.map(function(index) {
                 return result.charAt(index);
-            }).join('');
-        });
+            }).join('').replace(/\W/g, '\\$&');
+        }).join('|');
 
-        return substrings.reduce(function(res, substring) {
-            return res.replace(substring, wrapHighlight(substring));
-        }, result);
+        const matcher = new RegExp(matchPattern, 'gi');
+        return result.replace(matcher, wrapHighlight);
     };
 
     return this;
