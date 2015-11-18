@@ -37,4 +37,12 @@ describe('MatchHighlighter', function() {
         const result = subject.highlight('d', 'abcd');
         expect(result).toEqual('abc<b>d</b>');
     });
+
+    it('highlights multiple matches', function() {
+        let result = subject.highlight('habb', 'habrahabr');
+        expect(result).toEqual('<b>hab</b>ra<b>hab</b>r');
+
+        result = subject.highlight('habaovsk', 'habarovsk');
+        expect(result).toEqual('<b>haba</b>r<b>ovsk</b>');
+    });
 });
