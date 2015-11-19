@@ -4,11 +4,32 @@ body, html {
     background: #ecf0f1;
 }
 
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #09c;
+    background-clip: content-box;
+    border: 2px transparent solid;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb:active {
+    border-color: #09c;
+    border-radius: 0;
+}
+
 #container {
     background: #fff;
     overflow: hidden;
-    height: calc(100vh - 48px);
-    margin-top: 24px;
+    height: calc(100vh - 32px);
+    margin-top: 16px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+    padding: 0;
+}
+
+#inputWrapper {
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
@@ -16,19 +37,24 @@ body, html {
     display: block;
     border-radius: 3px;
     border: 2px #aaa solid;
-    margin-top: 24px;
-    margin-bottom: 24px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     padding: 0 10px;
     font-size: 18px;
     line-height: 48px;
     transition: 0.3s;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
 #input:focus {
     outline: none;
     border-color: #09c;
     background: #fff;
+}
+
+#results {
+    padding: 20px 30px;
+    height: calc(100% - 100px);
+    overflow-y: scroll;
 }
 
 .bookmark {
