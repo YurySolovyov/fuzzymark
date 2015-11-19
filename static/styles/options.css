@@ -2,6 +2,7 @@ fieldset.settings {
     left: 0;
     padding-left: 15px;
     padding-bottom: 20px;
+    border: none;
 }
 
 fieldset.settings input {
