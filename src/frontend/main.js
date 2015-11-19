@@ -15,8 +15,14 @@ $(function() {
     const highlighter = new MatchHighlighter;
     const settings = { maxResults: 20, propertyKey: 'title' };
 
+    const requestBackground = function(args) {
+        return new Promise(function(resolve, _reject) {
+            chrome.runtime.sendMessage(args, resolve);
+        });
+    };
+
     const getRawBookmarks = function() {
-        return new Promise(function(resolve) {
+        return new Promise(function(resolve, _reject) {
             chrome.bookmarks.getTree(resolve);
         });
     };
@@ -107,11 +113,10 @@ $(function() {
 
     const openSelected = function() {
         const url = results.find('.selected .bookmarkUrl').text();
-        chrome.runtime.sendMessage({
+        return requestBackground({
             type: 'open_tab',
             url: url
-        });
-        clearResults();
+        }).then(clearResults);
     };
 
     const dismiss = function() {
@@ -125,9 +130,9 @@ $(function() {
     };
 
     const loadSettings = function() {
-        chrome.runtime.sendMessage({
+        return requestBackground({
             type: 'settings'
-        }, function(response) {
+        }).then(function(response) {
             Object.assign(settings, response);
             renderStyles();
         });
