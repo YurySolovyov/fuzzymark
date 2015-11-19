@@ -15,7 +15,7 @@ $(function() {
     const highlighter = new MatchHighlighter;
     const settings = { maxResults: 20, propertyKey: 'title' };
 
-    const request = function(args) {
+    const requestBackground = function(args) {
         return new Promise(function(resolve, _reject) {
             chrome.runtime.sendMessage(args, resolve);
         });
@@ -113,7 +113,7 @@ $(function() {
 
     const openSelected = function() {
         const url = results.find('.selected .bookmarkUrl').text();
-        return request({
+        return requestBackground({
             type: 'open_tab',
             url: url
         }).then(clearResults);
@@ -130,7 +130,7 @@ $(function() {
     };
 
     const loadSettings = function() {
-        return request({
+        return requestBackground({
             type: 'settings'
         }).then(function(response) {
             Object.assign(settings, response);
