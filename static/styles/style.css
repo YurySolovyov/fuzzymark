@@ -7,6 +7,7 @@ body, html {
 #input {
     display: block;
     border-radius: 3px;
+    border: none;
     box-shadow: 0 1px 2px #aaa;
     margin-top: 48px;
     margin-bottom: 48px;
