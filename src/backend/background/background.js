@@ -2,14 +2,16 @@
     'use strict';
     const optionsUrl = chrome.extension.getURL('static/index.html');
 
-    const createOrSelectTab = function(url) {
+    const createOrSelectTab = function(url, callback) {
         chrome.tabs.query({ url: url }, function(tabs) {
             if (tabs.length) {
                 chrome.tabs.update(tabs[0].id, { active: true });
             } else {
                 chrome.tabs.create({ url: url });
             }
+            callback();
         });
+        return true;
     };
 
     chrome.commands.onCommand.addListener(function(_command) {
@@ -20,9 +22,9 @@
         createOrSelectTab(optionsUrl);
     });
 
-    chrome.runtime.onMessage.addListener(function(request, _sender, _sendResponse) {
+    chrome.runtime.onMessage.addListener(function(request, _sender, sendResponse) {
         if (request.type === 'open_tab') {
-            createOrSelectTab(request.url);
+            return createOrSelectTab(request.url, sendResponse);
         }
     });
 
