@@ -14,9 +14,10 @@ $(function() {
     const downKey = 40;
     const enterKey = 13;
     const escKey = 27;
+    const deleteKey = 46;
 
     const store = new Map();
-    const keyHandlers = new Map();
+    const keyHandlers = require('./keys-handler.js');
 
     const highlighter = new MatchHighlighter;
     const settings = { maxResults: 20, propertyKey: 'title' };
@@ -42,6 +43,7 @@ $(function() {
     const simplifyBookmarks = function(flatBookmarks) {
         return flatBookmarks.map(function(bookmark) {
             return {
+                id: bookmark.id,
                 title: bookmark[settings.propertyKey] || getSimplifiedUrl(bookmark.url),
                 url: bookmark.url,
                 favicon: 'chrome://favicon/' + bookmark.url
@@ -68,6 +70,7 @@ $(function() {
             const score = FuzzaldrinPlus.score(title, value);
             const wrappedTitle = highlighter.highlight(value, title);
             return {
+                id: item.id,
                 selected: index === 0,
                 score: score,
                 title: wrappedTitle,
@@ -125,6 +128,16 @@ $(function() {
         }).then(clearResults);
     };
 
+    const removeBookmark = function() {
+        const bookmark = results.find('.selected');
+        const id = bookmark.data('id');
+        chrome.bookmarks.remove(id.toString(), function() {
+            selectNext();
+            bookmark.remove();
+            loadBookmarks();
+        });
+    };
+
     const dismiss = function() {
         clearResults();
     };
@@ -144,23 +157,34 @@ $(function() {
         });
     };
 
-    getRawBookmarks().then(flattenBookmarks).then(simplifyBookmarks).then(setBookmarks);
+    const loadBookmarks = function() {
+        getRawBookmarks().then(flattenBookmarks).then(simplifyBookmarks).then(setBookmarks);
+    };
 
     input.on('input', function(e) {
         store.set('value', e.target.value);
         render();
     }).on('keydown', function(e) {
-        if (keyHandlers.has(e.keyCode)) {
+        const shortcut = {
+            key: e.keyCode,
+            alt: e.altKey,
+            ctrl: e.ctrlKey,
+            shift: e.shiftKey
+        };
+
+        if (keyHandlers.hasShortcut(shortcut)) {
             e.preventDefault();
-            keyHandlers.get(e.keyCode)();
+            keyHandlers.getAction(shortcut)();
         }
     });
 
-    keyHandlers.set(upKey, selectPrev);
-    keyHandlers.set(downKey, selectNext);
-    keyHandlers.set(enterKey, openSelected);
-    keyHandlers.set(escKey, dismiss);
+    keyHandlers.setShortcut({ key: upKey,     alt: false, ctrl: false, shift: false }, selectPrev);
+    keyHandlers.setShortcut({ key: downKey,   alt: false, ctrl: false, shift: false }, selectNext);
+    keyHandlers.setShortcut({ key: enterKey,  alt: false, ctrl: false, shift: false }, openSelected);
+    keyHandlers.setShortcut({ key: escKey,    alt: false, ctrl: false, shift: false }, dismiss);
+    keyHandlers.setShortcut({ key: deleteKey, alt: false, ctrl: false, shift: true },  removeBookmark);
 
+    loadBookmarks();
     loadTemplates();
     loadSettings();
     input.focus();
