@@ -40,9 +40,7 @@
     },
     "background": {
         "scripts": [
-            "src/backend/background/settings-store.js",
-            "src/backend/background/store-message-processor.js",
-            "src/backend/background/background.js"
+            "dist/background.bundle.js"
         ],
         "persistent": false
     }

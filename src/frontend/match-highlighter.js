@@ -1,3 +1,6 @@
+const RangesReducer = require('./ranges-reducer.js');
+const FuzzaldrinPlus = require('fuzzaldrin-plus');
+
 function MatchHighlighter() {
     'use strict';
 
@@ -21,3 +24,5 @@ function MatchHighlighter() {
 
     return this;
 }
+
+module.exports = MatchHighlighter;

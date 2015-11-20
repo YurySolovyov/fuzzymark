@@ -1,3 +1,5 @@
+var SettingsStore = require('./settings-store.js');
+
 function StoreMessageProcessor() {
     'use strict';
 
@@ -36,3 +38,5 @@ function StoreMessageProcessor() {
 
     return this.initialize;
 }
+
+module.exports = StoreMessageProcessor;

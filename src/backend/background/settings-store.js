@@ -25,3 +25,5 @@ function SettingsStore() {
 
     return this;
 }
+
+module.exports = SettingsStore;
