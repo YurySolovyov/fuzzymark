@@ -3,15 +3,16 @@ module.exports = function(config) {
         basePath: '',
         frameworks: ['jasmine'],
         files: [
-            'lib/*.js',
-            'src/**/*.js',
             'test/*-spec.js'
         ],
-        exclude: [
-            'src/backend/background/background.js',
-            'src/frontend/main.js'
-        ],
         preprocessors: {
+            'test/*-spec.js': ['webpack', 'sourcemap']
+        },
+        webpack: {
+            devtool: 'inline-source-map'
+        },
+        webpackMiddleware: {
+            noInfo: true
         },
         reporters: ['mocha'],
         port: 9876,
@@ -22,6 +23,8 @@ module.exports = function(config) {
         singleRun: false,
         concurrency: Infinity,
         plugins: [
+            require("karma-webpack"),
+            require("karma-sourcemap-loader"),
             'karma-jasmine',
             'karma-mocha-reporter',
             'karma-chrome-launcher'

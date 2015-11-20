@@ -1,5 +1,11 @@
+const $ = require('jquery');
+const FuzzaldrinPlus = require('fuzzaldrin-plus');
+const Mustache = require('mustache');
+
 $(function() {
     'use strict';
+
+    const MatchHighlighter = require('./match-highlighter.js');
 
     const results = $('#results');
     const input = $('#input');

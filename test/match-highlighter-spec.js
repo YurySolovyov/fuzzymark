@@ -1,3 +1,5 @@
+const MatchHighlighter = require('./../src/frontend/match-highlighter.js');
+
 describe('MatchHighlighter', function() {
     'use strict';
 

@@ -1,3 +1,5 @@
+const RangesReducer = require('./../src/frontend/ranges-reducer.js');
+
 describe('RangesReducer', function() {
     'use strict';
 

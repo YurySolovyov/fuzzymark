@@ -1,5 +1,7 @@
 (function(_self) {
     'use strict';
+
+    const StoreMessageProcessor = require('./store-message-processor.js');
     const optionsUrl = chrome.extension.getURL('static/index.html');
 
     const createOrSelectTab = function(url, callback) {

@@ -80,15 +80,9 @@
         "browser": true
     },
     "globals": {
-        "$": true,
-        "FuzzaldrinPlus": true,
-        "Mustache": true,
+        "require": true,
         "chrome": true,
-        "module": true,
-        "MatchHighlighter": true,
-        "RangesReducer": true,
-        "StoreMessageProcessor": true,
-        "SettingsStore": true
+        "module": true
     },
     "extends": "eslint:recommended"
 }

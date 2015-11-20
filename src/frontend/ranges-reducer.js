@@ -26,3 +26,5 @@ function RangesReducer() {
         }, []);
     };
 }
+
+module.exports = RangesReducer;
