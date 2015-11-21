@@ -8,9 +8,11 @@ $(function() {
 
     const ViewportWatcher = require('./viewport-watcher.js');
     const keyHandlers = require('./keys-handler.js');
+    const handleBackgroundMessages = require('./message-handler.js');
 
     const results = $('#results');
     const input = $('#input');
+    const customStyles = $('#styles');
 
     const upKey = 38;
     const downKey = 40;
@@ -105,12 +107,8 @@ $(function() {
     };
 
     const loadTemplates = function() {
-        Promise.all([
-            $.get('templates/bookmarks.html'),
-            $.get('templates/styles.html')
-        ]).then(function(templatesMarkup) {
-            templates.set('bookmarksTemplate', templatesMarkup[0]);
-            templates.set('stylesTemplate', templatesMarkup[1]);
+        $.get('templates/bookmarks.html').then(function(bookmarksTemplate) {
+            templates.set('bookmarksTemplate', bookmarksTemplate);
         });
     };
 
@@ -164,11 +162,7 @@ $(function() {
     };
 
     const renderStyles = function() {
-        const stylesTemplate = templates.get('stylesTemplate');
-        const styles = Mustache.to_html(stylesTemplate, {
-            styles: settings.get('styleCss')
-        });
-        $('head').append(styles);
+        customStyles.html(settings.get('styleCss'));
     };
 
     const loadSettings = function() {
@@ -201,11 +195,16 @@ $(function() {
         }
     });
 
+    handleBackgroundMessages({
+        set_setting: loadSettings,
+        focus: input.focus.bind(input)
+    });
+
     keyHandlers.setShortcut({ key: upKey,     alt: false, ctrl: false, shift: false }, selectPrev);
     keyHandlers.setShortcut({ key: downKey,   alt: false, ctrl: false, shift: false }, selectNext);
     keyHandlers.setShortcut({ key: enterKey,  alt: false, ctrl: false, shift: false }, openSelected);
     keyHandlers.setShortcut({ key: escKey,    alt: false, ctrl: false, shift: false }, dismiss);
-    keyHandlers.setShortcut({ key: deleteKey, alt: false, ctrl: false, shift: true },  removeBookmark);
+    keyHandlers.setShortcut({ key: deleteKey, alt: false, ctrl: false, shift: true  }, removeBookmark);
 
     loadBookmarks();
     loadTemplates();
