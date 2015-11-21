@@ -80,7 +80,7 @@ $(function() {
             };
         });
 
-        const renderedTemplates = renderTemplates({
+        const renderedTemplates = renderBookmarks({
             bookmarks: bookmarks
         });
 
@@ -93,13 +93,17 @@ $(function() {
     };
 
     const loadTemplates = function() {
-        $.get('templates/bookmarks.html').then(function(template) {
-            store.set('template', template);
+        Promise.all([
+            $.get('templates/bookmarks.html'),
+            $.get('templates/styles.html'),
+        ]).then(function(templates) {
+            store.set('bookmarksTemplate', templates[0]);
+            store.set('stylesTemplate', templates[1]);
         });
     };
 
-    const renderTemplates = function(data) {
-        const template = store.get('template');
+    const renderBookmarks = function(data) {
+        const template = store.get('bookmarksTemplate');
         return Mustache.to_html(template, data);
     };
 
@@ -148,9 +152,11 @@ $(function() {
     };
 
     const renderStyles = function() {
-        $('<style type="text/css" />)')
-            .text(settings.styleCss)
-            .appendTo('body');
+        const stylesTemplate = store.get('stylesTemplate');
+        const styles = Mustache.to_html(stylesTemplate, {
+            styles: settings.styleCss
+        });
+        $('head').append(styles);
     };
 
     const loadSettings = function() {
