@@ -6,6 +6,7 @@ $(function() {
     'use strict';
 
     const MatchHighlighter = require('./match-highlighter.js');
+    const ViewportWatcher = require('./viewport-watcher.js');
 
     const results = $('#results');
     const input = $('#input');
@@ -19,7 +20,7 @@ $(function() {
     const store = new Map();
     const keyHandlers = require('./keys-handler.js');
 
-    const highlighter = new MatchHighlighter;
+    const highlighter = new MatchHighlighter();
     const settings = { maxResults: 20, propertyKey: 'title' };
 
     const requestBackground = function(args) {
@@ -102,22 +103,26 @@ $(function() {
         return Mustache.to_html(template, data);
     };
 
-    const selectNext = function() {
+    const selectNeededBookmark = function(direction, corner) {
         const selected = results.find('.selected');
-        let next = selected.removeClass('selected').next();
-        if (next.length === 0) {
-            next = selected.first();
+        let needed = selected[direction]();
+        if (needed.length === 0) {
+            needed = selected[corner]();
         }
-        next.addClass('selected');
+
+        if (needed.is(selected)) { return; }
+
+        selected.removeClass('selected');
+        needed.addClass('selected');
+        ViewportWatcher.ensureInViewport(results, needed);
+    };
+
+    const selectNext = function() {
+        selectNeededBookmark('next', 'first');
     };
 
     const selectPrev = function() {
-        const selected = results.find('.selected');
-        let prev = selected.removeClass('selected').prev();
-        if (prev.length === 0) {
-            prev = selected.last();
-        }
-        prev.addClass('selected');
+        selectNeededBookmark('prev', 'last');
     };
 
     const openSelected = function() {
