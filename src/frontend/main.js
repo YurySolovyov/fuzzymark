@@ -95,7 +95,7 @@ $(function() {
     const loadTemplates = function() {
         Promise.all([
             $.get('templates/bookmarks.html'),
-            $.get('templates/styles.html'),
+            $.get('templates/styles.html')
         ]).then(function(templates) {
             store.set('bookmarksTemplate', templates[0]);
             store.set('stylesTemplate', templates[1]);
