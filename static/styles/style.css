@@ -75,7 +75,7 @@ body, html {
 
 .bookmark.selected {
     border-color: #09c;
-    transform: scale(1.025);
+    transform: scale(1.02);
 }
 
 .bookmarkHeader {
