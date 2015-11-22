@@ -2,6 +2,7 @@ const path = require('path');
 const CLIEngine = require('eslint').CLIEngine;
 
 const sourcesPath = 'src/**/';
+const testsPath = 'tests/**/';
 
 const lintSource = (function() {
 
@@ -13,7 +14,11 @@ const lintSource = (function() {
             configFile: '.eslintrc.json'
         });
 
-        const report = engine.executeOnFiles([path.resolve(sourcesPath)]);
+        const report = engine.executeOnFiles([
+            path.resolve(sourcesPath),
+            path.resolve(testsPath)
+        ]);
+
         const hasErrors = report.errorCount > 0 || report.warningCount > 0;
 
         if (hasErrors) {
