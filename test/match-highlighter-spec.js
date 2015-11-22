@@ -1,50 +1,80 @@
-const MatchHighlighter = require('./../src/frontend/match-highlighter.js');
+const _ = require('lodash');
+const highlighter = require('./../src/frontend/match-highlighter.js');
 
-describe('MatchHighlighter', function() {
+describe('matchHighlighter', function() {
     'use strict';
 
-    const subject = new MatchHighlighter;
+    const wrapHighlight = (letter) => { return '(' + letter + ')'; };
 
     it('highlights with one tag full equal string', function() {
-        const result = subject.highlight('abc', 'abc');
-        expect(result).toEqual('<b>abc</b>');
+        const highlight = _.partial(highlighter, {
+            match: (result, input) => [ 0, 1, 2 ],
+            reduce: (indexes) => [ [ 0, 1, 2 ] ],
+            wrap: wrapHighlight
+        });
+        expect(highlight('abc', 'abc')).toEqual('(abc)');
     });
 
     it('highlights with one tag consecutive letters', function() {
-        const result = subject.highlight('bc', 'abcd');
-        expect(result).toEqual('a<b>bc</b>d');
+        const highlight = _.partial(highlighter, {
+            match: (result, input) => [ 1, 2 ],
+            reduce: (indexes) => [ [ 1, 2 ] ],
+            wrap: wrapHighlight
+        });
+        expect(highlight('bc', 'abcd')).toEqual('a(bc)d');
     });
 
     it('highlights last letters if it match', function() {
-        const result = subject.highlight('cd', 'abcd');
-        expect(result).toEqual('ab<b>cd</b>');
+        const highlight = _.partial(highlighter, {
+            match: (result, input) => [ 2, 3 ],
+            reduce: (indexes) => [ [ 2, 3 ] ],
+            wrap: wrapHighlight
+        });
+        expect(highlight('cd', 'abcd')).toEqual('ab(cd)');
     });
 
     it('highlights first letters if it match', function() {
-        const result = subject.highlight('ab', 'abcd');
-        expect(result).toEqual('<b>ab</b>cd');
+        const highlight = _.partial(highlighter, {
+            match: (result, input) => [ 0, 1 ],
+            reduce: (indexes) => [ [ 0, 1 ] ],
+            wrap: wrapHighlight
+        });
+        expect(highlight('ab', 'abcd')).toEqual('(ab)cd');
     });
 
     it('highlights one letter if it match', function() {
-        const result = subject.highlight('b', 'abcd');
-        expect(result).toEqual('a<b>b</b>cd');
+        const highlight = _.partial(highlighter, {
+            match: (result, input) => [ 1 ],
+            reduce: (indexes) => [ [ 1 ] ],
+            wrap: wrapHighlight
+        });
+        expect(highlight('b', 'abcd')).toEqual('a(b)cd');
     });
 
     it('highlights one letter if it match at begin of string', function() {
-        const result = subject.highlight('a', 'abcd');
-        expect(result).toEqual('<b>a</b>bcd');
+        const highlight = _.partial(highlighter, {
+            match: (result, input) => [ 0 ],
+            reduce: (indexes) => [ [ 0 ] ],
+            wrap: wrapHighlight
+        });
+        expect(highlight('a', 'abcd')).toEqual('(a)bcd');
     });
 
     it('highlights one letter if it match at end of string', function() {
-        const result = subject.highlight('d', 'abcd');
-        expect(result).toEqual('abc<b>d</b>');
+        const highlight = _.partial(highlighter, {
+            match: (result, input) => [ 3 ],
+            reduce: (indexes) => [ [ 3 ] ],
+            wrap: wrapHighlight
+        });
+        expect(highlight('d', 'abcd')).toEqual('abc(d)');
     });
 
-    it('highlights multiple matches', function() {
-        let result = subject.highlight('habb', 'habrahabr');
-        expect(result).toEqual('<b>hab</b>ra<b>hab</b>r');
-
-        result = subject.highlight('habaovsk', 'habarovsk');
-        expect(result).toEqual('<b>haba</b>r<b>ovsk</b>');
+    it('highlights multiple matches with break in matching', function() {
+        const highlight = _.partial(highlighter, {
+            match: (result, input) => [ 0, 1, 2, 7 ],
+            reduce: (indexes) => [ [0, 1, 2], [ 7 ] ],
+            wrap: wrapHighlight
+        });
+        expect(highlight('habb', 'habrahabr')).toEqual('(hab)ra(hab)r');
     });
 });

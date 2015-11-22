@@ -77,7 +77,8 @@
         ]
     },
     "env": {
-        "browser": true
+        "browser": true,
+        "es6": true
     },
     "globals": {
         "require": true,
