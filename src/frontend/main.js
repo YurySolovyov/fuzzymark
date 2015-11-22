@@ -18,15 +18,18 @@ $(function() {
     const escKey = 27;
     const deleteKey = 46;
 
-    const store = new Map();
+    const state = new Map();
+    const templates = new Map();
+    const settings = new Map([
+        ['maxResults', 20],
+        ['propertyKey', 'title']
+    ]);
 
     const highlight = _.partial(require('./match-highlighter.js'), {
         match: FuzzaldrinPlus.match,
         reduce: require('./ranges-reducer.js'),
         wrap: (string) => '<b>' + string + '</b>'
     });
-
-    const settings = { maxResults: 20, propertyKey: 'title' };
 
     const requestBackground = function(args) {
         return new Promise(function(resolve, _reject) {
@@ -47,10 +50,11 @@ $(function() {
     };
 
     const simplifyBookmarks = function(flatBookmarks) {
+        const propertyKey = settings.get('propertyKey');
         return flatBookmarks.map(function(bookmark) {
             return {
                 id: bookmark.id,
-                title: bookmark[settings.propertyKey] || getSimplifiedUrl(bookmark.url),
+                title: bookmark[propertyKey] || getSimplifiedUrl(bookmark.url),
                 url: bookmark.url,
                 favicon: 'chrome://favicon/' + bookmark.url
             };
@@ -58,7 +62,7 @@ $(function() {
     };
 
     const setBookmarks = function(bookmarks) {
-        store.set('bookmarks', bookmarks);
+        state.set('bookmarks', bookmarks);
     };
 
     const getSimplifiedUrl = function(url) {
@@ -67,12 +71,15 @@ $(function() {
     };
 
     const render = function() {
-        const value = store.get('value');
-        const bookmarks = FuzzaldrinPlus.filter(store.get('bookmarks'), value, {
-            key: settings.propertyKey,
-            maxResults: settings.maxResults
+        const propertyKey = settings.get('propertyKey');
+        const maxResults = settings.get('maxResults');
+
+        const value = state.get('value');
+        const bookmarks = FuzzaldrinPlus.filter(state.get('bookmarks'), value, {
+            key: propertyKey,
+            maxResults: maxResults
         }).map(function(item, index) {
-            const title = item[settings.propertyKey];
+            const title = item[propertyKey];
             const score = FuzzaldrinPlus.score(title, value);
             const wrappedTitle = highlight(value, title);
             return {
@@ -101,14 +108,14 @@ $(function() {
         Promise.all([
             $.get('templates/bookmarks.html'),
             $.get('templates/styles.html')
-        ]).then(function(templates) {
-            store.set('bookmarksTemplate', templates[0]);
-            store.set('stylesTemplate', templates[1]);
+        ]).then(function(templatesMarkup) {
+            templates.set('bookmarksTemplate', templatesMarkup[0]);
+            templates.set('stylesTemplate', templatesMarkup[1]);
         });
     };
 
     const renderBookmarks = function(data) {
-        const template = store.get('bookmarksTemplate');
+        const template = templates.get('bookmarksTemplate');
         return Mustache.to_html(template, data);
     };
 
@@ -157,9 +164,9 @@ $(function() {
     };
 
     const renderStyles = function() {
-        const stylesTemplate = store.get('stylesTemplate');
+        const stylesTemplate = templates.get('stylesTemplate');
         const styles = Mustache.to_html(stylesTemplate, {
-            styles: settings.styleCss
+            styles: settings.get('styleCss')
         });
         $('head').append(styles);
     };
@@ -168,7 +175,7 @@ $(function() {
         return requestBackground({
             type: 'settings'
         }).then(function(response) {
-            Object.assign(settings, response);
+            Object.keys(response).forEach((key) => { settings.set(key, response[key]); });
             renderStyles();
         });
     };
@@ -178,7 +185,7 @@ $(function() {
     };
 
     input.on('input', function(e) {
-        store.set('value', e.target.value);
+        state.set('value', e.target.value);
         render();
     }).on('keydown', function(e) {
         const shortcut = {
