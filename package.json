@@ -18,7 +18,7 @@
     },
     "scripts": {
         "test": "./node_modules/karma/bin/karma start --single-run --browsers Chrome",
-        "lint": "./node_modules/eslint/bin/eslint.js src/**/"
+        "lint": "node scripts/lint.js"
     },
     "dependencies": {
         "fuzzaldrin-plus": "^0.2.0",
