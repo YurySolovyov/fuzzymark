@@ -1,12 +1,13 @@
 const $ = require('jquery');
+const _ = require('lodash');
 const FuzzaldrinPlus = require('fuzzaldrin-plus');
 const Mustache = require('mustache');
 
 $(function() {
     'use strict';
 
-    const MatchHighlighter = require('./match-highlighter.js');
     const ViewportWatcher = require('./viewport-watcher.js');
+    const keyHandlers = require('./keys-handler.js');
 
     const results = $('#results');
     const input = $('#input');
@@ -18,9 +19,13 @@ $(function() {
     const deleteKey = 46;
 
     const store = new Map();
-    const keyHandlers = require('./keys-handler.js');
 
-    const highlighter = new MatchHighlighter();
+    const highlight = _.partial(require('./match-highlighter.js'), {
+        match: FuzzaldrinPlus.match,
+        reduce: require('./ranges-reducer.js'),
+        wrap: (string) => '<b>' + string + '</b>'
+    });
+
     const settings = { maxResults: 20, propertyKey: 'title' };
 
     const requestBackground = function(args) {
@@ -69,7 +74,7 @@ $(function() {
         }).map(function(item, index) {
             const title = item[settings.propertyKey];
             const score = FuzzaldrinPlus.score(title, value);
-            const wrappedTitle = highlighter.highlight(value, title);
+            const wrappedTitle = highlight(value, title);
             return {
                 id: item.id,
                 selected: index === 0,
