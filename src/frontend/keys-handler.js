@@ -2,9 +2,7 @@
 
 let keyHandlers = new Map();
 
-const prepareKey = function(key) {
-    return JSON.stringify(key);
-};
+const prepareKey = JSON.stringify;
 
 module.exports = {
     getAction: function(key) {
