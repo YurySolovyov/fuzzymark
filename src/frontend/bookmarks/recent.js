@@ -9,8 +9,9 @@ const wrap = function(item, index) {
     return {
         id: item.id,
         selected: index === 0,
-        score: '',
+        score: 'Recent',
         title: item[propertyKey],
+        wrappedUrl: item.url,
         url: item.url,
         favicon: item.favicon
     };

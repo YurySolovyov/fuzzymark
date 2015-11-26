@@ -14,15 +14,19 @@ const highlight = _.partial(require('./../match-highlighter.js'), {
 });
 
 const wrap = function(value, item, index) {
-    const title = item[propertyKey];
-    const score = FuzzaldrinPlus.score(title, value);
-    const wrappedTitle = highlight(value, title);
+    const property = item[propertyKey].toLowerCase();
+
+    const score = FuzzaldrinPlus.score(property, value.toLowerCase());
+
+    const wrappedTitle = highlight(value, item.title);
+    const wrappedUrl = highlight(value, item.url);
     return {
         id: item.id,
         selected: index === 0,
         score: score,
         title: wrappedTitle,
         url: item.url,
+        wrappedUrl: wrappedUrl,
         favicon: item.favicon
     };
 };
