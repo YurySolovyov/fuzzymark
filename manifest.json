@@ -7,11 +7,12 @@
         "16": "static/img/16x16.png",
         "32": "static/img/32x32.png",
         "48": "static/img/48x48.png",
-        "128": "static/img/128x128.png"
+        "128": "static/img/128x128.png",
+        "256": "static/img/256x256.png"
     },
 
     "browser_action": {
-        "default_title": "FuzzyIt",
+        "default_title": "Open FuzzyMark",
         "default_icon": "static/img/48x48.png"
     },
 
@@ -35,7 +36,7 @@
             "suggested_key": {
                 "default": "Ctrl+P"
             },
-            "description": "Open matcher"
+            "description": "Open FuzzyMark"
         }
     },
     "background": {
