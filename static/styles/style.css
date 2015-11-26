@@ -55,6 +55,7 @@ body, html {
     padding: 20px 30px;
     height: calc(100% - 100px);
     overflow-y: scroll;
+    will-change: transform;
 }
 
 .bookmark {
