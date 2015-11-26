@@ -110,8 +110,8 @@ $(function() {
         }).then(function(response) {
             Object.keys(response).forEach((key) => { settings.set(key, response[key]); });
             renderStyles();
-            render(recentBookmarks.filter(state.get('bookmarks')),
-                recentBookmarks.wrap);
+            const bookmarks = recentBookmarks.filter(state.get('bookmarks'));
+            render(bookmarks, recentBookmarks.wrap);
         });
     };
 
@@ -121,8 +121,8 @@ $(function() {
 
     input.on('input', function(e) {
         state.set('value', e.target.value);
-        render(matchedBookmarks.filter(state.get('bookmarks'), state.get('value')),
-            matchedBookmarks.wrap);
+        const bookmarks = matchedBookmarks.filter(state.get('bookmarks'), state.get('value'));
+        render(bookmarks, matchedBookmarks.wrap);
     }).on('keydown', function(e) {
         const shortcut = {
             key: e.keyCode,
