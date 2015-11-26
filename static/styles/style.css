@@ -8,7 +8,7 @@ body, html {
     width: 8px;
 }
 ::-webkit-scrollbar-thumb {
-    background-color: #09c;
+    background-color: #3498db;
     background-clip: content-box;
     border: 2px transparent solid;
     border-radius: 4px;
@@ -16,7 +16,7 @@ body, html {
 
 ::-webkit-scrollbar-thumb:hover,
 ::-webkit-scrollbar-thumb:active {
-    border-color: #09c;
+    border-color: #3498db;
     border-radius: 0;
 }
 
@@ -47,7 +47,7 @@ body, html {
 
 #input:focus {
     outline: none;
-    border-color: #09c;
+    border-color: #3498db;
     background: #fff;
 }
 
@@ -74,7 +74,7 @@ body, html {
 }
 
 .bookmark.selected {
-    border-color: #09c;
+    border-color: #3498db;
     transform: scale(1.02);
 }
 
@@ -100,12 +100,12 @@ body, html {
 }
 
 .bookmarkScore {
-    color: #09c;
+    color: #3498db;
     margin-right: 16px;
 }
 
 .bookmarkUrl {
-    color: #09c;
+    color: #3498db;
 }
 
 .bookmarkUrl:hover {
