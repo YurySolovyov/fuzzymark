@@ -1,4 +1,5 @@
 'use strict';
+const dateFormat = require('dateformat');
 
 const settings = require('./../settings.js');
 
@@ -9,8 +10,8 @@ const wrap = function(item, index) {
     return {
         id: item.id,
         selected: index === 0,
-        score: 'Recent',
-        title: item[propertyKey],
+        score: dateFormat(new Date(item.dateAdded), 'shortDate'),
+        title: item.title,
         wrappedUrl: item.url,
         url: item.url,
         favicon: item.favicon
