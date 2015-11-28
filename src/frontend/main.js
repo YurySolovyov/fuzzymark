@@ -8,6 +8,7 @@ $(function() {
     const keyHandlers = require('./keys-handler');
     const messageService = require('./message-service');
     const togglePair = require('./toggle-pair');
+    const alerts = require('./alerts.js');
 
     const matchedBookmarks = require('./bookmarks/matched');
     const recentBookmarks = require('./bookmarks/recent');
@@ -87,12 +88,17 @@ $(function() {
     };
 
     const removeBookmark = function() {
-        const bookmark = results.find('.selected');
-        const id = bookmark.data('id');
-        bookmarksCollection.remove(id, function() {
-            selectNext();
-            bookmark.remove();
-            loadBookmarks();
+        alerts.confirmate('Are you sure? You will not be able to recover this bookmark!', function(result) {
+            if (result) {
+                const bookmark = results.find('.selected');
+                const id = bookmark.data('id');
+                bookmarksCollection.remove(id, function() {
+                    selectNext();
+                    bookmark.remove();
+                    loadBookmarks();
+                });
+            }
+            input.focus();
         });
     };
 
