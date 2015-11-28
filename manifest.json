@@ -3,7 +3,7 @@
     "name": "FuzzyMark",
     "short_name": "FuzzyMark",
     "description": "Access your bookmarks with fuzzy search",
-    "version": "0.1",
+    "version": "1.0",
 
     "icons": {
         "16": "static/img/16x16.png",
