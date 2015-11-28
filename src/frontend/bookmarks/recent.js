@@ -10,7 +10,7 @@ const wrap = function(item, index) {
     return {
         id: item.id,
         selected: index === 0,
-        score: dateFormat(new Date(item.dateAdded), 'shortDate'),
+        score: dateFormat(new Date(item.dateAdded), 'dd mmm yy'),
         title: item.title,
         wrappedUrl: item.url,
         url: item.url,
