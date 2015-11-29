@@ -2,12 +2,11 @@
 
 const settings = require('./../settings.js');
 const FuzzaldrinPlus = require('fuzzaldrin-plus');
-const _ = require('lodash');
 
 const propertyKey = settings.get('propertyKey');
 const maxResults = settings.get('maxResults');
 
-const highlight = _.partial(require('./../match-highlighter.js'), {
+const highlight = require('./../match-highlighter.js').bind(null, {
     match: FuzzaldrinPlus.match,
     reduce: require('./../ranges-reducer.js'),
     wrap: (string) => '<b>' + string + '</b>'

@@ -24,7 +24,6 @@
         "dateformat": "^1.0.12",
         "fuzzaldrin-plus": "^0.2.0",
         "jquery": "~3.0.0-alpha1",
-        "lodash": "^3.10.1",
         "mustache": "^2.2.0",
         "withinviewport": "^1.0.0"
     }
