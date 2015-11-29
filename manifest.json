@@ -43,6 +43,7 @@
     },
     "background": {
         "scripts": [
+            "dist/shared.bundle.js",
             "dist/background.bundle.js"
         ],
         "persistent": false
