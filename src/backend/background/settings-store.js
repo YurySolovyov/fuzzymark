@@ -1,5 +1,6 @@
+'use strict';
+
 function SettingsStore() {
-    'use strict';
 
     const storage = chrome.storage.sync;
 

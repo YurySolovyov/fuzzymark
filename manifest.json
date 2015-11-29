@@ -28,11 +28,6 @@
         "chrome://favicon/"
     ],
 
-    "options_ui": {
-        "page": "static/options.html",
-        "chrome_style": true
-    },
-
     "commands": {
         "show-matcher": {
             "suggested_key": {

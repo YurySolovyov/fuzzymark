@@ -1,3 +1,5 @@
+'use strict';
+
 const $ = require('jquery');
 const createOrSelectTab = require('../background/tab-opener.js');
 const commandsLink = 'chrome://extensions/configureCommands';

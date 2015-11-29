@@ -1,4 +1,5 @@
 'use strict';
+
 const dateFormat = require('dateformat');
 
 const settings = require('./../settings.js');

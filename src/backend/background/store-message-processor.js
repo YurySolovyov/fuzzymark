@@ -1,4 +1,5 @@
 'use strict';
+
 const SettingsStore = require('./settings-store.js');
 const createOrSelectTab = require('./tab-opener.js');
 

@@ -1,4 +1,5 @@
 'use strict';
+
 const withinviewport = require('withinviewport');
 withinviewport.defaults.sides = 'top bottom';
 

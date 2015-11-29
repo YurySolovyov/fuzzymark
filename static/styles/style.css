@@ -125,3 +125,55 @@ body, html {
     height: 16px;
     margin: -4px 12px 0 -4px;
 }
+
+#settingsButton {
+    position: absolute;
+    right: 48px;
+    bottom: 32px;
+    height: 48px;
+    width: 48px;
+    background: #fff url('../img/gear.png') center no-repeat;
+    border-radius: 100%;
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#settingsButton:hover {
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.4);
+}
+
+#settingsButton.active {
+    background-color: #3498db;
+    transform: rotate(90deg);
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+#settings {
+    position: absolute;
+    top: 16px;
+    width: 400px;
+    right: 0;
+    height: calc(100vh - 32px);
+    transform:translateX(400px);
+    background: #fff;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    will-change: transform;
+    padding: 0 10px;
+}
+
+#settings.active {
+    transform: translateX(0px);
+}
+
+#settings h2 {
+    font-size: 24px;
+    font-weight: normal;
+}
+
+#saveIndicator {
+    line-height: 24px;
+    font-size: 18px;
+    margin-left: 10px;
+}
