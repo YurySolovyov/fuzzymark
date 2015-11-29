@@ -6,16 +6,17 @@ const settings = require('./../settings.js');
 const propertyKey = settings.get('propertyKey');
 const maxResults = settings.get('maxResults');
 
+const formatDate = function(item) {
+    return dateFormat(new Date(item.dateAdded), 'dd mmm yy');
+};
+
 const wrap = function(item, index) {
-    return {
-        id: item.id,
+    return Object.assign(item, {
         selected: index === 0,
-        score: dateFormat(new Date(item.dateAdded), 'dd mmm yy'),
-        title: item.title,
-        wrappedUrl: item.url,
-        url: item.url,
-        favicon: item.favicon
-    };
+        score: formatDate(item),
+        wrappedTitle: item.title,
+        wrappedUrl: item.url
+    });
 };
 
 module.exports = {

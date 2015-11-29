@@ -100,6 +100,12 @@ body, html {
     text-overflow: ellipsis;
 }
 
+.bookmarkPath {
+    color: #9E9E9E;
+    float: right;
+    font-size: 14px;
+}
+
 .bookmarkScore {
     color: #3498db;
     margin-right: 16px;
