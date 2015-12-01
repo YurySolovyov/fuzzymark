@@ -20,6 +20,11 @@
         "test": "./node_modules/karma/bin/karma start --single-run --browsers Chrome",
         "lint": "node scripts/lint.js"
     },
+
+    "engines" : {
+        "node" : ">=4.2.2 <5.0"
+    },
+
     "dependencies": {
         "dateformat": "^1.0.12",
         "fuzzaldrin-plus": "^0.2.0",
