@@ -15,19 +15,18 @@ const highlight = require('./../match-highlighter.js').bind(null, {
 const wrap = function(value, item, index) {
     const property = item[propertyKey].toLowerCase();
 
-    const score = FuzzaldrinPlus.score(property, value.toLowerCase());
-
     const wrappedTitle = highlight(value, item.title);
     const wrappedUrl = highlight(value, item.url);
-    return {
-        id: item.id,
+
+    const score = FuzzaldrinPlus.score(property, value.toLowerCase());
+
+    return Object.assign(item, {
         selected: index === 0,
         score: score,
-        title: wrappedTitle,
-        url: item.url,
-        wrappedUrl: wrappedUrl,
-        favicon: item.favicon
-    };
+        wrappedTitle: wrappedTitle,
+        wrappedUrl: wrappedUrl
+    });
+
 };
 
 module.exports = {
