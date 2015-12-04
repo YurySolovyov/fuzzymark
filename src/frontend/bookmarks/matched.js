@@ -3,9 +3,6 @@
 const settings = require('./../settings.js');
 const FuzzaldrinPlus = require('fuzzaldrin-plus');
 
-const propertyKey = settings.get('propertyKey');
-const maxResults = settings.get('maxResults');
-
 const highlight = require('./../match-highlighter.js').bind(null, {
     match: FuzzaldrinPlus.match,
     reduce: require('./../ranges-reducer.js'),
@@ -13,6 +10,7 @@ const highlight = require('./../match-highlighter.js').bind(null, {
 });
 
 const wrap = function(value, item, index) {
+    const propertyKey = settings.get('propertyKey');
     const property = item[propertyKey].toLowerCase();
 
     const wrappedTitle = highlight(value, item.title);
@@ -32,8 +30,8 @@ const wrap = function(value, item, index) {
 module.exports = {
     filter: function(bookmarks, value) {
         return FuzzaldrinPlus.filter(bookmarks, value, {
-            key: propertyKey,
-            maxResults: maxResults
+            key: settings.get('propertyKey'),
+            maxResults: settings.get('maxResults')
         }).map(wrap.bind(null, value));
     }
 };

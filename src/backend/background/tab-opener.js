@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function(url, callback) {
     chrome.tabs.query({ url: url }, function(tabs) {
         if (tabs.length) {
@@ -6,7 +8,7 @@ module.exports = function(url, callback) {
         } else {
             chrome.tabs.create({ url: url });
         }
-        if (callback) {
+        if (typeof callback === 'function') {
             callback();
         }
     });

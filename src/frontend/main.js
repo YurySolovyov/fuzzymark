@@ -4,13 +4,24 @@ const Mustache = require('mustache');
 $(function() {
     'use strict';
 
-    const ViewportWatcher = require('./viewport-watcher.js');
-    const keyHandlers = require('./keys-handler.js');
-    const handleBackgroundMessages = require('./message-handler.js');
+    const viewportWatcher = require('./viewport-watcher');
+    const keyHandlers = require('./keys-handler');
+    const messageService = require('./message-service');
+    const togglePair = require('./toggle-pair');
+
+    const matchedBookmarks = require('./bookmarks/matched');
+    const recentBookmarks = require('./bookmarks/recent');
+    const bookmarksCollection = require('./bookmarks/collection');
+
+    const settings = require('./settings');
+    const options = require('./options');
 
     const results = $('#results');
     const input = $('#input');
     const customStyles = $('#styles');
+
+    const settingsContainer = $('#settings');
+    const settingsButton = $('#settingsButton');
 
     const upKey = 38;
     const downKey = 40;
@@ -20,17 +31,6 @@ $(function() {
 
     const state = new Map();
     const templates = new Map();
-    const settings = require('./settings.js');
-
-    const matchedBookmarks = require('./bookmarks/matched.js');
-    const recentBookmarks = require('./bookmarks/recent.js');
-    const bookmarksCollection = require('./bookmarks/collection.js');
-
-    const requestBackground = function(args) {
-        return new Promise(function(resolve, _reject) {
-            chrome.runtime.sendMessage(args, resolve);
-        });
-    };
 
     const setBookmarks = function(bookmarks) {
         state.set('bookmarks', bookmarks);
@@ -67,7 +67,7 @@ $(function() {
 
         selected.removeClass('selected');
         needed.addClass('selected');
-        ViewportWatcher.ensureInViewport(results, needed);
+        viewportWatcher.ensureInViewport(results, needed);
     };
 
     const selectNext = function() {
@@ -80,7 +80,7 @@ $(function() {
 
     const openSelected = function() {
         const url = results.find('.selected .bookmarkUrl').text();
-        return requestBackground({
+        return messageService.send({
             type: 'open_tab',
             url: url
         }).then(clearResults);
@@ -105,11 +105,10 @@ $(function() {
     };
 
     const loadSettings = function() {
-        return requestBackground({
+        return messageService.send({
             type: 'settings'
         }).then(function(response) {
             Object.keys(response).forEach((key) => { settings.set(key, response[key]); });
-            renderStyles();
             const bookmarks = recentBookmarks.filter(state.get('bookmarks'));
             render(bookmarks, recentBookmarks.wrap);
         });
@@ -137,7 +136,17 @@ $(function() {
         }
     });
 
-    handleBackgroundMessages({
+    togglePair.connect(settingsButton, settingsContainer);
+
+    options.init(settingsContainer);
+    options.onChange(function(key, value) {
+        settings.set(key, value);
+        if (key === 'styleCss') {
+            renderStyles();
+        }
+    });
+
+    messageService.listen({
         set_setting: loadSettings,
         focus: input.focus.bind(input)
     });

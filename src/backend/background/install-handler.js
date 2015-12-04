@@ -1,3 +1,5 @@
+'use strict';
+
 const gettingStartedUrl = chrome.extension.getURL('static/getting-started.html');
 const createOrSelectTab = require('./tab-opener.js');
 const SettingsStore = require('./settings-store.js');
