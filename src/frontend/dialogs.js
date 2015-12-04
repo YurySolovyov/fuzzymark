@@ -8,7 +8,7 @@ vex.dialog = require('vex-js/js/vex.dialog.js');
 vex.defaultOptions.className = 'vex-theme-default';
 
 module.exports = {
-    confirmate: function(message, callback) {
+    confirmation: function(message, callback) {
         return vex.dialog.confirm({
             message: message,
             callback: callback

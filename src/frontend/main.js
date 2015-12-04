@@ -8,7 +8,7 @@ $(function() {
     const keyHandlers = require('./keys-handler');
     const messageService = require('./message-service');
     const togglePair = require('./toggle-pair');
-    const alerts = require('./alerts.js');
+    const dialogs = require('./dialogs.js');
 
     const matchedBookmarks = require('./bookmarks/matched');
     const recentBookmarks = require('./bookmarks/recent');
@@ -88,7 +88,7 @@ $(function() {
     };
 
     const removeBookmark = function() {
-        alerts.confirmate('Are you sure? You will not be able to recover this bookmark!', function(result) {
+        dialogs.confirmation('Are you sure? You will not be able to recover this bookmark!', function(result) {
             if (result) {
                 const bookmark = results.find('.selected');
                 const id = bookmark.data('id');
