@@ -52,7 +52,7 @@ const processRawBookmarks = function(raw) {
 };
 
 const simplifyBookmarks = function(data) {
-    const propertyKey = settings.get('propertyKey');
+    const propertyKey = settings.store.get('propertyKey');
     return data.list.map(function(bookmark) {
         return Object.assign(bookmark, {
             path: data.map[bookmark.parentId],

@@ -34,6 +34,7 @@
         "jquery": "~3.0.0-alpha1",
         "mustache": "^2.2.0",
         "vex-js": "2.3.3",
-        "withinviewport": "^1.0.0"
+        "withinviewport": "^1.0.0",
+        "codemirror": "^5.9"
     }
 }

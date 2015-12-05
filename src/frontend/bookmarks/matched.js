@@ -10,7 +10,7 @@ const highlight = require('./../match-highlighter.js').bind(null, {
 });
 
 const wrap = function(value, item, index) {
-    const propertyKey = settings.get('propertyKey');
+    const propertyKey = settings.store.get('propertyKey');
     const property = item[propertyKey].toLowerCase();
 
     const wrappedTitle = highlight(value, item.title);
@@ -30,8 +30,8 @@ const wrap = function(value, item, index) {
 module.exports = {
     filter: function(bookmarks, value) {
         return FuzzaldrinPlus.filter(bookmarks, value, {
-            key: settings.get('propertyKey'),
-            maxResults: settings.get('maxResults')
+            key: settings.store.get('propertyKey'),
+            maxResults: settings.store.get('maxResults')
         }).map(wrap.bind(null, value));
     }
 };
