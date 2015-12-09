@@ -6,7 +6,9 @@
     },
     "license": "MIT",
     "devDependencies": {
+        "css-loader": "^0.23.0",
         "eslint": "~1.10.1",
+        "extract-text-webpack-plugin": "^0.9.1",
         "jasmine-core": "^2.3.4",
         "karma": "^0.13.15",
         "karma-chrome-launcher": "^0.2.1",
@@ -14,6 +16,7 @@
         "karma-mocha-reporter": "^1.1.1",
         "karma-sourcemap-loader": "^0.3.6",
         "karma-webpack": "^1.7.0",
+        "style-loader": "^0.13.0",
         "webpack": "^1.12.6"
     },
     "scripts": {
@@ -30,6 +33,7 @@
         "fuzzaldrin-plus": "^0.2.0",
         "jquery": "~3.0.0-alpha1",
         "mustache": "^2.2.0",
+        "vex-js": "2.3.3",
         "withinviewport": "^1.0.0"
     }
 }
