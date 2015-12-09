@@ -1,11 +1,11 @@
 'use strict';
 
 require('vex-js/css/vex.css');
-require('vex-js/css/vex-theme-default.css');
+require('vex-js/css/vex-theme-plain.css');
 
 const vex  = require('vex-js/js/vex.js');
 vex.dialog = require('vex-js/js/vex.dialog.js');
-vex.defaultOptions.className = 'vex-theme-default';
+vex.defaultOptions.className = 'vex-theme-plain';
 
 module.exports = {
     confirmation: function(message, callback) {
