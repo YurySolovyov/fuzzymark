@@ -23,6 +23,12 @@ const getSetting = function(request, sender, sendResponse) {
     });
 };
 
+const removeSetting = function(request, sender, sendResponse) {
+    settingsStore.remove(request.key).then(function() {
+        sendResponse({ status: true });
+    });
+};
+
 const openTab = function(request, sender, sendResponse) {
     return createOrSelectTab(request.url, sendResponse);
 };
@@ -31,6 +37,7 @@ const handlers = {
     settings: settings,
     set_setting: setSetting,
     get_setting: getSetting,
+    remove_setting: removeSetting,
     open_tab: openTab
 };
 

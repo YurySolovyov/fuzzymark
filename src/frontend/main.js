@@ -109,8 +109,8 @@ $(function() {
         return bookmarksCollection.load().then(setBookmarks);
     };
 
-    const renderStyles = function() {
-        customStyles.html(settings.store.get('styleCss'));
+    const renderStyles = function(styles) {
+        customStyles.html(styles);
     };
 
     const render = function(bookmarks) {

@@ -21,7 +21,7 @@
         ],
         "dot-notation": [
             2,
-            { "allowKeywords": false }
+            { "allowKeywords": true }
         ],
         "no-unused-vars": [
             2,

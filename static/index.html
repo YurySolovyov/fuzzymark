@@ -10,36 +10,50 @@
     </head>
     <body>
         <div id="container" class="col-xs-8 col-xs-offset-2">
+
             <div id="inputWrapper" class="col-xs-12">
                 <input id="input" type="text" class="col-xs-12" />
             </div>
             <div id="results" class="col-xs-12"></div>
+
         </div>
 
-        <div id="settings" class="">
+        <div id="settings">
             <h2>Settings<span id="saveIndicator">Saved</span></h2>
+
             <div id="settingsTabs">
                 <div class="tab" data-tab="general">General</div>
                 <div class="tab" data-tab="themes">Themes</div>
             </div>
+
             <div id="settingsScreens">
+
                 <div class="tabContent">
                     <div class="inputs">
-                        <p>Max results per request:</p>
+                        <p>Max results:</p>
                         <input id="maxResults" data-name="maxResults" type="number" min="1" />
-                        <p>Property key:</p>
+                        <p>Match bookmarks by:</p>
                         <select id="propertyKey" data-name="propertyKey">
                             <option value="title">Title</option>
                             <option value="url">URL</option>
                         </select>
                     </div>
                 </div>
+
                 <div class="tabContent">
-                    <p>Your CSS:</p>
+                    <p>Theme:</p>
+                    <select id="themeSelector"></select>
+                    <input type="hidden" data-name="themesList" />
+                    <button id="themeRemove">Remove</button>
+                    <button id="themeAdd">Add new</button>
+                    <input type="text" id="newThemeName" />
+                    <p>CSS:</p>
                     <div id="styleCss" data-name="styleCss"></div>
                 </div>
+
             </div>
         </div>
+
         <div id="settingsButton"></div>
 
         <script defer type="text/javascript" src="../dist/shared.bundle.js"></script>

@@ -18,6 +18,12 @@ function SettingsStore() {
         });
     };
 
+    this.remove = function(key) {
+        return new Promise(function(resolve, _reject) {
+            storage.remove(key, resolve);
+        });
+    };
+
     this.all = function() {
         return new Promise(function(resolve, _reject) {
             storage.get(null, resolve);
