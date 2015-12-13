@@ -9,13 +9,14 @@ $(function() {
     const messageService = require('./message-service');
     const togglePair = require('./toggle-pair');
     const dialogs = require('./dialogs.js');
+    const tabSwitcher = require('./tab-switcher');
+    const stylesManager = require('./styles-manager');
 
     const matchedBookmarks = require('./bookmarks/matched');
     const recentBookmarks = require('./bookmarks/recent');
     const bookmarksCollection = require('./bookmarks/collection');
 
     const settings = require('./settings');
-    const options = require('./options');
 
     const results = $('#results');
     const input = $('#input');
@@ -23,6 +24,8 @@ $(function() {
 
     const settingsContainer = $('#settings');
     const settingsButton = $('#settingsButton');
+    const tabs = $('#settingsTabs').find('.tab');
+    const tabsContents = $('#settingsScreens').find('.tabContent');
 
     const upKey = 38;
     const downKey = 40;
@@ -37,17 +40,13 @@ $(function() {
         state.set('bookmarks', bookmarks);
     };
 
-    const render = function(bookmarks) {
-        results.html(renderBookmarks({ bookmarks: bookmarks }));
-    };
-
     const clearResults = function() {
         results.empty();
         input.val('');
     };
 
     const loadTemplates = function() {
-        $.get('templates/bookmarks.html').then(function(bookmarksTemplate) {
+        return $.get('templates/bookmarks.html').then(function(bookmarksTemplate) {
             templates.set('bookmarksTemplate', bookmarksTemplate);
         });
     };
@@ -106,28 +105,31 @@ $(function() {
         clearResults();
     };
 
-    const renderStyles = function() {
-        customStyles.html(settings.get('styleCss'));
-    };
-
-    const loadSettings = function() {
-        return messageService.send({
-            type: 'settings'
-        }).then(function(response) {
-            Object.keys(response).forEach((key) => { settings.set(key, response[key]); });
-            const bookmarks = recentBookmarks.filter(state.get('bookmarks'));
-            render(bookmarks, recentBookmarks.wrap);
-        });
-    };
-
     const loadBookmarks = function() {
-        bookmarksCollection.load().then(setBookmarks);
+        return bookmarksCollection.load().then(setBookmarks);
+    };
+
+    const renderStyles = function() {
+        customStyles.html(settings.store.get('styleCss'));
+    };
+
+    const render = function(bookmarks) {
+        results.html(renderBookmarks({ bookmarks: bookmarks }));
+    };
+
+    const renderRecent = function() {
+        const bookmarks = recentBookmarks.filter(state.get('bookmarks'));
+        render(bookmarks, recentBookmarks.wrap);
+    };
+
+    const renderMatched = function() {
+        const bookmarks = matchedBookmarks.filter(state.get('bookmarks'), state.get('value'));
+        render(bookmarks, matchedBookmarks.wrap);
     };
 
     input.on('input', function(e) {
         state.set('value', e.target.value);
-        const bookmarks = matchedBookmarks.filter(state.get('bookmarks'), state.get('value'));
-        render(bookmarks, matchedBookmarks.wrap);
+        renderMatched();
     }).on('keydown', function(e) {
         const shortcut = {
             key: e.keyCode,
@@ -143,17 +145,28 @@ $(function() {
     });
 
     togglePair.connect(settingsButton, settingsContainer);
-
-    options.init(settingsContainer);
-    options.onChange(function(key, value) {
-        settings.set(key, value);
-        if (key === 'styleCss') {
-            renderStyles();
+    tabSwitcher.init(tabs, tabsContents);
+    tabSwitcher.onTab(function(data) {
+        if (data.tab === 'themes') {
+            settingsContainer.addClass('expanded');
+            stylesManager.refresh();
+        } else {
+            settingsContainer.removeClass('expanded');
         }
     });
 
+    settings.init(settingsContainer);
+    settings.onLoad(function(key, _value) {
+        if (key === 'maxResults') {
+            renderRecent();
+        }
+    });
+
+    stylesManager.init();
+
+    stylesManager.onStylesChange(renderStyles);
+
     messageService.listen({
-        set_setting: loadSettings,
         focus: input.focus.bind(input)
     });
 
@@ -163,8 +176,10 @@ $(function() {
     keyHandlers.setShortcut({ key: escKey,    alt: false, ctrl: false, shift: false }, dismiss);
     keyHandlers.setShortcut({ key: deleteKey, alt: false, ctrl: false, shift: true  }, removeBookmark);
 
-    loadBookmarks();
-    loadTemplates();
-    loadSettings();
+    Promise.all([
+        loadBookmarks(),
+        loadTemplates()
+    ]);
+
     input.focus();
 });
