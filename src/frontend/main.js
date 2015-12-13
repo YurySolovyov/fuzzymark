@@ -156,11 +156,6 @@ $(function() {
     });
 
     settings.init(settingsContainer);
-    settings.onLoad(function(key, _value) {
-        if (key === 'maxResults') {
-            renderRecent();
-        }
-    });
 
     stylesManager.init();
 
@@ -179,7 +174,7 @@ $(function() {
     Promise.all([
         loadBookmarks(),
         loadTemplates()
-    ]);
+    ]).then(renderRecent);
 
     input.focus();
 });
