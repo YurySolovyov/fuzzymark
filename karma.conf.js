@@ -1,7 +1,10 @@
 module.exports = function(config) {
     var configuration = {
         basePath: '',
-        frameworks: ['jasmine'],
+        frameworks: [
+            'jasmine',
+            'jasmine-matchers'
+        ],
         files: [
             'test/*-spec.js'
         ],
@@ -26,6 +29,7 @@ module.exports = function(config) {
             require("karma-webpack"),
             require("karma-sourcemap-loader"),
             'karma-jasmine',
+            'karma-jasmine-matchers',
             'karma-mocha-reporter',
             'karma-chrome-launcher'
         ]
