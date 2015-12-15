@@ -9,53 +9,33 @@ const getRawBookmarks = function() {
     });
 };
 
-const flattenBookmarks = function(rawBookmarks, list) {
-    return rawBookmarks.reduce(function(arr, treeNode) {
-        return arr.concat(treeNode.children ? flattenBookmarks(treeNode.children, []) : treeNode);
-    }, list);
-};
-
-const flattenTree = function(rawBookmarks, tree) {
-    return rawBookmarks.reduce(function(obj, treeNode) {
-        if (treeNode.children) {
-            obj[treeNode.id] = treeNode;
-            return flattenTree(treeNode.children, obj);
-        }
-        return obj;
-    }, tree);
-};
-
-const getPathUp = function(treeNode, map, path) {
-    const parent = map[treeNode.parentId];
-    if (parent.title && parent.id !== bookmarksBarId) {
-        path.unshift(parent.title);
-        return getPathUp(parent, map, path);
+const handlePath = function(treeNode, path) {
+    if (treeNode.title && treeNode.id !== bookmarksBarId) {
+        path.push(treeNode.title);
     }
-    return path;
 };
 
-const buildMap = function(map) {
-    return Object.keys(map).reduce(function(obj, key) {
-        const treeNode = map[key];
-        if (treeNode.parentId) {
-            obj[key] = getPathUp(treeNode, map, [treeNode.title]).join('/');
+const flattenBookmarks = function(rawBookmarks, list, path) {
+    const reduced = rawBookmarks.reduce(function(bookmarks, treeNode) {
+        if (treeNode.children) {
+            handlePath(treeNode, path);
+            return bookmarks.concat(flattenBookmarks(treeNode.children, [], path));
         }
-        return obj;
-    }, {});
+        treeNode.path = path.join('/');
+        return bookmarks.concat(treeNode);
+    }, list);
+    path.pop();
+    return reduced;
 };
 
 const processRawBookmarks = function(raw) {
-    return {
-        list: flattenBookmarks(raw, []),
-        map: buildMap(flattenTree(raw, {}))
-    };
+    return flattenBookmarks(raw, [], []);
 };
 
-const simplifyBookmarks = function(data) {
+const simplifyBookmarks = function(list) {
     const propertyKey = settings.store.get('propertyKey');
-    return data.list.map(function(bookmark) {
+    return list.map(function(bookmark) {
         return Object.assign(bookmark, {
-            path: data.map[bookmark.parentId],
             title: bookmark[propertyKey] || getSimplifiedUrl(bookmark.url),
             favicon: 'chrome://favicon/' + bookmark.url
         });
