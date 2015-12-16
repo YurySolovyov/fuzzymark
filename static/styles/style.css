@@ -207,3 +207,11 @@ body, html {
 .CodeMirror {
     border-radius: 2px;
 }
+
+#newThemeName {
+    display: none;
+}
+
+#newThemeName.active {
+    display: inline-block;
+}

@@ -1,9 +1,6 @@
 'use strict';
 
-const settingsStore = new Map([
-    ['maxResults', 20],
-    ['propertyKey', 'title']
-]);
+const settingsStore = new Map();
 
 const $ = require('jquery');
 const settings = require('./settings');
@@ -24,6 +21,13 @@ const saveSetting = function(key, value) {
 const fetchSetting = function(key) {
     return messageService.send({
         type: 'get_setting',
+        key: key
+    });
+};
+
+const removeSetting = function(key) {
+    return messageService.send({
+        type: 'remove_setting',
         key: key
     });
 };
@@ -52,7 +56,7 @@ const triggerChange = function(key, value) {
 
 const initalize = function(container) {
 
-    container.on('change input', ':input', function() {
+    container.on('change input', '[data-name]', function() {
         const input = $(this);
         const key = input.data('name');
         const value = input.val();
@@ -65,6 +69,8 @@ const initalize = function(container) {
 module.exports = {
     init: initalize,
     saveSetting: saveSetting,
+    removeSetting: removeSetting,
+    fetchSetting: fetchSetting,
     onChange: changeHandlers.add.bind(changeHandlers),
     onLoad: loadHandlers.add.bind(loadHandlers),
     triggerChange: triggerChange,
