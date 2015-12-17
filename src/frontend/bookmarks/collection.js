@@ -48,8 +48,11 @@ const getSimplifiedUrl = function(url) {
 };
 
 module.exports = {
+    process: function(rawBookmarks) {
+        return simplifyBookmarks(processRawBookmarks(rawBookmarks));
+    },
     load: function() {
-        return getRawBookmarks().then(processRawBookmarks).then(simplifyBookmarks);
+        return getRawBookmarks();
     },
     remove: function(id, callback) {
         chrome.bookmarks.remove(id.toString(), callback);

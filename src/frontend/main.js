@@ -45,12 +45,6 @@ $(function() {
         input.val('');
     };
 
-    const loadTemplates = function() {
-        return $.get('templates/bookmarks.html').then(function(bookmarksTemplate) {
-            templates.set('bookmarksTemplate', bookmarksTemplate);
-        });
-    };
-
     const renderBookmarks = function(data) {
         const template = templates.get('bookmarksTemplate');
         return Mustache.to_html(template, data);
@@ -105,8 +99,20 @@ $(function() {
         clearResults();
     };
 
+    const loadTemplates = function() {
+        return $.get('templates/bookmarks.html').then(function(bookmarksTemplate) {
+            templates.set('bookmarksTemplate', bookmarksTemplate);
+        });
+    };
+
     const loadBookmarks = function() {
-        return bookmarksCollection.load().then(setBookmarks);
+        return bookmarksCollection.load();
+    };
+
+    const loadSettings = function() {
+        return new Promise(function(resolve, _reject) {
+            settings.onLoad(resolve);
+        });
     };
 
     const renderStyles = function(styles) {
@@ -173,8 +179,13 @@ $(function() {
 
     Promise.all([
         loadBookmarks(),
-        loadTemplates()
-    ]).then(renderRecent);
+        loadTemplates(),
+        loadSettings()
+    ]).then(function(results) {
+        const bookmarks = bookmarksCollection.process(results[0]);
+        setBookmarks(bookmarks);
+        renderRecent();
+    });
 
     input.focus();
 });
