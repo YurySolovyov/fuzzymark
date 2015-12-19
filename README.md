@@ -1,4 +1,4 @@
-# Fuzzymark
+# FuzzyMark
 Chrome ext for bookmarks with fuzzy search
 
 [Get in Chrome Web Store](https://chrome.google.com/webstore/detail/fuzzymark/gppgpbipgmdlganikpmhlhpeiclokdgh)
@@ -7,3 +7,7 @@ Chrome ext for bookmarks with fuzzy search
 
 ## Testing
 `karma start`
+
+## License
+The MIT License (MIT)
+
