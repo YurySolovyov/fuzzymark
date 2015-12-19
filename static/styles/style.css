@@ -20,6 +20,39 @@ body, html {
     border-radius: 0;
 }
 
+input, select {
+    border: none;
+    border-bottom: 2px #A9A9A9 solid;
+    padding: 0 0 0 5px;
+    width: 100px;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+select, button, input {
+    display: inline-block;
+    height: 32px;
+}
+
+button {
+    border: none;
+    background: none;
+    transition: 0.3s;
+    box-sizing: content-box;
+}
+
+button:hover {
+    background-color: #DDD;
+}
+
+button:focus {
+    outline: none;
+}
+
 #container {
     background: #fff;
     overflow: hidden;
@@ -41,6 +74,7 @@ body, html {
     margin-bottom: 20px;
     padding: 0 10px;
     font-size: 18px;
+    height: 48px;
     line-height: 48px;
     transition: 0.3s;
 }
@@ -132,7 +166,7 @@ body, html {
     bottom: 32px;
     height: 48px;
     width: 48px;
-    background: #fff url('../img/gear.png') center no-repeat;
+    background-color: #fff;
     border-radius: 100%;
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.4);
     cursor: pointer;
@@ -149,8 +183,16 @@ body, html {
     box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
 }
 
+#settingsButton i {
+    text-align: center;
+    line-height: 50px;
+    width: 100%;
+    font-size: 1.75em;
+    display: inline-block;
+}
+
 #settings {
-    position: absolute;
+    position: fixed;
     top: 16px;
     width: 400px;
     right: 0;
