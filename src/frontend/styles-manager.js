@@ -67,9 +67,9 @@ const onTextAreaChange = function(e) {
 
 const onThemeRemove = function() {
     const name = themeSelector.val();
+    themeSelector.find('option').filter(`[value="${name}"]`).remove();
     const list = getThemesList();
     stylesService.removeTheme(name, list).then(function() {
-        themeSelector.find('option').filter(`[value="${name}"]`).remove();
         themeSelector.trigger('change');
     });
 };
@@ -127,11 +127,10 @@ const refresh = function() {
     textarea.refresh();
 };
 
-const onSettingsLoad = function(key, value) {
-    if (key === 'themesList') {
-        renderThemesList(value);
-        stylesService.loadThemes(value).then(onThemesLoaded);
-    }
+const onSettingsLoad = function() {
+    const value = settings.store.get('themesList');
+    renderThemesList(value);
+    stylesService.loadThemes(value).then(onThemesLoaded);
 };
 
 const onStylesChange = styleChangeHandlers.add.bind(styleChangeHandlers);

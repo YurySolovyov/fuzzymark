@@ -3,7 +3,6 @@
 const settingsStore = new Map();
 
 const $ = require('jquery');
-const settings = require('./settings');
 const messageService = require('./message-service');
 
 const changeHandlers = $.Callbacks();
@@ -32,15 +31,14 @@ const removeSetting = function(key) {
     });
 };
 
-const initSetting = function(index, element) {
+const initSetting = function(element) {
     const input = $(element);
     const key = input.data('name');
 
-    fetchSetting(key).then(function(response) {
+    return fetchSetting(key).then(function(response) {
         const value = response[key];
         input.val(value);
         triggerChange(key, value);
-        loadHandlers.fire(key, value);
     });
 };
 
@@ -63,8 +61,13 @@ const initalize = function(container) {
         triggerChange(key, value);
     });
 
-    container.find('[data-name]').each(initSetting);
+    const settingsRequests = $.map(container.find('[data-name]'), initSetting);
+    return Promise.all(settingsRequests).then(function() {
+        loadHandlers.fire();
+    });
 };
+
+const onLoad = loadHandlers.add.bind(loadHandlers);
 
 module.exports = {
     init: initalize,
@@ -72,7 +75,7 @@ module.exports = {
     removeSetting: removeSetting,
     fetchSetting: fetchSetting,
     onChange: changeHandlers.add.bind(changeHandlers),
-    onLoad: loadHandlers.add.bind(loadHandlers),
+    onLoad: onLoad,
     triggerChange: triggerChange,
     store: settingsStore
 };
