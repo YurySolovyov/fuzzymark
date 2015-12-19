@@ -1,7 +1,7 @@
 # Fuzzymark
 Chrome ext for bookmarks with fuzzy search
 
-Work in progress
+[Get in Chrome Web Store](https://chrome.google.com/webstore/detail/fuzzymark/gppgpbipgmdlganikpmhlhpeiclokdgh)
 
 ![](https://github.com/YuriSolovyov/fuzzymark/blob/master/screenshot.png)
 
