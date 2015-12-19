@@ -19,7 +19,8 @@
     },
 
     "web_accessible_resources": [
-        "static/templates/*.html"
+        "static/templates/*.html",
+        "static/fonts/*.woff2"
     ],
 
     "permissions": [

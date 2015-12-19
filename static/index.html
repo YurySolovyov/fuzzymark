@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <title>New tab page</title>
+        <link rel="stylesheet" href="styles/font-awesome.min.css" />
         <link rel="stylesheet" href="styles/bootstrap.min.css" />
         <link rel="stylesheet" href="styles/style.css" />
         <link rel="stylesheet" href="../dist/required-styles.css" />
@@ -44,8 +45,14 @@
                     <p>Theme:</p>
                     <select id="themeSelector"></select>
                     <input type="hidden" data-name="themesList" />
-                    <button id="themeRemove">Remove</button>
-                    <button id="themeAdd">Add new</button>
+                    <button id="themeRemove">
+                        <i class="fa fa-times"></i>
+                        Remove
+                    </button>
+                    <button id="themeAdd">
+                        <i class="fa fa-plus"></i>
+                        Add new
+                    </button>
                     <input type="text" id="newThemeName" />
                     <p>CSS:</p>
                     <div id="styleCss" data-name="styleCss"></div>
@@ -54,7 +61,9 @@
             </div>
         </div>
 
-        <div id="settingsButton"></div>
+        <div id="settingsButton">
+            <i class="fa fa-cog"></i>
+        </div>
 
         <script defer type="text/javascript" src="../dist/shared.bundle.js"></script>
         <script defer type="text/javascript" src="../dist/frontend.bundle.js"></script>
