@@ -182,7 +182,7 @@ $(function() {
         loadTemplates(),
         loadSettings()
     ]).then(function(results) {
-        const bookmarks = bookmarksCollection.process(results[0]);
+        const bookmarks = bookmarksCollection.transform(results[0]);
         setBookmarks(bookmarks);
         renderRecent();
     });

@@ -47,14 +47,20 @@ const getSimplifiedUrl = function(url) {
     return obj.host + (obj.pathname.length > 1 ? obj.pathname : '');
 };
 
+const transform = function(rawBookmarks) {
+    return simplifyBookmarks(processRawBookmarks(rawBookmarks));
+};
+
+const load = function() {
+    return getRawBookmarks();
+};
+
+const remove = function(id, callback) {
+    chrome.bookmarks.remove(id.toString(), callback);
+};
+
 module.exports = {
-    process: function(rawBookmarks) {
-        return simplifyBookmarks(processRawBookmarks(rawBookmarks));
-    },
-    load: function() {
-        return getRawBookmarks();
-    },
-    remove: function(id, callback) {
-        chrome.bookmarks.remove(id.toString(), callback);
-    }
+    transform,
+    load,
+    remove
 };
