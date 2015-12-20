@@ -27,11 +27,13 @@ const wrap = function(value, item, index) {
 
 };
 
+const filter = function(bookmarks, value) {
+    return FuzzaldrinPlus.filter(bookmarks, value, {
+        key: settings.store.get('propertyKey'),
+        maxResults: settings.store.get('maxResults')
+    }).map(wrap.bind(null, value));
+};
+
 module.exports = {
-    filter: function(bookmarks, value) {
-        return FuzzaldrinPlus.filter(bookmarks, value, {
-            key: settings.store.get('propertyKey'),
-            maxResults: settings.store.get('maxResults')
-        }).map(wrap.bind(null, value));
-    }
+    filter
 };

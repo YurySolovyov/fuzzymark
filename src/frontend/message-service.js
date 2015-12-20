@@ -17,6 +17,6 @@ const send = function(message) {
 };
 
 module.exports = {
-    listen: listen,
-    send: send
+    listen,
+    send
 };

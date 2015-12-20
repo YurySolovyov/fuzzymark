@@ -17,10 +17,12 @@ const wrap = function(item, index) {
     });
 };
 
+const filter = function(bookmarks) {
+    return bookmarks.sort(function(bookmark1, bookmark2) {
+        return bookmark2.dateAdded - bookmark1.dateAdded;
+    }).slice(0, settings.store.get('maxResults')).map(wrap);
+};
+
 module.exports = {
-    filter: function(bookmarks) {
-        return bookmarks.sort(function(bookmark1, bookmark2) {
-            return bookmark2.dateAdded - bookmark1.dateAdded;
-        }).slice(0, settings.store.get('maxResults')).map(wrap);
-    }
+    filter
 };

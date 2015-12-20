@@ -24,14 +24,16 @@ const getScrollTop = function(container, element) {
     }
 };
 
+const ensureInViewport = function(container, element) {
+    const visible = withinviewport(element.get(0), viewportOptions);
+    if (!visible) {
+        container.stop(true, true).animate({
+            scrollTop: getScrollTop(container, element)
+        }, 200);
+    }
+};
+
 module.exports = {
-    ensureInViewport: function(container, element) {
-        const visible = withinviewport(element.get(0), viewportOptions);
-        if (!visible) {
-            container.stop(true, true).animate({
-                scrollTop: getScrollTop(container, element)
-            }, 200);
-        }
-    },
-    getScrollTop: getScrollTop
+    ensureInViewport,
+    getScrollTop
 };

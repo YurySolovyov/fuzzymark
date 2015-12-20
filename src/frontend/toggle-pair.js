@@ -13,5 +13,5 @@ const connect = function(button, layer) {
 };
 
 module.exports = {
-    connect: connect
+    connect
 };

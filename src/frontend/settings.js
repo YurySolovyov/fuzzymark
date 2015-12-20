@@ -1,6 +1,6 @@
 'use strict';
 
-const settingsStore = new Map();
+const store = new Map();
 
 const $ = require('jquery');
 const messageService = require('./message-service');
@@ -9,7 +9,7 @@ const changeHandlers = $.Callbacks();
 const loadHandlers = $.Callbacks();
 
 const saveSetting = function(key, value) {
-    settingsStore.set(key, value);
+    store.set(key, value);
     return messageService.send({
         type: 'set_setting',
         key: key,
@@ -52,7 +52,7 @@ const triggerChange = function(key, value) {
     });
 };
 
-const initalize = function(container) {
+const init = function(container) {
 
     container.on('change input', '[data-name]', function() {
         const input = $(this);
@@ -68,14 +68,15 @@ const initalize = function(container) {
 };
 
 const onLoad = loadHandlers.add.bind(loadHandlers);
+const onChange = changeHandlers.add.bind(changeHandlers);
 
 module.exports = {
-    init: initalize,
-    saveSetting: saveSetting,
-    removeSetting: removeSetting,
-    fetchSetting: fetchSetting,
-    onChange: changeHandlers.add.bind(changeHandlers),
-    onLoad: onLoad,
-    triggerChange: triggerChange,
-    store: settingsStore
+    init,
+    saveSetting,
+    removeSetting,
+    fetchSetting,
+    onChange,
+    onLoad,
+    triggerChange,
+    store
 };

@@ -14,7 +14,10 @@ const runDialog = function(type, message, callback) {
     });
 };
 
+const confirmation = runDialog.bind(null, 'confirm');
+const notification = runDialog.bind(null, 'alert');
+
 module.exports = {
-    confirmation: runDialog.bind(null, 'confirm'),
-    notification: runDialog.bind(null, 'alert')
+    confirmation,
+    notification
 };

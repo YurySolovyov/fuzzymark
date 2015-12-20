@@ -4,7 +4,7 @@ const $ = require('jquery');
 
 const onTabHandlers = $.Callbacks();
 
-const initialize = function(tabs, containers) {
+const init = function(tabs, containers) {
     tabs.on('click', function() {
         const element = $(this);
         if (element.hasClass('active')) { return; }
@@ -18,7 +18,9 @@ const initialize = function(tabs, containers) {
     tabs.first().trigger('click');
 };
 
+const onTab = onTabHandlers.add.bind(onTabHandlers);
+
 module.exports = {
-    init: initialize,
-    onTab: onTabHandlers.add.bind(onTabHandlers)
+    init,
+    onTab
 };
