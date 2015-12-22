@@ -1,7 +1,6 @@
 'use strict';
 
 const bookmarksBarId = '1';
-const settings = require('./../settings.js');
 
 const getRawBookmarks = function() {
     return new Promise(function(resolve, _reject) {
@@ -32,7 +31,8 @@ const processRawBookmarks = function(raw) {
     return flattenBookmarks(raw, [], []);
 };
 
-const simplifyBookmarks = function(list) {
+const simplifyBookmarks = function(list, settingsProvider) {
+    const settings = settingsProvider();
     const propertyKey = settings.store.get('propertyKey');
     return list.map(function(bookmark) {
         return Object.assign(bookmark, {
@@ -47,8 +47,8 @@ const getSimplifiedUrl = function(url) {
     return obj.host + (obj.pathname.length > 1 ? obj.pathname : '');
 };
 
-const transform = function(rawBookmarks) {
-    return simplifyBookmarks(processRawBookmarks(rawBookmarks));
+const transform = function(rawBookmarks, settingsProvider) {
+    return simplifyBookmarks(processRawBookmarks(rawBookmarks), settingsProvider);
 };
 
 const load = function() {

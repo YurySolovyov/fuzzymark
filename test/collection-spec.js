@@ -8,8 +8,15 @@ describe('Bookmarks collection', function() {
 
     describe('Bookmarks transformation', function() {
         let transformed;
+        const settings = {
+            store: new Map([
+                ['propertyKey', 'title'],
+                ['maxResults', 20]
+            ])
+        };
+        const settingsProvider = () => settings
         beforeEach(function() {
-            transformed = collection.transform(helper.bookmarks);
+            transformed = collection.transform(helper.bookmarks, settingsProvider);
         });
 
         it('transforms bookmarks to flat array', function() {

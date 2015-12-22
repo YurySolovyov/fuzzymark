@@ -170,7 +170,7 @@ $(function() {
 
     settings.init(settingsContainer);
 
-    stylesManager.init();
+    stylesManager.init(settingsProvider);
 
     stylesManager.onStylesChange(renderStyles);
 
@@ -189,7 +189,7 @@ $(function() {
         loadTemplates(),
         loadSettings()
     ]).then(function(results) {
-        const bookmarks = bookmarksCollection.transform(results[0]);
+        const bookmarks = bookmarksCollection.transform(results[0], settingsProvider);
         setBookmarks(bookmarks);
         renderRecent();
     });
