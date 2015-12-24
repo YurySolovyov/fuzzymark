@@ -5,15 +5,19 @@ const store = new Map();
 const $ = require('jquery');
 const messageService = require('./message-service');
 
+const autoInitializeSettings = [
+    'maxResults',
+    'propertyKey',
+    'activeTheme',
+    'themesList'
+];
+
 const changeHandlers = $.Callbacks();
 const loadHandlers = $.Callbacks();
 
-const saveSetting = function(key, value) {
-    store.set(key, value);
+const fetchAll = function() {
     return messageService.send({
-        type: 'set_setting',
-        key: key,
-        value: value
+        type: 'settings'
     });
 };
 
@@ -24,6 +28,15 @@ const fetchSetting = function(key) {
     });
 };
 
+const saveSetting = function(key, value) {
+    store.set(key, value);
+    return messageService.send({
+        type: 'set_setting',
+        key: key,
+        value: value
+    });
+};
+
 const removeSetting = function(key) {
     return messageService.send({
         type: 'remove_setting',
@@ -31,15 +44,11 @@ const removeSetting = function(key) {
     });
 };
 
-const initSetting = function(element) {
-    const input = $(element);
-    const key = input.data('name');
-
-    return fetchSetting(key).then(function(response) {
-        const value = response[key];
-        input.val(value);
-        triggerChange(key, value);
-    });
+const initSetting = function(response, container, key) {
+    const input = container.find(`[data-name='${key}']`);
+    const value = response[key];
+    input.val(value);
+    triggerChange(key, value);
 };
 
 const triggerChange = function(key, value) {
@@ -61,9 +70,9 @@ const init = function(container) {
         triggerChange(key, value);
     });
 
-    const settingsRequests = $.map(container.find('[data-name]'), initSetting);
-    return Promise.all(settingsRequests).then(function() {
-        loadHandlers.fire();
+    return fetchAll().then(function(response) {
+        autoInitializeSettings.forEach(initSetting.bind(null, response, container));
+        loadHandlers.fire(response);
     });
 };
 

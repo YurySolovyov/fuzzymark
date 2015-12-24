@@ -12,25 +12,18 @@ const getThemeKey = function(name) {
 
 const getStyles = styleMap.get.bind(styleMap);
 
-const loadThemes = function(list) {
-    const requests = list.map(function(name) {
+const renderThemes = function(list, response) {
+    list.forEach(function(name) {
         const themeKey = getThemeKey(name);
-        return settings.fetchSetting(themeKey);
-    });
-
-    return Promise.all(requests).then(function(themes) {
-        themes.forEach(function(packedTheme, index) {
-            const themeKey = getThemeKey(list[index]);
-            const theme = packedTheme[themeKey];
-            styleMap.set(theme.name, theme.styles);
-        });
+        const theme = response[themeKey];
+        styleMap.set(theme.name, theme.styles);
     });
 };
 
 const saveTheme = function(name, styles) {
     styleMap.set(name, styles);
     const themeKey = getThemeKey(name);
-    return settings.saveSetting(themeKey, {
+    return settings.triggerChange(themeKey, {
         name: name,
         styles: styles
     });
@@ -55,10 +48,11 @@ const removeTheme = function(name, list) {
 };
 
 module.exports = {
+    getThemeKey,
     getStyles,
     saveActiveTheme,
     saveThemesList,
-    loadThemes,
+    renderThemes,
     addTheme,
     saveTheme,
     removeTheme

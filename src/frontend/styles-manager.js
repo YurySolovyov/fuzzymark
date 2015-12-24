@@ -117,20 +117,21 @@ const renderThemesList = function(list) {
     });
 };
 
-const onThemesLoaded = function() {
-    settings.fetchSetting('activeTheme').then(function(data) {
-        themeSelector.val(data.activeTheme).trigger('change');
-    });
+const setActiveTheme = function(activeTheme) {
+    themeSelector.val(activeTheme).trigger('change');
 };
 
 const refresh = function() {
     textarea.refresh();
 };
 
-const onSettingsLoad = function() {
-    const value = settings.store.get('themesList');
-    renderThemesList(value);
-    stylesService.loadThemes(value).then(onThemesLoaded);
+const onSettingsLoad = function(response) {
+    const themesList = settings.store.get('themesList');
+    const activeTheme = settings.store.get('activeTheme');
+
+    renderThemesList(themesList);
+    stylesService.renderThemes(themesList, response);
+    setActiveTheme(activeTheme);
 };
 
 const onStylesChange = styleChangeHandlers.add.bind(styleChangeHandlers);
