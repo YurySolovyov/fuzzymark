@@ -36,6 +36,10 @@ $(function() {
     const state = new Map();
     const templates = new Map();
 
+    const settingsProvider = function() {
+        return settings;
+    };
+
     const setBookmarks = function(bookmarks) {
         state.set('bookmarks', bookmarks);
     };
@@ -124,13 +128,16 @@ $(function() {
     };
 
     const renderRecent = function() {
-        const bookmarks = recentBookmarks.filter(state.get('bookmarks'));
-        render(bookmarks, recentBookmarks.wrap);
+        const bookmarks = state.get('bookmarks');
+        const recent = recentBookmarks.filter(bookmarks, settingsProvider);
+        render(recent, recentBookmarks.wrap);
     };
 
     const renderMatched = function() {
-        const bookmarks = matchedBookmarks.filter(state.get('bookmarks'), state.get('value'));
-        render(bookmarks, matchedBookmarks.wrap);
+        const bookmarks = state.get('bookmarks');
+        const value = state.get('value');
+        const matched = matchedBookmarks.filter(bookmarks, value, settingsProvider);
+        render(matched, matchedBookmarks.wrap);
     };
 
     input.on('input', function(e) {

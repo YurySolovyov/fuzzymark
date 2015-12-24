@@ -1,6 +1,5 @@
 'use strict';
 
-const settings = require('./../settings.js');
 const FuzzaldrinPlus = require('fuzzaldrin-plus');
 
 const highlight = require('./../match-highlighter.js').bind(null, {
@@ -9,9 +8,8 @@ const highlight = require('./../match-highlighter.js').bind(null, {
     wrap: (string) => '<b>' + string + '</b>'
 });
 
-const wrap = function(value, item, index) {
-    const propertyKey = settings.store.get('propertyKey');
-    const property = item[propertyKey].toLowerCase();
+const wrap = function(key, value, item, index) {
+    const property = item[key].toLowerCase();
 
     const wrappedTitle = highlight(value, item.title);
     const wrappedUrl = highlight(value, item.url);
@@ -24,14 +22,16 @@ const wrap = function(value, item, index) {
         wrappedTitle: wrappedTitle,
         wrappedUrl: wrappedUrl
     });
-
 };
 
-const filter = function(bookmarks, value) {
+const filter = function(bookmarks, value, settingsProvider) {
+    const settings = settingsProvider();
+    const propertyKey = settings.store.get('propertyKey');
+
     return FuzzaldrinPlus.filter(bookmarks, value, {
-        key: settings.store.get('propertyKey'),
+        key: propertyKey,
         maxResults: settings.store.get('maxResults')
-    }).map(wrap.bind(null, value));
+    }).map(wrap.bind(null, propertyKey, value));
 };
 
 module.exports = {
