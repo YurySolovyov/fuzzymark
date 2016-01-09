@@ -7,7 +7,6 @@ require('codemirror/mode/css/css');
 const $ = require('jquery');
 const CodeMirror = require('codemirror');
 
-const settings = require('./settings');
 const stylesService = require('./styles-service');
 const togglePair = require('./toggle-pair');
 const dialogs = require('./dialogs');
@@ -102,14 +101,6 @@ const onThemeSelect = function() {
     stylesService.saveActiveTheme(name);
 };
 
-const init = function() {
-    textarea.on('changes', onTextAreaChange);
-    tabContent.on('click', '#themeRemove', onThemeRemove);
-    newThemeNameInput.on('keydown', onThemeNameInput);
-    tabContent.on('select change', '#themeSelector', onThemeSelect);
-    togglePair.connect(addThemeButton, newThemeNameInput);
-};
-
 const renderThemesList = function(list) {
     list.forEach(function(name) {
         const option = getThemeItem(name);
@@ -125,7 +116,7 @@ const refresh = function() {
     textarea.refresh();
 };
 
-const onSettingsLoad = function(response) {
+const onSettingsLoad = function(settings, response) {
     const themesList = settings.store.get('themesList');
     const activeTheme = settings.store.get('activeTheme');
 
@@ -134,9 +125,18 @@ const onSettingsLoad = function(response) {
     setActiveTheme(activeTheme);
 };
 
-const onStylesChange = styleChangeHandlers.add.bind(styleChangeHandlers);
+const init = function(settingsProvider) {
+    const settings = settingsProvider();
+    settings.onLoad(onSettingsLoad.bind(null, settings));
 
-settings.onLoad(onSettingsLoad);
+    textarea.on('changes', onTextAreaChange);
+    tabContent.on('click', '#themeRemove', onThemeRemove);
+    newThemeNameInput.on('keydown', onThemeNameInput);
+    tabContent.on('select change', '#themeSelector', onThemeSelect);
+    togglePair.connect(addThemeButton, newThemeNameInput);
+};
+
+const onStylesChange = styleChangeHandlers.add.bind(styleChangeHandlers);
 
 module.exports = {
     init,

@@ -2,9 +2,9 @@
 
 const FuzzaldrinPlus = require('fuzzaldrin-plus');
 
-const highlight = require('./../match-highlighter.js').bind(null, {
+const highlight = require('../match-highlighter').bind(null, {
     match: FuzzaldrinPlus.match,
-    reduce: require('./../ranges-reducer.js'),
+    reduce: require('../ranges-reducer'),
     wrap: (string) => '<b>' + string + '</b>'
 });
 
