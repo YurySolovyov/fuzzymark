@@ -13,7 +13,7 @@ describe('keyHandlers', function() {
     });
 
     it('serialize shortuct before retrieving', function() {
-        const action = "action";
+        const action = 'action';
         mapping.set('{"a":1}', action);
         keyHandlers.setMapping(mapping);
 
@@ -21,15 +21,15 @@ describe('keyHandlers', function() {
     });
 
     it('serialize shortuct before setting', function() {
-        const action = "action";
+        const action = 'action';
         keyHandlers.setMapping(mapping);
-        keyHandlers.setShortcut({ a: 1 }, action)
+        keyHandlers.setShortcut({ a: 1 }, action);
 
         expect(mapping.get('{"a":1}')).toEqual(action);
     });
 
     it('serialize shortuct before cheking for entrance', function() {
-        const action = "action";
+        const action = 'action';
         mapping.set('{"a":1}', action);
         keyHandlers.setMapping(mapping);
 

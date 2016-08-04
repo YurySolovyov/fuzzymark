@@ -14,7 +14,7 @@ describe('Bookmarks collection', function() {
                 ['maxResults', 20]
             ])
         };
-        const settingsProvider = () => settings
+        const settingsProvider = () => settings;
         beforeEach(function() {
             transformed = collection.transform(helper.bookmarks, settingsProvider);
         });
@@ -24,7 +24,7 @@ describe('Bookmarks collection', function() {
         });
 
         it('creates titles from urls if title is empty', function() {
-            const titles = _.pluck(transformed, 'title');
+            const titles = _.map(transformed, 'title');
             expect(titles).toBeArrayOfStrings();
             expect(titles).toEqual([
                 'twitter.com',
@@ -34,7 +34,7 @@ describe('Bookmarks collection', function() {
         });
 
         it('assigns paths to bookmarks', function() {
-            const titles = _.pluck(transformed, 'path');
+            const titles = _.map(transformed, 'path');
             expect(titles).toBeArrayOfStrings();
             expect(titles).toEqual([
                 'social',
@@ -44,7 +44,7 @@ describe('Bookmarks collection', function() {
         });
 
         it('assigns favicons to bookmarks', function() {
-            const favicons = _.pluck(transformed, 'favicon');
+            const favicons = _.map(transformed, 'favicon');
             expect(favicons).toBeArrayOfStrings();
             expect(favicons).toEqual([
                 'chrome://favicon/https://twitter.com/',

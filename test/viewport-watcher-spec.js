@@ -4,15 +4,15 @@ describe('ViewportWatcher', function() {
 
     const createContainer = function(top, height) {
         return {
-            scrollTop: () => { return top },
-            height: () => { return height },
+            scrollTop: () => { return top; },
+            height: () => { return height; },
         };
     };
 
     const createElement = function(top, height) {
         return {
-            height: () => { return height },
-            position: () => { return { top: top } }
+            height: () => { return height; },
+            position: () => { return { top: top }; }
         };
     };
 
