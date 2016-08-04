@@ -67,14 +67,16 @@
             2,
             "always"
         ],
-        "space-after-keywords": [
+
+        "keyword-spacing": [
             2,
-            "always"
+            { "before": true, "after": true }
         ]
     },
     "env": {
         "browser": true,
-        "es6": true
+        "es6": true,
+        "jasmine": true
     },
     "globals": {
         "require": true,
