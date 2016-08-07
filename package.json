@@ -4,6 +4,7 @@
         "type": "git",
         "url": "git://github.com/YuriSolovyov/fuzzymark.git"
     },
+    "version": "1.2",
     "license": "MIT",
     "devDependencies": {
         "css-loader": "^0.23.0",
@@ -19,14 +20,14 @@
         "karma-webpack": "^1.7.0",
         "lodash": "^4.14.1",
         "style-loader": "^0.13.0",
-        "webpack": "^1.12.6"
+        "webpack": "^1.13.1"
     },
     "scripts": {
         "test": "./node_modules/karma/bin/karma start --single-run --browsers Chrome",
         "lint": "node scripts/lint.js"
     },
     "engines": {
-        "node": ">=4.2.2 <5.0"
+        "node": ">= 4.2.2"
     },
     "dependencies": {
         "dateformat": "^1.0.12",
