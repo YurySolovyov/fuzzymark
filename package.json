@@ -33,7 +33,7 @@
         "dateformat": "^1.0.12",
         "fuzzaldrin-plus": "^0.3.1",
         "jquery": "~3.1.0",
-        "mustache": "^2.2.0",
+        "mustache": "^2.2.1",
         "vex-js": "2.3.4",
         "withinviewport": "^1.0.0",
         "codemirror": "^5.9"
