@@ -26,8 +26,8 @@ module.exports = function(config) {
         singleRun: false,
         concurrency: Infinity,
         plugins: [
-            require("karma-webpack"),
-            require("karma-sourcemap-loader"),
+            require('karma-webpack'),
+            require('karma-sourcemap-loader'),
             'karma-jasmine',
             'karma-jasmine-matchers',
             'karma-mocha-reporter',

@@ -19,7 +19,7 @@ module.exports = {
     },
     plugins: [
         new ExtractTextPlugin('required-styles.css'),
-        new webpack.optimize.CommonsChunkPlugin("shared", "shared.bundle.js")
+        new webpack.optimize.CommonsChunkPlugin('shared', 'shared.bundle.js')
     ],
     resolve: {
         alias: {
