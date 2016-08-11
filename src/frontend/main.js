@@ -81,7 +81,7 @@ $(function() {
         return messageService.send({
             type: 'open_tab',
             url: url
-        }).then(clearResults);
+        });
     };
 
     const removeBookmark = function() {
