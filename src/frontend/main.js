@@ -101,6 +101,7 @@ $(function() {
 
     const dismiss = function() {
         clearResults();
+        renderRecent();
     };
 
     const loadTemplates = function() {
@@ -137,7 +138,11 @@ $(function() {
         const bookmarks = state.get('bookmarks');
         const value = state.get('value');
         const matched = matchedBookmarks.filter(bookmarks, value, settingsProvider);
-        render(matched, matchedBookmarks.wrap);
+        if (value.length > 0) {
+            render(matched, matchedBookmarks.wrap);
+        } else {
+            renderRecent();
+        }
     };
 
     input.on('input', function(e) {
