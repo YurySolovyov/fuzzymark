@@ -8,7 +8,7 @@
     "license": "MIT",
     "devDependencies": {
         "css-loader": "^0.23.0",
-        "eslint": "~3.2.2",
+        "eslint": "~3.3.0",
         "extract-text-webpack-plugin": "^1.0.1",
         "jasmine-core": "^2.3.4",
         "karma-jasmine-matchers": "^2.0.2",
