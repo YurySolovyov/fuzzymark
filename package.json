@@ -1,41 +1,41 @@
 {
-    "name": "FuzzyMark",
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/YuriSolovyov/fuzzymark.git"
-    },
-    "version": "1.2.0",
-    "license": "MIT",
-    "devDependencies": {
-        "css-loader": "^0.24.0",
-        "eslint": "~3.4.0",
-        "extract-text-webpack-plugin": "^1.0.1",
-        "jasmine-core": "^2.3.4",
-        "karma-jasmine-matchers": "^2.0.2",
-        "karma": "^1.1.2",
-        "karma-chrome-launcher": "^2.0.0",
-        "karma-jasmine": "^1.0.2",
-        "karma-mocha-reporter": "^2.1.0",
-        "karma-sourcemap-loader": "^0.3.7",
-        "karma-webpack": "^1.7.0",
-        "lodash": "^4.14.1",
-        "style-loader": "^0.13.0",
-        "webpack": "^1.13.1"
-    },
-    "scripts": {
-        "test": "node_modules/.bin/karma start --single-run --browsers Chrome",
-        "lint": "node scripts/lint.js"
-    },
-    "engines": {
-        "node": ">= 4.2.2"
-    },
-    "dependencies": {
-        "dateformat": "^1.0.12",
-        "fuzzaldrin-plus": "^0.3.1",
-        "jquery": "~3.1.0",
-        "mustache": "^2.2.1",
-        "vex-js": "2.3.4",
-        "withinviewport": "^1.0.0",
-        "codemirror": "^5.9"
-    }
+  "name": "FuzzyMark",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/YuriSolovyov/fuzzymark.git"
+  },
+  "version": "1.2.1",
+  "license": "MIT",
+  "devDependencies": {
+    "css-loader": "^0.24.0",
+    "eslint": "~3.4.0",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "jasmine-core": "^2.3.4",
+    "karma-jasmine-matchers": "^2.0.2",
+    "karma": "^1.1.2",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-jasmine": "^1.0.2",
+    "karma-mocha-reporter": "^2.1.0",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^1.7.0",
+    "lodash": "^4.14.1",
+    "style-loader": "^0.13.0",
+    "webpack": "^1.13.1"
+  },
+  "scripts": {
+    "test": "node_modules/.bin/karma start --single-run --browsers Chrome",
+    "lint": "node scripts/lint.js"
+  },
+  "engines": {
+    "node": ">= 4.2.2"
+  },
+  "dependencies": {
+    "dateformat": "^1.0.12",
+    "fuzzaldrin-plus": "^0.3.1",
+    "jquery": "~3.1.0",
+    "mustache": "^2.2.1",
+    "vex-js": "2.3.4",
+    "withinviewport": "^1.0.0",
+    "codemirror": "^5.9"
+  }
 }
