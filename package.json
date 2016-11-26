@@ -30,7 +30,7 @@
     "node": ">= 4.2.2"
   },
   "dependencies": {
-    "dateformat": "^1.0.12",
+    "dateformat": "^2.0.0",
     "fuzzaldrin-plus": "^0.3.1",
     "jquery": "~3.1.0",
     "mustache": "^2.2.1",
