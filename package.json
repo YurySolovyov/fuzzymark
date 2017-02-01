@@ -34,7 +34,7 @@
     "fuzzaldrin-plus": "^0.4.1",
     "jquery": "~3.1.0",
     "mustache": "^2.2.1",
-    "vex-js": "3.0.0",
+    "vex-js": "3.1.0",
     "withinviewport": "^2.0.0",
     "codemirror": "^5.9"
   }
