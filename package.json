@@ -35,7 +35,7 @@
   "dependencies": {
     "dateformat": "^2.0.0",
     "fuzzaldrin-plus": "^0.4.1",
-    "jquery": "~3.1.0",
+    "jquery": "~3.2.1",
     "mustache": "^2.2.1",
     "vex-js": "3.1.0",
     "withinviewport": "^2.0.0",
