@@ -6,46 +6,46 @@ const createOrSelectTab = require('./tab-opener.js');
 const settingsStore = new SettingsStore;
 
 const settings = function(request, sender, sendResponse) {
-    settingsStore.all().then(function(value) {
-        sendResponse(value);
-    });
+  settingsStore.all().then(function(value) {
+    sendResponse(value);
+  });
 };
 
 const setSetting = function(request, sender, sendResponse) {
-    settingsStore.set(request.key, request.value).then(function(_value) {
-        sendResponse({ status: true });
-    });
+  settingsStore.set(request.key, request.value).then(function(_value) {
+    sendResponse({ status: true });
+  });
 };
 
 const getSetting = function(request, sender, sendResponse) {
-    settingsStore.get(request.key).then(function(value) {
-        sendResponse(value);
-    });
+  settingsStore.get(request.key).then(function(value) {
+    sendResponse(value);
+  });
 };
 
 const removeSetting = function(request, sender, sendResponse) {
-    settingsStore.remove(request.key).then(function() {
-        sendResponse({ status: true });
-    });
+  settingsStore.remove(request.key).then(function() {
+    sendResponse({ status: true });
+  });
 };
 
 const openTab = function(request, sender, sendResponse) {
-    return createOrSelectTab(request.url, sendResponse);
+  return createOrSelectTab(request.url, sendResponse);
 };
 
 const handlers = {
-    settings: settings,
-    set_setting: setSetting,
-    get_setting: getSetting,
-    remove_setting: removeSetting,
-    open_tab: openTab
+  settings: settings,
+  set_setting: setSetting,
+  get_setting: getSetting,
+  remove_setting: removeSetting,
+  open_tab: openTab
 };
 
 module.exports = function(request, sender, sendResponse) {
-    const handler = handlers[request.type];
+  const handler = handlers[request.type];
 
-    if (handler) {
-        handler(request, sender, sendResponse);
-    }
-    return true;
+  if (handler) {
+    handler(request, sender, sendResponse);
+  }
+  return true;
 };

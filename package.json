@@ -6,6 +6,15 @@
   },
   "version": "1.2.1",
   "license": "MIT",
+  "dependencies": {
+    "dateformat": "2.0",
+    "fuzzaldrin-plus": "0.4.1",
+    "jquery": "3.1.0",
+    "mustache": "2.2.1",
+    "vex-js": "2.3.4",
+    "withinviewport": "1.0.0",
+    "codemirror": "5.9"
+  },
   "devDependencies": {
     "css-loader": "^0.26.0",
     "eslint": "~3.13.1",
@@ -26,19 +35,11 @@
     "webpack": "^2.3.2"
   },
   "scripts": {
-    "test": "node_modules/.bin/karma start --single-run --browsers Chrome",
-    "lint": "node scripts/lint.js"
+    "test": "karma start --single-run --browsers Chrome",
+    "lint": "eslint src/** test/**",
+    "lint:fix": "eslint src/** test/** --fix"
   },
   "engines": {
-    "node": ">= 4.2.2"
-  },
-  "dependencies": {
-    "dateformat": "^2.0.0",
-    "fuzzaldrin-plus": "^0.4.1",
-    "jquery": "~3.2.1",
-    "mustache": "^2.2.1",
-    "vex-js": "3.1.0",
-    "withinviewport": "^2.0.0",
-    "codemirror": "^5.9"
+    "node": "6.11.0"
   }
 }

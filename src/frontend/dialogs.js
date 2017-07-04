@@ -8,16 +8,16 @@ vex.dialog = require('vex-js/js/vex.dialog.js');
 vex.defaultOptions.className = 'vex-theme-plain';
 
 const runDialog = function(type, message, callback) {
-    return vex.dialog[type]({
-        message: message,
-        callback: callback
-    });
+  return vex.dialog[type]({
+    message: message,
+    callback: callback
+  });
 };
 
 const confirmation = runDialog.bind(null, 'confirm');
 const notification = runDialog.bind(null, 'alert');
 
 module.exports = {
-    confirmation,
-    notification
+  confirmation,
+  notification
 };
