@@ -1,29 +1,35 @@
+const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-    entry: {
-        background: './src/backend/background/background.js',
-        gettingStarted: './src/backend/getting-started/getting-started.js',
-        frontend: './src/frontend/main.js',
-        shared: ['jquery']
-    },
-    output: {
-        path: './dist',
-        filename: '[name].bundle.js'
-    },
-    module: {
-        loaders: [
-          { test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader') }
-        ]
-    },
-    plugins: [
-        new ExtractTextPlugin('required-styles.css'),
-        new webpack.optimize.CommonsChunkPlugin('shared', 'shared.bundle.js')
-    ],
-    resolve: {
-        alias: {
-            vex: 'vex-js'
-        }
-    }
+  entry: {
+    background: './src/backend/background/background.js',
+    gettingStarted: './src/backend/getting-started/getting-started.js',
+    frontend: './src/frontend/main.js',
+    shared: ['jquery']
+  },
+
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].bundle.js'
+  },
+
+  module: {
+    rules: [{
+      test: /\.css$/,
+      loader: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: 'css-loader'
+      })
+    }]
+  },
+
+  plugins: [
+    new ExtractTextPlugin('css-loader'),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'shared',
+      filename: 'shared.bundle.js'
+    })
+  ]
 };
