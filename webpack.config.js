@@ -22,6 +22,9 @@ module.exports = {
         fallback: 'style-loader',
         use: 'css-loader'
       })
+    }, {
+      test: /\.vue$/,
+      loader: 'vue-loader',
     }]
   },
 

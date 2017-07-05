@@ -37,6 +37,7 @@
     "webpack": "2.6.1"
   },
   "scripts": {
+    "dev": "webpack --progress --colors --watch",
     "build": "webpack --progress --colors",
     "test": "karma start --single-run --browsers Chrome",
     "lint": "eslint src/** test/**",
