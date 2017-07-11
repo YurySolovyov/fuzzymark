@@ -1,13 +1,13 @@
 <template lang="html">
-  <li class="bookmark" :class="{ selected: bookmark.selected }" :data-id="bookmark.id">
+  <li class="bookmark" :class="{ selected: bookmark.selected }">
       <span class="bookmarkHeader">
           <span class="bookmarkScore">{{ bookmark.score }}</span>
-          <span class="bookmarkTitle">{{ bookmark.wrappedTitle }}</span>
+          <span class="bookmarkTitle" v-html="bookmark.wrappedTitle"></span>
           <span class="bookmarkPath">{{ bookmark.path }}</span>
       </span>
       <span class="bookmarkFooter">
           <img class="bookmarkFavicon" :src="bookmark.favicon" />
-          <a :href="bookmark.url" class="bookmarkUrl">{{ bookmark.wrappedUrl }}</a>
+          <a :href="bookmark.url" class="bookmarkUrl" v-html="bookmark.wrappedUrl"></a>
       </span>
   </li>
 </template>

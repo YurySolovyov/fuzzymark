@@ -15,8 +15,8 @@ const wrap = function(item, index) {
   });
 };
 
-const filter = function(bookmarks, settingsProvider) {
-  const maxResults = settingsProvider().store.get('maxResults');
+const filter = function(bookmarks, settings) {
+  const maxResults = settings.maxResults;
   return bookmarks.sort(function(bookmark1, bookmark2) {
     return bookmark2.dateAdded - bookmark1.dateAdded;
   }).slice(0, maxResults).map(wrap);

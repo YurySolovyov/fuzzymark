@@ -80,6 +80,7 @@ const onLoad = loadHandlers.add.bind(loadHandlers);
 const onChange = changeHandlers.add.bind(changeHandlers);
 
 module.exports = {
+  fetchAll,
   init,
   saveSetting,
   removeSetting,

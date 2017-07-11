@@ -15,7 +15,6 @@
     "vex-js": "4.0.0",
     "vue": "^2.3.4",
     "vue-loader": "^13.0.0",
-    "vue-multiselect": "^2.0.2",
     "vue-template-compiler": "^2.3.4",
     "vuex": "^2.3.1",
     "withinviewport": "2.0.0"

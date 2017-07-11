@@ -16,7 +16,7 @@ const wrap = function(key, value, item, index) {
 
   const score = FuzzaldrinPlus.score(property, value.toLowerCase());
 
-  return Object.assign(item, {
+  return Object.assign({}, item, {
     selected: index === 0,
     score: score,
     wrappedTitle: wrappedTitle,
@@ -24,13 +24,12 @@ const wrap = function(key, value, item, index) {
   });
 };
 
-const filter = function(bookmarks, value, settingsProvider) {
-  const settings = settingsProvider();
-  const propertyKey = settings.store.get('propertyKey');
+const filter = function(bookmarks, value, settings) {
+  const propertyKey = settings.propertyKey;
 
   return FuzzaldrinPlus.filter(bookmarks, value, {
     key: propertyKey,
-    maxResults: settings.store.get('maxResults')
+    maxResults: settings.maxResults
   }).map(wrap.bind(null, propertyKey, value));
 };
 

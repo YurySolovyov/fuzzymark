@@ -1,259 +1,259 @@
 body, html {
-    overflow: hidden;
-    height: 100%;
-    background: #ecf0f1;
+  overflow: hidden;
+  height: 100%;
+  background: #ecf0f1;
 }
 
 ::-webkit-scrollbar {
-    width: 8px;
+  width: 8px;
 }
 ::-webkit-scrollbar-thumb {
-    background-color: #3498db;
-    background-clip: content-box;
-    border: 2px transparent solid;
-    border-radius: 4px;
+  background-color: #3498db;
+  background-clip: content-box;
+  border: 2px transparent solid;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover,
 ::-webkit-scrollbar-thumb:active {
-    border-color: #3498db;
-    border-radius: 0;
+  border-color: #3498db;
+  border-radius: 0;
 }
 
 input, select {
-    border: none;
-    border-bottom: 2px #A9A9A9 solid;
-    padding: 0 0 0 5px;
-    width: 100px;
+  border: none;
+  border-bottom: 2px #A9A9A9 solid;
+  padding: 0 0 0 5px;
+  width: 100px;
 }
 
 input:focus,
 select:focus {
-    outline: none;
-    border-color: #3498db;
+  outline: none;
+  border-color: #3498db;
 }
 
 select, button, input {
-    display: inline-block;
-    height: 32px;
+  display: inline-block;
+  height: 32px;
 }
 
 button {
-    border: none;
-    background: none;
-    transition: 0.3s;
-    box-sizing: content-box;
+  border: none;
+  background: none;
+  transition: 0.3s;
+  box-sizing: content-box;
 }
 
 button:hover {
-    background-color: #DDD;
+  background-color: #DDD;
 }
 
 button:focus {
-    outline: none;
+  outline: none;
 }
 
 #container {
-    background: #fff;
-    overflow: hidden;
-    height: calc(100vh - 32px);
-    margin-top: 16px;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
-    padding: 0;
+  background: #fff;
+  overflow: hidden;
+  height: calc(100vh - 32px);
+  margin-top: 16px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+  padding: 0;
 }
 
 #inputWrapper {
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
 #input {
-    display: block;
-    border-radius: 3px;
-    border: 2px #aaa solid;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    padding: 0 10px;
-    font-size: 18px;
-    height: 48px;
-    line-height: 48px;
-    transition: 0.3s;
+  display: block;
+  border-radius: 3px;
+  border: 2px #aaa solid;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 0 10px;
+  font-size: 18px;
+  height: 48px;
+  line-height: 48px;
+  transition: 0.3s;
 }
 
 #input:focus {
-    outline: none;
-    border-color: #3498db;
-    background: #fff;
+  outline: none;
+  border-color: #3498db;
+  background: #fff;
 }
 
 #results {
-    padding: 20px 30px;
-    height: calc(100% - 100px);
-    overflow-y: scroll;
-    will-change: transform;
+  padding: 20px 30px;
+  height: calc(100% - 100px);
+  overflow-y: scroll;
+  will-change: transform;
 }
 
 .bookmark {
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
-    -ms-flex-direction: column;
-    font-size: 16px;
-    font-weight: 400;
-    overflow: hidden;
-    background: #fff;
-    border-radius: 2px;
-    box-sizing: border-box;
-    list-style: none;
-    margin-bottom: 5px;
-    border: 2px transparent solid;
-    padding: 5px;
-    transition: 0.3s;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+  -ms-flex-direction: column;
+  font-size: 16px;
+  font-weight: 400;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 2px;
+  box-sizing: border-box;
+  list-style: none;
+  margin-bottom: 5px;
+  border: 2px transparent solid;
+  padding: 5px;
+  transition: 0.3s;
 }
 
 .bookmark.selected {
-    border-color: #3498db;
-    transform: scale(1.02);
+  border-color: #3498db;
+  transform: scale(1.02);
 }
 
 .bookmarkHeader {
-    display: block;
-    font-size: 16px;
-    line-height: normal;
-    padding: 8px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  display: block;
+  font-size: 16px;
+  line-height: normal;
+  padding: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .bookmarkFooter {
-    display: block;
-    border-top: 1px solid rgba(0,0,0,.1);
-    font-size: 16px;
-    line-height: normal;
-    padding: 8px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  display: block;
+  border-top: 1px solid rgba(0,0,0,.1);
+  font-size: 16px;
+  line-height: normal;
+  padding: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .bookmarkPath {
-    color: #9E9E9E;
-    float: right;
-    font-size: 14px;
+  color: #9E9E9E;
+  float: right;
+  font-size: 14px;
 }
 
 .bookmarkScore {
-    color: #3498db;
-    margin-right: 16px;
+  color: #3498db;
+  margin-right: 16px;
 }
 
 .bookmarkUrl {
-    color: #3498db;
+  color: #3498db;
 }
 
 .bookmarkUrl:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .bookmarkFavicon {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    margin: -4px 12px 0 -4px;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin: -4px 12px 0 -4px;
 }
 
 #settingsButton {
-    position: absolute;
-    right: 48px;
-    bottom: 32px;
-    height: 48px;
-    width: 48px;
-    background-color: #fff;
-    border-radius: 100%;
-    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.4);
-    cursor: pointer;
-    transition: 0.3s;
+  position: absolute;
+  right: 48px;
+  bottom: 32px;
+  height: 48px;
+  width: 48px;
+  background-color: #fff;
+  border-radius: 100%;
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  transition: 0.3s;
 }
 
 #settingsButton:hover {
-    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.4);
 }
 
 #settingsButton.active {
-    background-color: #3498db;
-    transform: rotate(90deg);
-    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
+  background-color: #3498db;
+  transform: rotate(90deg);
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 #settingsButton i {
-    text-align: center;
-    line-height: 50px;
-    width: 100%;
-    font-size: 1.75em;
-    display: inline-block;
+  text-align: center;
+  line-height: 50px;
+  width: 100%;
+  font-size: 1.75em;
+  display: inline-block;
 }
 
 #settings {
-    position: fixed;
-    top: 16px;
-    width: 400px;
-    right: 0;
-    height: calc(100vh - 32px);
-    transform: translateX(400px);
-    background: #fff;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
-    transition: 0.3s;
-    will-change: transform;
+  position: fixed;
+  top: 16px;
+  width: 400px;
+  right: 0;
+  height: calc(100vh - 32px);
+  transform: translateX(400px);
+  background: #fff;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  will-change: transform;
 }
 
 #settings.active {
-    transform: translateX(0px);
+  transform: translateX(0px);
 }
 
 #settings.active.expanded {
-    width: 600px;
+  width: 600px;
 }
 
 #settings h2 {
-    font-size: 24px;
-    font-weight: normal;
-    padding: 0 10px;
+  font-size: 24px;
+  font-weight: normal;
+  padding: 0 10px;
 }
 
 #saveIndicator {
-    line-height: 24px;
-    font-size: 18px;
-    margin-left: 10px;
+  line-height: 24px;
+  font-size: 18px;
+  margin-left: 10px;
 }
 
 .tab {
-    display: inline-block;
-    line-height: 32px;
-    padding: 0 10px;
-    border-bottom: 2px transparent solid;
-    transition: 0.3s;
-    cursor: pointer;
+  display: inline-block;
+  line-height: 32px;
+  padding: 0 10px;
+  border-bottom: 2px transparent solid;
+  transition: 0.3s;
+  cursor: pointer;
 }
 
 .tab.active {
-    border-color: #3498db;
+  border-color: #3498db;
 }
 
 .tabContent {
-    display: none;
-    padding: 0 10px;
+  display: none;
+  padding: 0 10px;
 }
 
 .tabContent.active {
-    display: block;
+  display: block;
 }
 
 .CodeMirror {
-    border-radius: 2px;
+  border-radius: 2px;
 }
 
 #newThemeName {
-    display: none;
+  display: none;
 }
 
 #newThemeName.active {
-    display: inline-block;
+  display: inline-block;
 }

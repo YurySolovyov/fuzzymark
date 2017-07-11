@@ -31,9 +31,8 @@ const processRawBookmarks = function(raw) {
   return flattenBookmarks(raw, [], []);
 };
 
-const simplifyBookmarks = function(list, settingsProvider) {
-  const settings = settingsProvider();
-  const propertyKey = settings.store.get('propertyKey');
+const simplifyBookmarks = function(list, settings) {
+  const propertyKey = settings.propertyKey;
   return list.map(function(bookmark) {
     return Object.assign(bookmark, {
       title: bookmark[propertyKey] || getSimplifiedUrl(bookmark.url),
@@ -47,8 +46,8 @@ const getSimplifiedUrl = function(url) {
   return obj.host + (obj.pathname.length > 1 ? obj.pathname : '');
 };
 
-const transform = function(rawBookmarks, settingsProvider) {
-  return simplifyBookmarks(processRawBookmarks(rawBookmarks), settingsProvider);
+const transform = function(rawBookmarks, settings) {
+  return simplifyBookmarks(processRawBookmarks(rawBookmarks), settings);
 };
 
 const load = function() {
