@@ -8,7 +8,7 @@ const highlight = require('../match-highlighter').bind(null, {
   wrap: (string) => '<b>' + string + '</b>'
 });
 
-const wrap = function(key, value, item, index) {
+const wrap = function(key, value, selectedIndex, item, index) {
   const property = item[key].toLowerCase();
 
   const wrappedTitle = highlight(value, item.title);
@@ -17,7 +17,7 @@ const wrap = function(key, value, item, index) {
   const score = FuzzaldrinPlus.score(property, value.toLowerCase());
 
   return Object.assign({}, item, {
-    selected: index === 0,
+    selected: index === selectedIndex,
     score: score,
     wrappedTitle: wrappedTitle,
     wrappedUrl: wrappedUrl
@@ -25,12 +25,12 @@ const wrap = function(key, value, item, index) {
 };
 
 const filter = function(bookmarks, value, settings) {
-  const propertyKey = settings.propertyKey;
+  const { propertyKey, maxResults, selectedIndex } = settings;
 
   return FuzzaldrinPlus.filter(bookmarks, value, {
     key: propertyKey,
-    maxResults: settings.maxResults
-  }).map(wrap.bind(null, propertyKey, value));
+    maxResults: maxResults
+  }).map(wrap.bind(null, propertyKey, value, selectedIndex));
 };
 
 module.exports = {

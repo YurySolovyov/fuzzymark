@@ -6,9 +6,9 @@ const formatDate = function(item) {
   return dateFormat(new Date(item.dateAdded), 'dd mmm yy');
 };
 
-const wrap = function(item, index) {
-  return Object.assign(item, {
-    selected: index === 0,
+const wrap = function(selectedIndex, item, index) {
+  return Object.assign({}, item, {
+    selected: index === selectedIndex,
     score: formatDate(item),
     wrappedTitle: item.title,
     wrappedUrl: item.url
@@ -16,10 +16,10 @@ const wrap = function(item, index) {
 };
 
 const filter = function(bookmarks, settings) {
-  const maxResults = settings.maxResults;
+  const { maxResults, selectedIndex } = settings;
   return bookmarks.sort(function(bookmark1, bookmark2) {
     return bookmark2.dateAdded - bookmark1.dateAdded;
-  }).slice(0, maxResults).map(wrap);
+  }).slice(0, maxResults).map(wrap.bind(null, selectedIndex));
 };
 
 module.exports = {

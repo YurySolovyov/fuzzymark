@@ -12,15 +12,24 @@ export default new Vuex.Store({
   state: {
     bookmarks: [],
     inputValue: '',
-    settings: {}
+    settings: {},
+    selectedIndex: 0,
   },
   getters: {
-    bookmarks(state) {
+    bookmarks(state, getters) {
       if (state.inputValue === '') {
-        return recentBookmarks.filter(state.bookmarks, state.settings);
+        return recentBookmarks.filter(state.bookmarks, getters.settings);
       } else {
-        return matchedBookmarks.filter(state.bookmarks, state.inputValue, state.settings);
+        return matchedBookmarks.filter(state.bookmarks, state.inputValue, getters.settings);
       }
+    },
+    settings(state) {
+      return Object.assign({}, state.settings, {
+        selectedIndex: state.selectedIndex
+      });
+    },
+    maxResults: function(state) {
+      return state.settings.maxResults;
     }
   },
   mutations: {
@@ -32,17 +41,25 @@ export default new Vuex.Store({
     },
     setInputValue(state, payload) {
       state.inputValue = payload;
+    },
+    setSelectedIndex(state, payload) {
+      state.selectedIndex = payload;
     }
   },
   actions: {
-    async loadBookmarks({ commit, state }) {
+    async loadBookmarks({ commit, state, getters }) {
       const result = await bookmarksCollection.load();
-      const bookmarks = bookmarksCollection.transform(result, state.settings);
+      const bookmarks = bookmarksCollection.transform(result, getters.settings);
       commit('setBookmarks', bookmarks);
-      console.log(bookmarks);
     },
-    updateInputValue({ commit }, value) {
+    updateInputValue({ commit, state }, value) {
       commit('setInputValue', value);
+      commit('setSelectedIndex', 0);
+    },
+    updateSelectedIndex({ commit, state, getters }, delta) {
+      const maybeIndex = Math.min(Math.max(state.selectedIndex + delta, 0), getters.maxResults - 1);
+      const finalIndex = Number.isNaN(maybeIndex) ? 0 : maybeIndex;
+      commit('setSelectedIndex', finalIndex);
     }
   }
 });
