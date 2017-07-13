@@ -1,14 +1,16 @@
 <template lang="html">
   <li class="bookmark" :class="{ selected: bookmark.selected }">
+    <span class="bookmarkWrapper">
       <span class="bookmarkHeader">
-          <span class="bookmarkScore">{{ bookmark.score }}</span>
-          <span class="bookmarkTitle" v-html="bookmark.wrappedTitle"></span>
-          <span class="bookmarkPath">{{ bookmark.path }}</span>
+        <span class="bookmarkScore">{{ bookmark.score }}</span>
+        <span class="bookmarkTitle" v-html="bookmark.wrappedTitle"></span>
+        <span class="bookmarkPath">{{ bookmark.path }}</span>
       </span>
       <span class="bookmarkFooter">
-          <img class="bookmarkFavicon" :src="bookmark.favicon" />
-          <a :href="bookmark.url" class="bookmarkUrl" v-html="bookmark.wrappedUrl"></a>
+        <img class="bookmarkFavicon" :src="bookmark.favicon" />
+        <a :href="bookmark.url" class="bookmarkUrl" v-html="bookmark.wrappedUrl"></a>
       </span>
+    </span>
   </li>
 </template>
 

@@ -1,14 +1,26 @@
+:root {
+  --main-bg-color: #23282e;
+  --container-bg-color: #262d33;
+  --input-text-color: #fff;
+  --theme-selected-start: #4dadf7;
+  --theme-selected-end: #3bc9db;
+  --theme-selected-bg-color: #343a40;
+  --theme-header-color: #e9ecef;
+  --theme-bookmark-link-color: #868e96;
+  --theme-bookmark-link-hover-color: #adb5bd;
+}
+
 body, html {
   overflow: hidden;
   height: 100%;
-  background: #ecf0f1;
+  background: var(--main-bg-color);
 }
 
 ::-webkit-scrollbar {
   width: 8px;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: #3498db;
+  background-color: var(--theme-selected-start);
   background-clip: content-box;
   border: 2px transparent solid;
   border-radius: 4px;
@@ -16,7 +28,7 @@ body, html {
 
 ::-webkit-scrollbar-thumb:hover,
 ::-webkit-scrollbar-thumb:active {
-  border-color: #3498db;
+  border-color: var(--theme-selected-start);
   border-radius: 0;
 }
 
@@ -30,7 +42,7 @@ input, select {
 input:focus,
 select:focus {
   outline: none;
-  border-color: #3498db;
+  border-color: var(--theme-selected-start);
 }
 
 select, button, input {
@@ -54,68 +66,69 @@ button:focus {
 }
 
 #container {
-  background: #fff;
   overflow: hidden;
   height: calc(100vh - 32px);
   margin-top: 16px;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+  background: var(--container-bg-color);
   padding: 0;
 }
 
 #inputWrapper {
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+  padding: 16px 0;
 }
 
 #input {
+  background: transparent;
+  color: var(--input-text-color);
+  border: none;
   display: block;
-  border-radius: 3px;
-  border: 2px #aaa solid;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  padding: 0 10px;
-  font-size: 18px;
+  padding: 0 15px;
+  font-size: 24px;
   height: 48px;
   line-height: 48px;
-  transition: 0.3s;
 }
 
 #input:focus {
   outline: none;
-  border-color: #3498db;
-  background: #fff;
 }
 
 #results {
-  padding: 20px 30px;
   height: calc(100% - 100px);
   overflow-y: scroll;
   will-change: transform;
+  padding: 0;
 }
 
 .bookmark {
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
-  -ms-flex-direction: column;
   font-size: 16px;
   font-weight: 400;
   overflow: hidden;
-  background: #fff;
-  border-radius: 2px;
   box-sizing: border-box;
   list-style: none;
   margin-bottom: 5px;
+  margin-right: 5px;
   border: 2px transparent solid;
-  padding: 5px;
-  transition: 0.3s;
 }
 
 .bookmark.selected {
-  border-color: #3498db;
-  transform: scale(1.02);
+  background-image: linear-gradient(to right, var(--theme-selected-start) 0%,var(--theme-selected-end) 100%);
+}
+
+.bookmark.selected .bookmarkWrapper {
+  background-color: var(--theme-selected-bg-color);
+}
+
+.bookmarkWrapper {
+  background-color: var(--container-bg-color);
+  transition: 0.3s;
+  display: block;
+  padding: 10px;
 }
 
 .bookmarkHeader {
+  color: var(--theme-header-color);
   display: block;
-  font-size: 16px;
+  font-size: 18px;
   line-height: normal;
   padding: 8px;
   white-space: nowrap;
@@ -123,10 +136,14 @@ button:focus {
   text-overflow: ellipsis;
 }
 
+.bookmarkHeader b {
+  color: var(--theme-selected-start);
+}
+
 .bookmarkFooter {
   display: block;
   border-top: 1px solid rgba(0,0,0,.1);
-  font-size: 16px;
+  font-size: 18px;
   line-height: normal;
   padding: 8px;
   white-space: nowrap;
@@ -135,21 +152,22 @@ button:focus {
 }
 
 .bookmarkPath {
-  color: #9E9E9E;
+  color: var(--theme-bookmark-link-color);
   float: right;
   font-size: 14px;
 }
 
 .bookmarkScore {
-  color: #3498db;
+  color: var(--theme-selected-start);
   margin-right: 16px;
 }
 
 .bookmarkUrl {
-  color: #3498db;
+  color: var(--theme-bookmark-link-color);
 }
 
 .bookmarkUrl:hover {
+  color: var(--theme-bookmark-link-hover-color);
   text-decoration: underline;
 }
 
@@ -157,103 +175,5 @@ button:focus {
   display: inline-block;
   width: 16px;
   height: 16px;
-  margin: -4px 12px 0 -4px;
-}
-
-#settingsButton {
-  position: absolute;
-  right: 48px;
-  bottom: 32px;
-  height: 48px;
-  width: 48px;
-  background-color: #fff;
-  border-radius: 100%;
-  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.4);
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-#settingsButton:hover {
-  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.4);
-}
-
-#settingsButton.active {
-  background-color: #3498db;
-  transform: rotate(90deg);
-  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
-}
-
-#settingsButton i {
-  text-align: center;
-  line-height: 50px;
-  width: 100%;
-  font-size: 1.75em;
-  display: inline-block;
-}
-
-#settings {
-  position: fixed;
-  top: 16px;
-  width: 400px;
-  right: 0;
-  height: calc(100vh - 32px);
-  transform: translateX(400px);
-  background: #fff;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
-  transition: 0.3s;
-  will-change: transform;
-}
-
-#settings.active {
-  transform: translateX(0px);
-}
-
-#settings.active.expanded {
-  width: 600px;
-}
-
-#settings h2 {
-  font-size: 24px;
-  font-weight: normal;
-  padding: 0 10px;
-}
-
-#saveIndicator {
-  line-height: 24px;
-  font-size: 18px;
-  margin-left: 10px;
-}
-
-.tab {
-  display: inline-block;
-  line-height: 32px;
-  padding: 0 10px;
-  border-bottom: 2px transparent solid;
-  transition: 0.3s;
-  cursor: pointer;
-}
-
-.tab.active {
-  border-color: #3498db;
-}
-
-.tabContent {
-  display: none;
-  padding: 0 10px;
-}
-
-.tabContent.active {
-  display: block;
-}
-
-.CodeMirror {
-  border-radius: 2px;
-}
-
-#newThemeName {
-  display: none;
-}
-
-#newThemeName.active {
-  display: inline-block;
+  margin: -4px 4px 0 -4px;
 }

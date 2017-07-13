@@ -1,6 +1,7 @@
 <template lang="html">
   <div id="inputWrapper" class="col-xs-12">
     <input id="input" type="text" class="col-xs-12"
+      placeholder="Type to search for bookmarks..."
       :value="inputValue"
       @input="onInput"
       @keydown.down.prevent="onSelect('next')"
