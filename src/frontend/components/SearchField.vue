@@ -41,6 +41,7 @@ export default {
   mounted() {
     this.onFocus();
     window.onfocus = () => this.onFocus();
+    messageService.listen({ focus: () => this.onFocus() });
   }
 };
 </script>

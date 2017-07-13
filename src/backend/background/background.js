@@ -1,5 +1,5 @@
 'use strict';
-const indexUrl = chrome.extension.getURL('static/index.html');
+const indexUrl = chrome.runtime.getURL('static/index.html');
 
 const createOrSelectTab = require('./tab-opener.js');
 const processStoreMessages = require('./store-message-processor.js');
