@@ -30,6 +30,9 @@ export default new Vuex.Store({
     },
     maxResults: function(state) {
       return state.settings.maxResults;
+    },
+    selectedBookmark(state, getters) {
+      return getters.bookmarks[state.selectedIndex];
     }
   },
   mutations: {
