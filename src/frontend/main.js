@@ -3,7 +3,7 @@ import App from './components/App.vue';
 import store from './store';
 
 const app = new Vue({
-  el: '#container',
+  el: '#app',
   store,
   render: h => h(App)
 });

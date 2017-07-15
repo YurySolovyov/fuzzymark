@@ -1,0 +1,11 @@
+.theme-light {
+  --main-bg-color: #f8f9fa;
+  --container-bg-color: #e9ecef;
+  --input-text-color: #343a40;
+  --theme-selected-start: #4dadf7;
+  --theme-selected-end: #3bc9db;
+  --theme-selected-bg-color: #f1f3f5;
+  --theme-header-color: #343a40;
+  --theme-bookmark-link-color: #868e96;
+  --theme-bookmark-link-hover-color: #495057;
+}

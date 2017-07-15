@@ -1,0 +1,11 @@
+.theme-dark {
+  --main-bg-color: #23282e;
+  --container-bg-color: #343a40;
+  --input-text-color: #fff;
+  --theme-selected-start: #4dadf7;
+  --theme-selected-end: #3bc9db;
+  --theme-selected-bg-color: #495057;
+  --theme-header-color: #e9ecef;
+  --theme-bookmark-link-color: #adb5bd;
+  --theme-bookmark-link-hover-color: #ced4da;
+}

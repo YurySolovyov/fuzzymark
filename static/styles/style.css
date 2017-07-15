@@ -1,19 +1,6 @@
-:root {
-  --main-bg-color: #23282e;
-  --container-bg-color: #343a40;
-  --input-text-color: #fff;
-  --theme-selected-start: #4dadf7;
-  --theme-selected-end: #3bc9db;
-  --theme-selected-bg-color: #495057;
-  --theme-header-color: #e9ecef;
-  --theme-bookmark-link-color: #adb5bd;
-  --theme-bookmark-link-hover-color: #ced4da;
-}
-
 body, html {
   overflow: hidden;
   height: 100%;
-  background: var(--main-bg-color);
 }
 
 ::-webkit-scrollbar {
@@ -65,6 +52,12 @@ button:focus {
   outline: none;
 }
 
+#app {
+  height: 100vh;
+  width: 100vw;
+  background: var(--main-bg-color);
+}
+
 #container {
   overflow: hidden;
   height: calc(100vh - 32px);
@@ -93,7 +86,7 @@ button:focus {
 }
 
 #results {
-  height: calc(100% - 100px);
+  height: calc(100% - 80px);
   overflow-y: scroll;
   will-change: transform;
   padding: 0;
@@ -107,7 +100,7 @@ button:focus {
   list-style: none;
   margin-bottom: 5px;
   margin-right: 5px;
-  border: 2px transparent solid;
+  padding: 2px;
 }
 
 .bookmark.selected {

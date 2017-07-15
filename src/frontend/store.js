@@ -28,8 +28,12 @@ export default new Vuex.Store({
         selectedIndex: state.selectedIndex
       });
     },
-    maxResults: function(state) {
+    maxResults(state) {
       return state.settings.maxResults;
+    },
+    theme() {
+      // TODO: return from settings
+      return 'theme-light';
     },
     selectedBookmark(state, getters) {
       return getters.bookmarks[state.selectedIndex];
