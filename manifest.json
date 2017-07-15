@@ -1,47 +1,42 @@
 {
-    "manifest_version": 2,
-    "name": "FuzzyMark",
-    "short_name": "FuzzyMark",
-    "description": "Access your bookmarks with fuzzy search",
-    "version": "1.2.1",
+  "manifest_version": 2,
+  "name": "FuzzyMark",
+  "short_name": "FuzzyMark",
+  "description": "Access your bookmarks with fuzzy search",
+  "version": "1.2.1",
 
-    "icons": {
-        "16": "static/img/16x16.png",
-        "32": "static/img/32x32.png",
-        "48": "static/img/48x48.png",
-        "128": "static/img/128x128.png",
-        "256": "static/img/256x256.png"
-    },
+  "icons": {
+    "16": "static/img/16x16.png",
+    "32": "static/img/32x32.png",
+    "48": "static/img/48x48.png",
+    "128": "static/img/128x128.png",
+    "256": "static/img/256x256.png"
+  },
 
-    "browser_action": {
-        "default_title": "Open FuzzyMark",
-        "default_icon": "static/img/48x48.png"
-    },
+  "browser_action": {
+    "default_title": "Open FuzzyMark",
+    "default_icon": "static/img/48x48.png"
+  },
 
-    "web_accessible_resources": [
-        "static/templates/*.html",
-        "static/fonts/*.woff2"
-    ],
+  "permissions": [
+    "storage",
+    "bookmarks",
+    "chrome://favicon/"
+  ],
 
-    "permissions": [
-        "storage",
-        "bookmarks",
-        "chrome://favicon/"
-    ],
-
-    "commands": {
-        "show-matcher": {
-            "suggested_key": {
-                "default": "Ctrl+P"
-            },
-            "description": "Open FuzzyMark"
-        }
-    },
-    "background": {
-        "scripts": [
-            "dist/shared.bundle.js",
-            "dist/background.bundle.js"
-        ],
-        "persistent": false
+  "commands": {
+    "show-matcher": {
+      "suggested_key": {
+        "default": "Ctrl+P"
+      },
+      "description": "Open FuzzyMark"
     }
+  },
+  "background": {
+    "scripts": [
+      "dist/shared.bundle.js",
+      "dist/background.bundle.js"
+    ],
+    "persistent": false
+  }
  }

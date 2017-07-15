@@ -16,11 +16,11 @@
 import messageService from '../message-service';
 import { mapState, mapGetters } from 'vuex';
 
-const mappedState = mapState(['inputValue']);
-const mappedGetters = mapGetters(['selectedBookmark']);
+const state = mapState(['inputValue']);
+const getters = mapGetters(['selectedBookmark', 'openNew']);
 
 export default {
-  computed: Object.assign({}, mappedState, mappedGetters),
+  computed: Object.assign({}, getters, state),
   methods: {
     onInput(e) {
       this.$store.dispatch('updateInputValue', e.target.value);
@@ -31,7 +31,11 @@ export default {
     },
     onOpen() {
       const url = this.selectedBookmark.url;
-      messageService.send({ type: 'open_tab', url: url });
+      if (this.openNew) {
+        messageService.send({ type: 'open_tab', url: url });
+      } else {
+        window.location.assign(url);
+      }
     },
     onReset() {
       this.$store.dispatch('updateInputValue', '');

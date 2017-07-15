@@ -12,9 +12,7 @@ function SettingsStore() {
 
   this.set = function(key, value) {
     return new Promise(function(resolve, _reject) {
-      const values = {};
-      values[key] = value;
-      storage.set(values, resolve);
+      storage.set({ [key]: value }, resolve);
     });
   };
 

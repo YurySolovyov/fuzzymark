@@ -19,37 +19,13 @@ body, html {
   border-radius: 0;
 }
 
-input, select {
-  border: none;
-  border-bottom: 2px #A9A9A9 solid;
-  padding: 0 0 0 5px;
-  width: 100px;
-}
-
-input:focus,
-select:focus {
+input:focus {
   outline: none;
   border-color: var(--theme-selected-start);
 }
 
-select, button, input {
-  display: inline-block;
-  height: 32px;
-}
-
-button {
-  border: none;
-  background: none;
-  transition: 0.3s;
-  box-sizing: content-box;
-}
-
-button:hover {
-  background-color: #DDD;
-}
-
-button:focus {
-  outline: none;
+h1, h2 {
+  font-weight: normal;
 }
 
 #app {
@@ -169,4 +145,31 @@ button:focus {
   width: 16px;
   height: 16px;
   margin: -4px 4px 0 -4px;
+}
+
+.overlay-control {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  top: 16px;
+  left: 16px;
+  color: var(--theme-bookmark-link-color);
+  z-index: 10;
+}
+
+.overlay-control:hover {
+  color: var(--theme-bookmark-link-hover-color);
+}
+
+.overlay-control.menu {
+  z-index: 1;
+}
+
+.overlay {
+  position: absolute;
+  z-index: 2;
+  height: 100vh;
+  width: 100vw;
+  background: var(--main-bg-color);
+  color: var(--theme-header-color);
 }

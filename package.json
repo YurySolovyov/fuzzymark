@@ -7,17 +7,13 @@
   "version": "1.2.1",
   "license": "MIT",
   "dependencies": {
-    "codemirror": "5.27.4",
     "dateformat": "2.0.0",
     "fuzzaldrin-plus": "0.4.1",
-    "jquery": "3.2.1",
-    "mustache": "2.3.0",
-    "vex-js": "4.0.0",
     "vue": "2.4.1",
     "vue-loader": "^13.0.0",
+    "vue-router": "^2.7.0",
     "vue-template-compiler": "2.4.1",
-    "vuex": "^2.3.1",
-    "withinviewport": "2.0.0"
+    "vuex": "^2.3.1"
   },
   "devDependencies": {
     "css-loader": "0.28.4",

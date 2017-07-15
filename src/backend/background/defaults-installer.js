@@ -5,17 +5,11 @@ const defaults = [{
   key: 'propertyKey',
   value: 'title'
 }, {
-  key: JSON.stringify({ theme: 'default' }),
-  value: {
-    name: 'default',
-    styles: 'body {  }'
-  }
-}, {
-  key: 'themesList',
-  value: ['default']
-}, {
   key: 'activeTheme',
-  value: 'default'
+  value: 'light'
+}, {
+  key: 'openNew',
+  value: true
 }];
 
 const installIfNeeded = function(settings, item) {
