@@ -4,7 +4,7 @@
       <h1 class="center">Getting started</h1>
       <div class="col-12 step">
         <div class="step-num col-2 left">
-          <span>1</span>
+          <span class="inline-block center">1</span>
         </div>
         <div class="step-content col-8">
           <span>Go to </span>
@@ -13,20 +13,20 @@
       </div>
       <div class="col-12 step">
         <div class="step-num col-2 left">
-          <span>2</span>
+          <span class="inline-block center">2</span>
         </div>
         <div class="step-content col-8">
           <span>Assign a key to either field:</span>
         </div>
         <div class="step-content step-content col-10">
-          <div class="imgBox">
+          <div class="imgBox inline-block">
             <img src="img/hotkeys.png" alt="hotkey" />
           </div>
         </div>
       </div>
       <div class="col-12 step">
         <div class="step-num col-2 left">
-          <span>3</span>
+          <span class="inline-block center">3</span>
         </div>
         <div class="step-content col-8">
           <span>You can use FuzzyMark now</span>
@@ -55,9 +55,7 @@ export default {
 }
 
 .step-num span {
-  display: inline-block;
   width: 72px;
-  text-align: center;
   color: #3498db;
   background: #fff;
   line-height: 72px;
@@ -72,7 +70,6 @@ export default {
 
 .imgBox {
   margin: 16px 0;
-  display: inline-block;
 }
 .imgBox img {
   box-shadow: 0 4px 23px 5px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0,0,0,0.15);

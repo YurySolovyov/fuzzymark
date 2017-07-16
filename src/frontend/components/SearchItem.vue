@@ -20,6 +20,3 @@ export default {
   props: ['bookmark']
 }
 </script>
-
-<style lang="css">
-</style>
