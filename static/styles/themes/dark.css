@@ -8,4 +8,5 @@
   --theme-header-color: #e9ecef;
   --theme-bookmark-link-color: #adb5bd;
   --theme-bookmark-link-hover-color: #ced4da;
+  --theme-bookmark-divider-color: rgba(255, 255, 255, 0.1);
 }

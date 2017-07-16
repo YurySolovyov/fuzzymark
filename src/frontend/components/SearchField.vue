@@ -1,6 +1,6 @@
 <template lang="html">
   <div id="inputWrapper">
-    <input id="input" type="text" class="col-12 border-box"
+    <input id="input" type="text" class="col-12 border-box border-none block font-family-inherit"
       placeholder="Type to search for bookmarks..."
       spellcheck="false"
       :value="inputValue"

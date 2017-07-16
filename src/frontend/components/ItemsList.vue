@@ -1,5 +1,5 @@
 <template lang="html">
-  <div id="results">
+  <div id="results" class="p0">
     <search-item v-for="bookmark in bookmarks"
                  :key="bookmark.id"
                  :bookmark="bookmark"></search-item>

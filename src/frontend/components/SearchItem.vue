@@ -1,16 +1,17 @@
 <template lang="html">
-  <li class="bookmark" :class="{ selected: bookmark.selected }">
-    <span class="bookmarkWrapper">
-      <span class="bookmarkHeader">
+  <li class="bookmark overflow-hidden border-box list-style-none"
+    :class="{ selected: bookmark.selected }">
+    <div class="bookmarkWrapper p1">
+      <div class="bookmarkHeader p1 overflow-hidden nowrap">
         <span class="bookmarkScore">{{ bookmark.score }}</span>
         <span class="bookmarkTitle" v-html="bookmark.wrappedTitle"></span>
-        <span class="bookmarkPath">{{ bookmark.path }}</span>
-      </span>
-      <span class="bookmarkFooter">
-        <img class="bookmarkFavicon" :src="bookmark.favicon" />
+        <span class="bookmarkPath right">{{ bookmark.path }}</span>
+      </div>
+      <div class="bookmarkFooter p1 overflow-hidden nowrap">
+        <img class="bookmarkFavicon inline-block" :src="bookmark.favicon" />
         <a :href="bookmark.url" class="bookmarkUrl" v-html="bookmark.wrappedUrl"></a>
-      </span>
-    </span>
+      </div>
+    </div>
   </li>
 </template>
 
