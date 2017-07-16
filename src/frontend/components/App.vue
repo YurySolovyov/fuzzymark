@@ -2,17 +2,12 @@
   <div id="app" :class="`theme-${theme}`">
     <div id="container" class="col-xs-8 col-xs-offset-2">
       <search-field></search-field>
-      <div id="results" class="col-xs-12">
-        <search-item v-for="bookmark in bookmarks"
-                     :key="bookmark.id"
-                     :bookmark="bookmark"></search-item>
-      </div>
+      <items-list :bookmarks="bookmarks"></items-list>
     </div>
     <router-view></router-view>
     <router-link exact
       to="/settings"
-      class="overlay-control menu"
-      active-class="hidden">
+      class="overlay-control menu">
       <svg viewBox="0 0 24 24">
         <path fill="#6F6F6F" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z"></path>
       </svg>
@@ -32,7 +27,7 @@
 import { mapGetters, mapState } from 'vuex';
 
 import SearchField from './SearchField.vue';
-import SearchItem from './SearchItem.vue';
+import ItemsList from './ItemsList.vue';
 
 const getters = mapGetters(['bookmarks']);
 const state = mapState(['theme']);
@@ -40,10 +35,10 @@ const state = mapState(['theme']);
 export default {
   components: {
     SearchField,
-    SearchItem
+    ItemsList
   },
   computed: Object.assign({}, getters, state),
-  async mounted() {
+  mounted() {
     this.$store.dispatch('loadApp');
   }
 };
