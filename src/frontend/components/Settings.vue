@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="overlay">
-    <div class="col-xs-8 col-xs-offset-2">
+    <div class="lg-col-6 md-col-8 sm-col-10 mx-auto">
       <h1>Settings</h1>
       <section>
         <h2>Theme</h2>

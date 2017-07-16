@@ -4,9 +4,10 @@
     "type": "git",
     "url": "git://github.com/YuriSolovyov/fuzzymark.git"
   },
-  "version": "1.2.1",
+  "version": "2.0.0",
   "license": "MIT",
   "dependencies": {
+    "basscss": "8.0.3",
     "dateformat": "2.0.0",
     "fuzzaldrin-plus": "0.4.1",
     "vue": "2.4.1",

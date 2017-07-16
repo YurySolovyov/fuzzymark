@@ -37,13 +37,8 @@ h1, h2 {
 #container {
   overflow: hidden;
   height: calc(100vh - 32px);
-  margin-top: 16px;
   background: var(--container-bg-color);
   padding: 0;
-}
-
-#inputWrapper {
-  padding: 16px 0;
 }
 
 #input {
@@ -53,8 +48,8 @@ h1, h2 {
   display: block;
   padding: 0 15px;
   font-size: 24px;
-  height: 48px;
-  line-height: 48px;
+  height: 80px;
+  line-height: 80px;
 }
 
 #input:focus {
@@ -166,6 +161,8 @@ h1, h2 {
 }
 
 .overlay {
+  top: 0;
+  left: 0;
   position: absolute;
   z-index: 2;
   height: 100vh;

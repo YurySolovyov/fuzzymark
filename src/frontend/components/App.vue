@@ -1,6 +1,6 @@
 <template lang="html">
-  <div id="app" :class="`theme-${theme}`">
-    <div id="container" class="col-xs-8 col-xs-offset-2">
+  <div id="app" :class="`theme-${theme}`" class="pt2 border-box">
+    <div id="container" class="lg-col-6 md-col-8 sm-col-10 mx-auto">
       <search-field></search-field>
       <items-list :bookmarks="bookmarks"></items-list>
     </div>
@@ -15,7 +15,7 @@
     <router-link exact
       to="/"
       class="overlay-control"
-      active-class="hidden">
+      active-class="hide">
       <svg viewBox="0 0 24 24">
         <path fill="#6F6F6F" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"></path>
       </svg>

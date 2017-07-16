@@ -1,34 +1,34 @@
 <template lang="html">
   <div class="overlay">
-    <div class="col-sm-10 col-sm-offset-1 col-lg-6 col-lg-offset-3">
-      <h1 class="col-xs-offset-4 col-xs-6">Getting started</h1>
-      <div class="col-xs-12 step">
-        <div class="step-num col-xs-2">
+    <div class="lg-col-6 md-col-8 sm-col-10 mx-auto">
+      <h1 class="center">Getting started</h1>
+      <div class="col-12 step">
+        <div class="step-num col-2 left">
           <span>1</span>
         </div>
-        <div class="step-content col-xs-offset-2 col-xs-8">
+        <div class="step-content col-8">
           <span>Go to </span>
           <a target="_blank" class="hotkeysLink" @click.prevent="onHotkeysClick" href="#">hotkeys config</a>
         </div>
       </div>
-      <div class="col-xs-12 step">
-        <div class="step-num col-xs-2">
+      <div class="col-12 step">
+        <div class="step-num col-2 left">
           <span>2</span>
         </div>
-        <div class="step-content col-xs-offset-2 col-xs-8">
+        <div class="step-content col-8">
           <span>Assign a key to either field:</span>
         </div>
-        <div class="step-content step-content col-xs-offset-2 col-xs-10">
+        <div class="step-content step-content col-10">
           <div class="imgBox">
             <img src="img/hotkeys.png" alt="hotkey" />
           </div>
         </div>
       </div>
-      <div class="col-xs-12 step">
-        <div class="step-num col-xs-2">
+      <div class="col-12 step">
+        <div class="step-num col-2 left">
           <span>3</span>
         </div>
-        <div class="step-content col-xs-offset-2 col-xs-8">
+        <div class="step-content col-8">
           <span>You can use FuzzyMark now</span>
         </div>
       </div>
