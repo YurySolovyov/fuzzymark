@@ -1,7 +1,8 @@
 <template lang="html">
   <div class="overlay">
     <div class="lg-col-6 md-col-8 sm-col-10 mx-auto">
-      <h1>Settings</h1>
+      <h1 class="mb0">Settings</h1>
+      <h2 class="left col-12 mt3 mb1">Appearance</h2>
       <settings-section title="Theme"
         @save="setTheme"
         name="theme"
@@ -9,6 +10,14 @@
         :values="['light', 'dark']"
         :value-labels="['Light', 'Dark']"></settings-section>
 
+      <settings-section title="Accent"
+        @save="saveSetting"
+        name="accent"
+        :active-value="accent"
+        :values="['blue', 'red', 'purple']"
+        :value-labels="['Blue', 'Red', 'Purple']"></settings-section>
+
+      <h2 class="left col-12 mt3 mb1">Behavior</h2>
       <settings-section title="Max Results"
         @save="saveSetting"
         name="maxResults"
@@ -37,7 +46,12 @@
 import SettingsSection from './SettingsSection.vue';
 import { mapState, mapGetters } from 'vuex';
 
-const getters = mapGetters(['maxResults', 'propertyKey', 'openNew']);
+const getters = mapGetters([
+  'maxResults',
+  'propertyKey',
+  'openNew',
+  'accent'
+]);
 const state = mapState(['theme']);
 
 export default {

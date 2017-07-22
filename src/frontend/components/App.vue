@@ -1,5 +1,5 @@
 <template lang="html">
-  <div id="app" :class="`theme-${theme}`" class="pt2 border-box">
+  <div id="app" :class="`theme-${theme} accent-${accent}`" class="pt2 border-box">
     <div id="container" class="lg-col-6 md-col-8 sm-col-10 mx-auto p0 overflow-hidden">
       <search-field></search-field>
       <items-list :bookmarks="bookmarks"></items-list>
@@ -29,7 +29,7 @@ import { mapGetters, mapState } from 'vuex';
 import SearchField from './SearchField.vue';
 import ItemsList from './ItemsList.vue';
 
-const getters = mapGetters(['bookmarks']);
+const getters = mapGetters(['bookmarks', 'accent']);
 const state = mapState(['theme']);
 
 export default {

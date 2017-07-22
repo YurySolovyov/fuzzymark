@@ -1,6 +1,6 @@
 <template lang="html">
-  <section class="overflow-hidden">
-    <h2>{{ title }}</h2>
+  <section class="overflow-hidden col-4 left">
+    <h3 class="m0">{{ title }}</h3>
     <span class="select p1 inline-block center" v-for="(value, index) in values"
       :class="{ active: isActiveSetting(name, value) }"
       @click="onClick(name, value)">{{ valueLabels[index] }}</span>
@@ -28,10 +28,7 @@ export default {
 </script>
 
 <style lang="css">
-section {
-  border-bottom: 1px var(--container-bg-color) solid;
-  padding: 10px 0;
-}
+
 .select {
   cursor: pointer;
   min-width: 64px;
@@ -41,4 +38,5 @@ section {
 .select.active {
   background-color: var(--theme-selected-start);
 }
+
 </style>

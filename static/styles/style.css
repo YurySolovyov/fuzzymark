@@ -2,6 +2,10 @@
 @import "./themes/dark.css";
 @import "./themes/light.css";
 
+@import "./accents/blue.css";
+@import "./accents/red.css";
+@import "./accents/purple.css";
+
 @font-face {
   font-family: OpenSans;
   src: url('~open-sans-fontface/fonts/Regular/OpenSans-Regular.woff2');

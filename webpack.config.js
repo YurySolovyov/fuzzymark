@@ -5,8 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
   entry: {
     background: './src/backend/background/background.js',
-    frontend: './src/frontend/main.js',
-    styles: './static/styles/style.css'
+    frontend: './src/frontend/main.js'
   },
 
   output: {
@@ -17,13 +16,13 @@ module.exports = {
   module: {
     rules: [{
       test: /\.css$/,
-      loader: ExtractTextPlugin.extract({ use: 'css-loader' })
+      use: ExtractTextPlugin.extract({ use: 'css-loader' })
     }, {
       test: /\.(eot|woff|woff2|ttf)([?]?.*)$/,
       use: 'url-loader',
     }, {
       test: /\.vue$/,
-      loader: 'vue-loader',
+      use: 'vue-loader',
     }]
   },
 
@@ -33,5 +32,11 @@ module.exports = {
       name: 'shared',
       filename: 'shared.bundle.js'
     })
-  ]
+  ],
+
+  resolve: {
+    alias: {
+      styles: path.resolve(__dirname, 'static/styles')
+    }
+  }
 };

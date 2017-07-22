@@ -8,6 +8,9 @@ const defaults = [{
   key: 'activeTheme',
   value: 'light'
 }, {
+  key: 'accent',
+  value: 'blue'
+}, {
   key: 'openNew',
   value: true
 }];

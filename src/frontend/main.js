@@ -5,6 +5,7 @@ import Settings from './components/Settings.vue';
 import GettingStarted from './components/GettingStarted.vue';
 
 import store from './store';
+import css from 'styles/style.css';
 
 Vue.use(VueRouter);
 

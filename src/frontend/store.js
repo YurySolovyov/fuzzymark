@@ -39,6 +39,9 @@ export default new Vuex.Store({
     openNew(state) {
       return state.settings.openNew;
     },
+    accent(state) {
+      return state.settings.accent;
+    },
     selectedBookmark(state, getters) {
       return getters.bookmarks[state.selectedIndex];
     }
