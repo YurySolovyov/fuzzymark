@@ -1,8 +1,8 @@
 <template lang="html">
-  <div class="bookmark-tile col-3 left overflow-hidden border-box">
-    <a :href="bookmark.url" class="block bookmark-tile-cell m1 text-decoration-underline">
+  <div class="bookmark-tile col-3 left overflow-hidden border-box my1">
+    <a :href="bookmark.url" class="block bookmark-tile-cell mx1 text-decoration-underline">
       <div class="grid-item-wrapper container-background px1 py2 border-box">
-        <img class="block" :src="bookmark.favicon" />
+        <img class="block mb1" :src="bookmark.favicon" />
         <span>{{ bookmark.title }}</span>
       </div>
     </a>
@@ -37,7 +37,7 @@ export default {
 
 .grid-item-wrapper {
   transition: 0.3s;
-  height: calc(100% - 0.75em);
+  height: calc(100% - 0.25em);
 }
 
 </style>
