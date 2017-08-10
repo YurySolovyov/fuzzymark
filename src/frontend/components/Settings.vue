@@ -2,7 +2,7 @@
   <div class="overlay">
     <div class="lg-col-6 md-col-8 sm-col-10 mx-auto">
       <h1 class="mb0">Settings</h1>
-      <h2 class="left col-12 mt3 mb1">Appearance</h2>
+      <h2 class="left col-12 mt4 mb1">Appearance</h2>
       <settings-section title="Theme"
         @save="setTheme"
         name="theme"
@@ -17,7 +17,7 @@
         :values="['blue', 'red', 'purple']"
         :value-labels="['Blue', 'Red', 'Purple']"></settings-section>
 
-      <h2 class="left col-12 mt3 mb1">Behavior</h2>
+      <h2 class="left col-12 mt4 mb1">Behavior</h2>
       <settings-section title="Max Results"
         @save="saveSetting"
         name="maxResults"
@@ -31,6 +31,13 @@
         :active-value="propertyKey"
         :values="['title', 'url']"
         :value-labels="['Title', 'URL']"></settings-section>
+
+      <settings-section title="On Launch Show"
+        @save="saveSetting"
+        name="initialComponent"
+        :active-value="initialComponent"
+        :values="['recent', 'my']"
+        :value-labels="['Recent Bookmarks', 'My Bookmarks']"></settings-section>
 
       <settings-section title="Open In The New Tab"
         @save="saveSetting"
@@ -50,7 +57,8 @@ const getters = mapGetters([
   'maxResults',
   'propertyKey',
   'openNew',
-  'accent'
+  'accent',
+  'initialComponent'
 ]);
 const state = mapState(['theme']);
 

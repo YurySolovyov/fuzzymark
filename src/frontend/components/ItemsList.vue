@@ -1,5 +1,5 @@
 <template lang="html">
-  <div id="results" class="p0">
+  <div id="results" class="p0 lg-col-6 md-col-8 sm-col-10 mx-auto container-background">
     <search-item v-for="bookmark in bookmarks"
                  :key="bookmark.id"
                  :bookmark="bookmark"></search-item>

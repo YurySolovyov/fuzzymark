@@ -18,11 +18,14 @@ export default new Vuex.Store({
     selectedIndex: 0,
   },
   getters: {
+    hasInputValue(state) {
+      return state.inputValue !== '';
+    },
     bookmarks(state, getters) {
-      if (state.inputValue === '') {
-        return recentBookmarks.filter(state.bookmarks, getters.settings);
-      } else {
+      if (getters.hasInputValue) {
         return matchedBookmarks.filter(state.bookmarks, state.inputValue, getters.settings);
+      } else {
+        return recentBookmarks.filter(state.bookmarks, getters.settings);
       }
     },
     settings(state) {
@@ -44,6 +47,12 @@ export default new Vuex.Store({
     },
     selectedBookmark(state, getters) {
       return getters.bookmarks[state.selectedIndex];
+    },
+    initialComponent(state) {
+      return state.settings.initialComponent;
+    },
+    shouldDisplayBookmarksList(state, getters) {
+      return state.settings.initialComponent === 'recent' || getters.hasInputValue;
     }
   },
   mutations: {

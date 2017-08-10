@@ -1,7 +1,7 @@
 <template lang="html">
   <li class="bookmark overflow-hidden border-box list-style-none"
     :class="{ selected: bookmark.selected }">
-    <div class="bookmarkWrapper p1">
+    <div class="bookmarkWrapper p1 container-background">
       <div class="bookmarkHeader p1 overflow-hidden nowrap">
         <span class="bookmarkScore">{{ bookmark.score }}</span>
         <span class="bookmarkTitle" v-html="bookmark.wrappedTitle"></span>

@@ -13,6 +13,9 @@ const defaults = [{
 }, {
   key: 'openNew',
   value: true
+}, {
+  key: 'initialComponent',
+  value: 'my'
 }];
 
 const installIfNeeded = function(settings, item) {

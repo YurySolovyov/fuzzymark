@@ -1,6 +1,6 @@
 <template lang="html">
   <section class="overflow-hidden col-4 left">
-    <h3 class="m0">{{ title }}</h3>
+    <h3 class="m0 mb1">{{ title }}</h3>
     <span class="select p1 inline-block center" v-for="(value, index) in values"
       :class="{ active: isActiveSetting(name, value) }"
       @click="onClick(name, value)">{{ valueLabels[index] }}</span>

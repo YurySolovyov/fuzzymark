@@ -1,8 +1,11 @@
 <template lang="html">
   <div id="app" :class="`theme-${theme} accent-${accent}`" class="pt2 border-box">
-    <div id="container" class="lg-col-6 md-col-8 sm-col-10 mx-auto p0 overflow-hidden">
+    <div id="container" class="p0 overflow-hidden">
       <search-field></search-field>
-      <items-list :bookmarks="bookmarks"></items-list>
+      <items-list v-if="shouldDisplayBookmarksList"
+        :bookmarks="bookmarks"></items-list>
+      <bookmarks-grid v-else
+        :bookmarks="bookmarks"></bookmarks-grid>
     </div>
     <router-view></router-view>
     <router-link exact
@@ -28,14 +31,16 @@ import { mapGetters, mapState } from 'vuex';
 
 import SearchField from './SearchField.vue';
 import ItemsList from './ItemsList.vue';
+import BookmarksGrid from './BookmarksGrid.vue';
 
-const getters = mapGetters(['bookmarks', 'accent']);
+const getters = mapGetters(['bookmarks', 'accent', 'shouldDisplayBookmarksList']);
 const state = mapState(['theme']);
 
 export default {
   components: {
     SearchField,
-    ItemsList
+    ItemsList,
+    BookmarksGrid,
   },
   computed: Object.assign({}, getters, state),
   mounted() {

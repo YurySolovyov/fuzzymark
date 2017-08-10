@@ -1,5 +1,5 @@
 <template lang="html">
-  <div id="inputWrapper">
+  <div id="inputWrapper" class="lg-col-6 md-col-8 sm-col-10 mx-auto container-background">
     <input id="input" type="text" class="col-12 border-box border-none block font-family-inherit"
       placeholder="Type to search for bookmarks..."
       spellcheck="false"
