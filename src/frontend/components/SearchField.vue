@@ -1,6 +1,8 @@
 <template lang="html">
   <div id="inputWrapper" class="lg-col-6 md-col-8 sm-col-10 mx-auto">
-    <input id="input" type="text" class="col-12 border-box border-none font-family-inherit container-background"
+    <input class="col-12 border-box border-none font-family-inherit font-light container-background input"
+      id="input"
+      type="text"
       placeholder="Type to search for bookmarks..."
       spellcheck="false"
       :value="inputValue"
@@ -51,22 +53,3 @@ export default {
   }
 };
 </script>
-
-<style lang="css">
-
-#input {
-  color: var(--input-text-color);
-  padding: 0 15px;
-  font-size: 24px;
-  height: 80px;
-  line-height: 80px;
-  font-weight: 100;
-  outline: none;
-  border-color: var(--theme-selected-start);
-}
-
-#input:focus {
-  outline: none;
-}
-
-</style>

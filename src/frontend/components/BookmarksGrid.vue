@@ -5,7 +5,7 @@
       :bookmark="bookmark"></bookmark-tile>
   </div>
   <div v-else class="no-tiles-message center pt4">
-    <h1>No pinned tiles yet, try adding one by clicking plus icon on the left</h1>
+    <h1 class="font-light">No pinned tiles yet, try adding one by clicking plus icon on the left</h1>
   </div>
 </template>
 
@@ -29,7 +29,6 @@ export default {
 <style lang="css">
 
 .no-tiles-message h1 {
-  font-weight: 100;
   font-size: 32px;
   color: var(--input-text-color);
 }

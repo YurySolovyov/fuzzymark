@@ -45,6 +45,14 @@ h1, h2 {
   font-weight: normal;
 }
 
+a {
+  color: var(--theme-bookmark-link-color);
+}
+
+a:hover {
+  color: var(--theme-bookmark-link-hover-color);
+}
+
 .container-background {
   background: var(--container-bg-color);
 }
@@ -56,4 +64,27 @@ h1, h2 {
   width: 100vw;
   background: var(--main-bg-color);
   color: var(--theme-header-color);
+}
+
+.font-light {
+  font-weight: 100;
+}
+
+.input {
+  color: var(--input-text-color);
+  padding: 0 15px;
+  font-size: 24px;
+  height: 80px;
+  line-height: 80px;
+  outline: none;
+  border-color: var(--theme-selected-start);
+  outline: none;
+}
+
+.overlay-title {
+  font-size: 32px;
+}
+
+.big-link {
+  font-size: 24px;
 }

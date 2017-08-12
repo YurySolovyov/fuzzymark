@@ -3,7 +3,8 @@ import VueRouter from 'vue-router';
 import App from './components/App.vue';
 import Settings from './components/Settings.vue';
 import GettingStarted from './components/GettingStarted.vue';
-import AddNewTile from './components/AddNewTile.vue';
+import TileForm from './components/TileForm.vue';
+import DeleteTile from './components/DeleteTile.vue';
 
 import store from './store';
 import css from 'styles/style.css';
@@ -27,9 +28,19 @@ const router = new VueRouter({
       component: GettingStarted
     },
     {
-      path: '/add-new-tile',
-      name: 'add-new-tile',
-      component: AddNewTile
+      path: '/new-tile',
+      name: 'new-tile',
+      component: TileForm
+    },
+    {
+      path: '/edit-tile/:id',
+      name: 'edit-tile',
+      component: TileForm
+    },
+    {
+      path: '/delete-tile/:id',
+      name: 'delete-tile',
+      component: DeleteTile
     }
   ]
 });

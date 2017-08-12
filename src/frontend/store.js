@@ -122,8 +122,16 @@ export default new Vuex.Store({
       await dispatch('saveSetting', { key: 'activeTheme', value: theme });
       commit('setTheme', theme);
     },
-    async addNewTile({ dispatch }, { id, tile }) {
-      await tileBookmarks.save(id, tile);
+    async saveNewTile({ dispatch }, { id, tile }) {
+      await tileBookmarks.saveNewTile(id, tile);
+      dispatch('loadBookmarks');
+    },
+    async saveTile({ dispatch }, { id, tile }) {
+      await tileBookmarks.saveTile(id, tile);
+      dispatch('loadBookmarks');
+    },
+    async deleteTile({ dispatch }, { id }) {
+      await tileBookmarks.delete(id);
       dispatch('loadBookmarks');
     }
   }
