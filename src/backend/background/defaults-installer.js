@@ -16,6 +16,9 @@ const defaults = [{
 }, {
   key: 'initialComponent',
   value: 'my'
+}, {
+  key: 'tiles',
+  value: []
 }];
 
 const installIfNeeded = function(settings, item) {

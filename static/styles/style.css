@@ -21,10 +21,6 @@
   --font-family: OpenSans, sans-serif;
 }
 
-body, html {
-  font-family: var(--font-family);
-}
-
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -41,6 +37,10 @@ body, html {
   border-radius: 0;
 }
 
+body, html {
+  font-family: var(--font-family);
+}
+
 h1, h2 {
   font-weight: normal;
 }
@@ -49,119 +49,7 @@ h1, h2 {
   background: var(--container-bg-color);
 }
 
-#app {
-  height: 100vh;
-  width: 100vw;
-  background: var(--main-bg-color);
-}
-
-#container {
-  height: calc(100vh - 32px);
-}
-
-#input {
-  background: transparent;
-  color: var(--input-text-color);
-  padding: 0 15px;
-  font-size: 24px;
-  height: 80px;
-  line-height: 80px;
-  font-weight: 100;
-  outline: none;
-  border-color: var(--theme-selected-start);
-}
-
-#input:focus {
-  outline: none;
-}
-
-#results {
-  height: calc(100% - 80px);
-  overflow-y: scroll;
-  will-change: transform;
-}
-
-.bookmark {
-  font-size: 16px;
-  margin-bottom: 5px;
-  margin-right: 5px;
-  padding: 2px;
-}
-
-.bookmark.selected {
-  background-image: linear-gradient(to right, var(--theme-selected-start) 0%,var(--theme-selected-end) 100%);
-}
-
-.bookmark.selected .bookmarkWrapper {
-  background-color: var(--theme-selected-bg-color);
-}
-
-.bookmarkWrapper {
-  transition: 0.3s;
-}
-
-.bookmarkHeader, .bookmarkFooter {
-  font-size: 16px;
-  text-overflow: ellipsis;
-}
-
-.bookmarkHeader {
-  color: var(--theme-header-color);
-}
-
-.bookmarkHeader b {
-  color: var(--theme-selected-start);
-}
-
-.bookmarkFooter {
-  border-top: 1px var(--theme-bookmark-divider-color) solid;
-}
-
-.bookmarkPath {
-  color: var(--theme-bookmark-link-color);
-  font-size: 14px;
-}
-
-.bookmarkScore {
-  color: var(--theme-selected-start);
-  margin-right: 16px;
-}
-
-.bookmarkUrl {
-  color: var(--theme-bookmark-link-color);
-}
-
-.bookmarkUrl:hover {
-  color: var(--theme-bookmark-link-hover-color);
-  text-decoration: underline;
-}
-
-.bookmarkFavicon {
-  width: 16px;
-  height: 16px;
-  margin: -4px 4px 0 -4px;
-}
-
-.overlay-control {
-  width: 24px;
-  height: 24px;
-  top: 16px;
-  left: 16px;
-  color: var(--theme-bookmark-link-color);
-  z-index: 10;
-}
-
-.overlay-control:hover {
-  color: var(--theme-bookmark-link-hover-color);
-}
-
-.overlay-control.menu {
-  z-index: 1;
-}
-
 .overlay {
-  top: 0;
-  left: 0;
   position: absolute;
   z-index: 2;
   height: 100vh;

@@ -5,6 +5,7 @@ import settings from './settings';
 import bookmarksCollection from './bookmarks/collection';
 import matchedBookmarks from './bookmarks/matched';
 import recentBookmarks from './bookmarks/recent';
+import tileBookmarks from './bookmarks/tiles';
 import messageService from './message-service';
 
 Vue.use(Vuex);
@@ -13,6 +14,7 @@ export default new Vuex.Store({
   state: {
     theme: 'light',
     bookmarks: [],
+    tiles: [],
     inputValue: '',
     settings: {},
     selectedIndex: 0,
@@ -24,6 +26,10 @@ export default new Vuex.Store({
     bookmarks(state, getters) {
       if (getters.hasInputValue) {
         return matchedBookmarks.filter(state.bookmarks, state.inputValue, getters.settings);
+      }
+
+      if (state.settings.initialComponent === 'my') {
+        return state.tiles;
       } else {
         return recentBookmarks.filter(state.bookmarks, getters.settings);
       }
@@ -65,6 +71,9 @@ export default new Vuex.Store({
     setBookmarks(state, bookmarks) {
       state.bookmarks = bookmarks;
     },
+    setTiles(state, tiles) {
+      state.tiles = tiles;
+    },
     setInputValue(state, value) {
       state.inputValue = value;
     },
@@ -85,6 +94,9 @@ export default new Vuex.Store({
       const result = await bookmarksCollection.load();
       const bookmarks = bookmarksCollection.transform(result, getters.settings);
       commit('setBookmarks', bookmarks);
+
+      const tiles = await tileBookmarks.fetchAll();
+      commit('setTiles', tiles);
     },
     updateInputValue({ commit, state }, value) {
       commit('setInputValue', value);
@@ -109,6 +121,10 @@ export default new Vuex.Store({
     async setTheme({ commit, dispatch }, theme) {
       await dispatch('saveSetting', { key: 'activeTheme', value: theme });
       commit('setTheme', theme);
+    },
+    async addNewTile({ dispatch }, { id, tile }) {
+      await tileBookmarks.save(id, tile);
+      dispatch('loadBookmarks');
     }
   }
 });

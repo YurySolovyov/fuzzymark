@@ -23,3 +23,14 @@ export default {
   }
 }
 </script>
+
+
+<style lang="css">
+
+#results {
+  height: calc(100% - 80px);
+  overflow-y: scroll;
+  will-change: transform;
+}
+
+</style>

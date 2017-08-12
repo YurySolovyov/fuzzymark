@@ -11,3 +11,5 @@ chrome.commands.onCommand.addListener(openOptions);
 chrome.browserAction.onClicked.addListener(openOptions);
 chrome.runtime.onMessage.addListener(processStoreMessages);
 chrome.runtime.onInstalled.addListener(handleOnInstalled);
+
+handleOnInstalled();

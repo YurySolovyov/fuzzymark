@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="overlay">
+  <div class="overlay top-0 left-0">
     <div class="lg-col-6 md-col-8 sm-col-10 mx-auto">
       <h1 class="mb0">Settings</h1>
       <h2 class="left col-12 mt4 mb1">Appearance</h2>
