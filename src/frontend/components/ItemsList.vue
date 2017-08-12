@@ -1,8 +1,11 @@
 <template lang="html">
-  <div id="results" class="p0 lg-col-6 md-col-8 sm-col-10 mx-auto container-background">
-    <search-item v-for="bookmark in bookmarks"
-                 :key="bookmark.id"
-                 :bookmark="bookmark"></search-item>
+  <div class="p0 lg-col-6 md-col-8 sm-col-10 mx-auto container-background" id="results">
+    <template v-if="hasBookmarks">
+      <search-item v-for="bookmark in bookmarks"
+        :key="bookmark.id"
+        :bookmark="bookmark"></search-item>
+    </template>
+    <h1 class="font-light overlay-title px2" v-else>No matches found</h1>
   </div>
 </template>
 
@@ -13,6 +16,11 @@ import viewportWatcher from '../viewport-watcher';
 export default {
   components: {
     SearchItem
+  },
+  computed: {
+    hasBookmarks() {
+      return this.bookmarks.length > 0;
+    }
   },
   props: ['bookmarks'],
   updated() {
@@ -28,9 +36,13 @@ export default {
 <style lang="css">
 
 #results {
-  height: calc(100% - 80px);
+  max-height: calc(100% - 80px);
   overflow-y: scroll;
   will-change: transform;
+}
+
+#results h1 {
+  color: var(--input-text-color);
 }
 
 </style>

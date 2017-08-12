@@ -1,6 +1,6 @@
 <template lang="html">
   <div id="inputWrapper" class="lg-col-6 md-col-8 sm-col-10 mx-auto">
-    <input class="col-12 border-box border-none font-family-inherit font-light container-background input"
+    <input class="col-12 border-box border-none font-family-inherit font-light container-background input px2"
       id="input"
       type="text"
       placeholder="Type to search for bookmarks..."
