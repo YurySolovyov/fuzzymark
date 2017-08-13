@@ -64,7 +64,10 @@ export default {
 }
 
 .tile-controls path {
-  fill: var(--input-text-color);
+  fill: var(--theme-bookmark-link-color);
+}
+.tile-controls div:hover path {
+  fill: var(--theme-bookmark-link-hover-color);
 }
 
 </style>
