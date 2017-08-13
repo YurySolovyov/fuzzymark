@@ -1,8 +1,10 @@
 <template lang="html">
   <div id="grid" class="col-10 mx-auto my4" v-if="hasBookmarks">
-    <bookmark-tile v-for="bookmark in bookmarks"
-      :key="bookmark.id"
-      :bookmark="bookmark"></bookmark-tile>
+    <draggable :list="bookmarks" @change="onSort" :options="{ handle: '.move' }">
+      <bookmark-tile v-for="bookmark in bookmarks"
+        :key="bookmark.id"
+        :bookmark="bookmark"></bookmark-tile>
+    </draggable>
   </div>
   <div v-else class="no-tiles-message center pt4">
     <h1 class="font-light">No pinned tiles yet, try adding one by clicking plus icon on the left</h1>
@@ -12,17 +14,24 @@
 <script>
 
 import BookmarkTile from './BookmarkTile.vue';
+import draggable from 'vuedraggable';
 
 export default {
   components: {
-    BookmarkTile
+    BookmarkTile,
+    draggable
   },
   computed: {
     hasBookmarks() {
       return this.bookmarks.length > 0;
     }
   },
-  props: ['bookmarks']
+  props: ['bookmarks'],
+  methods: {
+    onSort() {
+      this.$store.dispatch('saveTileIds');
+    }
+  }
 }
 </script>
 

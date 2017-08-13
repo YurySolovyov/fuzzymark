@@ -37,13 +37,17 @@ const fetchAll = async function() {
   });
 };
 
-const saveTile = async function(id, tile) {
-  await setInStorage(id, tile);
+const saveTileIds = function(ids) {
+  return setInStorage('tiles', ids);
+};
+
+const saveTile = function(id, tile) {
+  return setInStorage(id, tile);
 };
 
 const saveNewTile = async function(id, tile) {
   const ids = await fetchIds();
-  await setInStorage('tiles', ids.concat(id));
+  await saveTileIds(ids.concat(id));
   await saveTile(id, tile);
 };
 
@@ -52,7 +56,7 @@ const deleteTile = async function(id) {
     return id !== tileId;
   });
 
-  await setInStorage('tiles', newIds);
+  await saveTileIds(newIds);
   await deleteFromStorage(id);
 };
 
@@ -60,5 +64,6 @@ module.exports = {
   fetchAll,
   saveNewTile,
   saveTile,
+  saveTileIds,
   delete: deleteTile
 };

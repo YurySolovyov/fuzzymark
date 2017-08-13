@@ -15,6 +15,11 @@
         <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
       </svg>
     </div>
+    <div class="move" v-if="expanded" title="Move Tile">
+      <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+        <path d="M13,6V11H18V7.75L22.25,12L18,16.25V13H13V18H16.25L12,22.25L7.75,18H11V13H6V16.25L1.75,12L6,7.75V11H11V6H7.75L12,1.75L16.25,6H13Z" />
+      </svg>
+    </div>
   </div>
 </template>
 

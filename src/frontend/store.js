@@ -133,6 +133,10 @@ export default new Vuex.Store({
     async deleteTile({ dispatch }, { id }) {
       await tileBookmarks.delete(id);
       dispatch('loadBookmarks');
+    },
+    async saveTileIds({ state }) {
+      const ids = state.tiles.map(t => t.id);
+      await tileBookmarks.saveTileIds(ids);
     }
   }
 });
