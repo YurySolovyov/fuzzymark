@@ -1,9 +1,15 @@
 <template lang="html">
   <div class="bookmark-tile col-3 left overflow-hidden border-box my1">
     <a :href="bookmark.url" class="block bookmark-tile-cell mx1 text-decoration-underline">
-      <div class="grid-item-wrapper container-background px1 py2 border-box overflow-hidden">
-        <img class="block mb1" :src="bookmark.favicon" />
-        <span>{{ bookmark.title }}</span>
+      <div class="grid-item-wrapper container-background px1 py2 border-box overflow-hidden flex flex-column"
+        :style="{ 'border-color': color }">
+        <img class="block mb1 bookmark-tile-icon"
+          height="16"
+          width="16"
+          ref="image"
+          :src="bookmark.favicon"
+          @load="maybeSetColor"/>
+        <div>{{ bookmark.title }}</div>
         <tile-controls
           @delete="onDelete"
           @edit="onEdit"></tile-controls>
@@ -16,7 +22,24 @@
 
 import TileControls from './TileControls.vue';
 
+import * as Vibrant from 'node-vibrant';
+
+const getColors = function(image) {
+  return new Promise(function(resolve, reject) {
+    const vib = new Vibrant(image);
+    vib.getPalette(function(err, pal) {
+      if (err) { reject(err) }
+      resolve(pal);
+    });
+  });
+};
+
 export default {
+  data() {
+    return {
+      color: null
+    };
+  },
   components: {
     TileControls
   },
@@ -34,6 +57,16 @@ export default {
         params: { id: this.bookmark.id }
       });
     },
+    async maybeSetColor() {
+      const palettes = await getColors(this.$refs.image);
+      const palette = palettes.Muted ||
+                      palettes.Vibrant ||
+                      palettes.DarkMuted ||
+                      palettes.LightVibrant ||
+                      palettes.DarkVibrant;
+      const color = palette.getHex();
+      this.color = color;
+    }
   }
 }
 </script>
@@ -56,11 +89,13 @@ export default {
 }
 .bookmark-tile-cell:hover .grid-item-wrapper {
   background-color: var(--theme-selected-bg-color);
+  border-color: transparent!important;
 }
 
 .grid-item-wrapper {
   transition: 0.3s;
   height: calc(100% - 0.25em);
+  border-top: 2px transparent solid;
 }
 
 .grid-item-deleting button {
