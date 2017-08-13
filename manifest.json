@@ -24,6 +24,10 @@
     "chrome://favicon/"
   ],
 
+  "chrome_url_overrides" : {
+    "newtab": "static/index.html#/"
+  },
+
   "commands": {
     "show-matcher": {
       "suggested_key": {
