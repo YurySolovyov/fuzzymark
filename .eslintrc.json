@@ -1,87 +1,61 @@
 {
-    "ecmaFeatures" : {
-        "blockBindings": true
-    },
-    "rules": {
-        "indent": [
-            2,
-            4
-        ],
-        "quotes": [
-            2,
-            "single"
-        ],
-        "block-spacing": [
-            2,
-            "always"
-        ],
-        "semi": [
-            2,
-            "always"
-        ],
-        "dot-notation": [
-            2,
-            { "allowKeywords": true }
-        ],
-        "no-unused-vars": [
-            2,
-            { "vars": "local", "args": "after-used", "argsIgnorePattern": "^_" }
-        ],
-        "no-param-reassign": [
-            2,
-            { "props": false }
-        ],
-        "no-useless-concat": [
-            2
-        ],
-        "radix": [
-            2
-        ],
-        "one-var": [
-            2,
-            "never"
-        ],
-        "yoda": [
-            2,
-            "never",
-            { "exceptRange": true }
-        ],
-        "comma-spacing": [
-            2,
-            {"before": false, "after": true}
-        ],
-        "comma-style": [
-            2,
-            "last"
-        ],
-        "quote-props": [
-            2,
-            "as-needed",
-            { "keywords": true }
-        ],
-        "object-curly-spacing": [
-            2,
-            "always"
-        ],
-        "space-before-blocks": [
-            2,
-            "always"
-        ],
+  "parserOptions": {
+    "ecmaVersion": 6
+  },
+  "rules": {
+    "indent": ["error", 2],
 
-        "keyword-spacing": [
-            2,
-            { "before": true, "after": true }
-        ]
-    },
-    "env": {
-        "browser": true,
-        "es6": true,
-        "jasmine": true
-    },
-    "globals": {
-        "require": true,
-        "chrome": true,
-        "module": true
-    },
-    "extends": "eslint:recommended"
+    "quotes": ["error", "single"],
+
+    "block-spacing": ["error", "always"],
+
+    "semi": ["error", "always"],
+
+    "dot-notation": ["error", { "allowKeywords": true }],
+
+    "no-unused-vars": ["error", {
+      "vars": "local",
+      "args": "after-used",
+      "argsIgnorePattern": "^_"
+    }],
+
+    "no-param-reassign": ["error", { "props": false }],
+
+    "no-useless-concat": ["error"],
+
+    "radix": ["error"],
+
+    "one-var": ["error", "never" ],
+
+    "yoda": ["error", "never", { "exceptRange": true }],
+
+    "comma-spacing": ["error", { "before": false, "after": true }],
+
+    "comma-style": ["error", "last" ],
+
+    "quote-props": ["error", "as-needed", { "keywords": true }],
+
+    "object-curly-spacing": ["error", "always"],
+
+    "space-before-blocks": ["error", "always"],
+
+    "keyword-spacing": ["error", { "before": true, "after": true }],
+
+    "linebreak-style": ["error", "unix"]
+  },
+  "env": {
+    "browser": true,
+    "es6": true,
+    "jasmine": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 8,
+    "sourceType": "module"
+  },
+  "globals": {
+    "require": true,
+    "chrome": true,
+    "module": true
+  },
+  "extends": "eslint:recommended"
 }

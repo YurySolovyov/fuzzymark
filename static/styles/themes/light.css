@@ -1,0 +1,10 @@
+.theme-light {
+  --main-bg-color: #f8f9fa;
+  --container-bg-color: #e9ecef;
+  --input-text-color: #343a40;
+  --theme-selected-bg-color: #f1f3f5;
+  --theme-header-color: #343a40;
+  --theme-bookmark-link-color: #868e96;
+  --theme-bookmark-link-hover-color: #495057;
+  --theme-bookmark-divider-color: rgba(0, 0, 0, 0.1);
+}

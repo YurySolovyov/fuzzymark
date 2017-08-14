@@ -5,35 +5,23 @@ withinviewport.defaults.sides = 'top bottom';
 
 const baseOffset = 25;
 const viewportOptions = {
-    // this is workround of bug where withinviewport can't notice
-    // that element is not within container top side
-    top: baseOffset * 5,
-    bottom: baseOffset
+  top: baseOffset,
+  bottom: baseOffset
 };
 
-const getScrollTop = function(container, element) {
-    const topOffset = element.position().top;
-    const elementHeight = element.height();
-    const containerHeight = container.height();
-    const scrollTop = container.scrollTop();
-
-    if (topOffset >= scrollTop + containerHeight - baseOffset - elementHeight) {
-        return topOffset - containerHeight + baseOffset + elementHeight;
-    } else {
-        return topOffset - baseOffset - elementHeight;
-    }
+const startAtBottom = function(container, element) {
+  const containerRect = container.getBoundingClientRect();
+  const elementRect = element.getBoundingClientRect();
+  return containerRect.height / 2 > elementRect.top;
 };
 
 const ensureInViewport = function(container, element) {
-    const visible = withinviewport(element.get(0), viewportOptions);
-    if (!visible) {
-        container.stop(true, true).animate({
-            scrollTop: getScrollTop(container, element)
-        }, 200);
-    }
+  const visible = withinviewport(element, viewportOptions);
+  if (!visible) {
+    element.scrollIntoView(startAtBottom(container, element));
+  }
 };
 
 module.exports = {
-    ensureInViewport,
-    getScrollTop
+  ensureInViewport
 };

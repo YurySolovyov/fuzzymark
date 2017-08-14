@@ -1,35 +1,38 @@
 const defaults = [{
-    key: 'maxResults',
-    value: 10
+  key: 'maxResults',
+  value: 10
 }, {
-    key: 'propertyKey',
-    value: 'title'
+  key: 'propertyKey',
+  value: 'title'
 }, {
-    key: JSON.stringify({ theme: 'default' }),
-    value: {
-        name: 'default',
-        styles: 'body {  }'
-    }
+  key: 'activeTheme',
+  value: 'light'
 }, {
-    key: 'themesList',
-    value: ['default']
+  key: 'accent',
+  value: 'blue'
 }, {
-    key: 'activeTheme',
-    value: 'default'
+  key: 'openNew',
+  value: true
+}, {
+  key: 'initialComponent',
+  value: 'my'
+}, {
+  key: 'tiles',
+  value: []
 }];
 
 const installIfNeeded = function(settings, item) {
-    return settings.get(item.key).then(function(value) {
-        if (value[item.key]) { return; }
-        return settings.set(item.key, item.value);
-    });
+  return settings.get(item.key).then(function(value) {
+    if (value[item.key]) { return; }
+    return settings.set(item.key, item.value);
+  });
 };
 
 const install = function(settings) {
-    const requests = defaults.map(installIfNeeded.bind(null, settings));
-    return Promise.all(requests);
+  const requests = defaults.map(installIfNeeded.bind(null, settings));
+  return Promise.all(requests);
 };
 
 module.exports = {
-    install
+  install
 };

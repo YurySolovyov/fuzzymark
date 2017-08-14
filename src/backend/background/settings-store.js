@@ -2,35 +2,33 @@
 
 function SettingsStore() {
 
-    const storage = chrome.storage.sync;
+  const storage = chrome.storage.sync;
 
-    this.get = function(key) {
-        return new Promise(function(resolve, _reject) {
-            storage.get(key, resolve);
-        });
-    };
+  this.get = function(key) {
+    return new Promise(function(resolve, _reject) {
+      storage.get(key, resolve);
+    });
+  };
 
-    this.set = function(key, value) {
-        return new Promise(function(resolve, _reject) {
-            const values = {};
-            values[key] = value;
-            storage.set(values, resolve);
-        });
-    };
+  this.set = function(key, value) {
+    return new Promise(function(resolve, _reject) {
+      storage.set({ [key]: value }, resolve);
+    });
+  };
 
-    this.remove = function(key) {
-        return new Promise(function(resolve, _reject) {
-            storage.remove(key, resolve);
-        });
-    };
+  this.remove = function(key) {
+    return new Promise(function(resolve, _reject) {
+      storage.remove(key, resolve);
+    });
+  };
 
-    this.all = function() {
-        return new Promise(function(resolve, _reject) {
-            storage.get(null, resolve);
-        });
-    };
+  this.all = function() {
+    return new Promise(function(resolve, _reject) {
+      storage.get(null, resolve);
+    });
+  };
 
-    return this;
+  return this;
 }
 
 module.exports = SettingsStore;

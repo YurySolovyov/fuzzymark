@@ -1,259 +1,89 @@
-body, html {
-    overflow: hidden;
-    height: 100%;
-    background: #ecf0f1;
+@import "~basscss/css/basscss.css";
+@import "./themes/dark.css";
+@import "./themes/light.css";
+
+@import "./accents/blue.css";
+@import "./accents/red.css";
+@import "./accents/purple.css";
+
+@font-face {
+  font-family: OpenSans;
+  src: url('~open-sans-fontface/fonts/Regular/OpenSans-Regular.woff2');
+}
+
+@font-face {
+  font-family: OpenSans;
+  src: url('~open-sans-fontface/fonts/Light/OpenSans-Light.woff2');
+  font-weight: 100;
+}
+
+:root {
+  --font-family: OpenSans, sans-serif;
 }
 
 ::-webkit-scrollbar {
-    width: 8px;
+  width: 8px;
 }
 ::-webkit-scrollbar-thumb {
-    background-color: #3498db;
-    background-clip: content-box;
-    border: 2px transparent solid;
-    border-radius: 4px;
+  background-color: var(--theme-selected-start);
+  background-clip: content-box;
+  border: 2px transparent solid;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover,
 ::-webkit-scrollbar-thumb:active {
-    border-color: #3498db;
-    border-radius: 0;
+  border-color: var(--theme-selected-start);
+  border-radius: 0;
 }
 
-input, select {
-    border: none;
-    border-bottom: 2px #A9A9A9 solid;
-    padding: 0 0 0 5px;
-    width: 100px;
+body, html {
+  font-family: var(--font-family);
 }
 
-input:focus,
-select:focus {
-    outline: none;
-    border-color: #3498db;
+h1, h2 {
+  font-weight: normal;
 }
 
-select, button, input {
-    display: inline-block;
-    height: 32px;
+a {
+  color: var(--theme-bookmark-link-color);
 }
 
-button {
-    border: none;
-    background: none;
-    transition: 0.3s;
-    box-sizing: content-box;
+a:hover {
+  color: var(--theme-bookmark-link-hover-color);
 }
 
-button:hover {
-    background-color: #DDD;
+.container-background {
+  background: var(--container-bg-color);
 }
 
-button:focus {
-    outline: none;
+.overlay {
+  position: absolute;
+  z-index: 2;
+  height: 100vh;
+  width: 100vw;
+  background: var(--main-bg-color);
+  color: var(--theme-header-color);
 }
 
-#container {
-    background: #fff;
-    overflow: hidden;
-    height: calc(100vh - 32px);
-    margin-top: 16px;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
-    padding: 0;
+.font-light {
+  font-weight: 100;
 }
 
-#inputWrapper {
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+.input {
+  color: var(--input-text-color);
+  font-size: 24px;
+  height: 80px;
+  line-height: 80px;
+  outline: none;
+  border-color: var(--theme-selected-start);
+  outline: none;
 }
 
-#input {
-    display: block;
-    border-radius: 3px;
-    border: 2px #aaa solid;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    padding: 0 10px;
-    font-size: 18px;
-    height: 48px;
-    line-height: 48px;
-    transition: 0.3s;
+.overlay-title {
+  font-size: 32px;
 }
 
-#input:focus {
-    outline: none;
-    border-color: #3498db;
-    background: #fff;
-}
-
-#results {
-    padding: 20px 30px;
-    height: calc(100% - 100px);
-    overflow-y: scroll;
-    will-change: transform;
-}
-
-.bookmark {
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
-    -ms-flex-direction: column;
-    font-size: 16px;
-    font-weight: 400;
-    overflow: hidden;
-    background: #fff;
-    border-radius: 2px;
-    box-sizing: border-box;
-    list-style: none;
-    margin-bottom: 5px;
-    border: 2px transparent solid;
-    padding: 5px;
-    transition: 0.3s;
-}
-
-.bookmark.selected {
-    border-color: #3498db;
-    transform: scale(1.02);
-}
-
-.bookmarkHeader {
-    display: block;
-    font-size: 16px;
-    line-height: normal;
-    padding: 8px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.bookmarkFooter {
-    display: block;
-    border-top: 1px solid rgba(0,0,0,.1);
-    font-size: 16px;
-    line-height: normal;
-    padding: 8px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.bookmarkPath {
-    color: #9E9E9E;
-    float: right;
-    font-size: 14px;
-}
-
-.bookmarkScore {
-    color: #3498db;
-    margin-right: 16px;
-}
-
-.bookmarkUrl {
-    color: #3498db;
-}
-
-.bookmarkUrl:hover {
-    text-decoration: underline;
-}
-
-.bookmarkFavicon {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    margin: -4px 12px 0 -4px;
-}
-
-#settingsButton {
-    position: absolute;
-    right: 48px;
-    bottom: 32px;
-    height: 48px;
-    width: 48px;
-    background-color: #fff;
-    border-radius: 100%;
-    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.4);
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-#settingsButton:hover {
-    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.4);
-}
-
-#settingsButton.active {
-    background-color: #3498db;
-    transform: rotate(90deg);
-    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
-}
-
-#settingsButton i {
-    text-align: center;
-    line-height: 50px;
-    width: 100%;
-    font-size: 1.75em;
-    display: inline-block;
-}
-
-#settings {
-    position: fixed;
-    top: 16px;
-    width: 400px;
-    right: 0;
-    height: calc(100vh - 32px);
-    transform: translateX(400px);
-    background: #fff;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
-    transition: 0.3s;
-    will-change: transform;
-}
-
-#settings.active {
-    transform: translateX(0px);
-}
-
-#settings.active.expanded {
-    width: 600px;
-}
-
-#settings h2 {
-    font-size: 24px;
-    font-weight: normal;
-    padding: 0 10px;
-}
-
-#saveIndicator {
-    line-height: 24px;
-    font-size: 18px;
-    margin-left: 10px;
-}
-
-.tab {
-    display: inline-block;
-    line-height: 32px;
-    padding: 0 10px;
-    border-bottom: 2px transparent solid;
-    transition: 0.3s;
-    cursor: pointer;
-}
-
-.tab.active {
-    border-color: #3498db;
-}
-
-.tabContent {
-    display: none;
-    padding: 0 10px;
-}
-
-.tabContent.active {
-    display: block;
-}
-
-.CodeMirror {
-    border-radius: 2px;
-}
-
-#newThemeName {
-    display: none;
-}
-
-#newThemeName.active {
-    display: inline-block;
+.big-link {
+  font-size: 24px;
 }
