@@ -65,5 +65,5 @@ module.exports = {
   saveNewTile,
   saveTile,
   saveTileIds,
-  delete: deleteTile
+  deleteTile
 };

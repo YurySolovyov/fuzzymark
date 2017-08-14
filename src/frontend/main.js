@@ -7,7 +7,8 @@ import TileForm from './components/TileForm.vue';
 import DeleteTile from './components/DeleteTile.vue';
 
 import store from './store';
-import css from 'styles/style.css';
+
+require('styles/style.css');
 
 Vue.use(VueRouter);
 

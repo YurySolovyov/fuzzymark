@@ -48,6 +48,10 @@
     "es6": true,
     "jasmine": true
   },
+  "parserOptions": {
+    "ecmaVersion": 8,
+    "sourceType": "module"
+  },
   "globals": {
     "require": true,
     "chrome": true,

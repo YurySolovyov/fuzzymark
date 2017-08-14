@@ -85,12 +85,12 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    async loadApp({ commit, state, dispatch }) {
+    async loadApp({ dispatch }) {
       const settingsAll = await settings.fetchAll();
       dispatch('updateSettings', settingsAll);
       dispatch('loadBookmarks');
     },
-    async loadBookmarks({ commit, state, getters }) {
+    async loadBookmarks({ commit, getters }) {
       const result = await bookmarksCollection.load();
       const bookmarks = bookmarksCollection.transform(result, getters.settings);
       commit('setBookmarks', bookmarks);
@@ -98,7 +98,7 @@ export default new Vuex.Store({
       const tiles = await tileBookmarks.fetchAll();
       commit('setTiles', tiles);
     },
-    updateInputValue({ commit, state }, value) {
+    updateInputValue({ commit }, value) {
       commit('setInputValue', value);
       commit('setSelectedIndex', 0);
     },
@@ -107,7 +107,7 @@ export default new Vuex.Store({
       const finalIndex = Number.isNaN(maybeIndex) ? 0 : maybeIndex;
       commit('setSelectedIndex', finalIndex);
     },
-    updateSettings({ commit, state }, settings) {
+    updateSettings({ commit }, settings) {
       commit('updateSettings', settings);
 
       const themeNormalized = settings.activeTheme === 'default' ? 'light' : settings.activeTheme;
@@ -131,7 +131,7 @@ export default new Vuex.Store({
       dispatch('loadBookmarks');
     },
     async deleteTile({ dispatch }, { id }) {
-      await tileBookmarks.delete(id);
+      await tileBookmarks.deleteTile(id);
       dispatch('loadBookmarks');
     },
     async saveTileIds({ state }) {
