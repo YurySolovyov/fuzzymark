@@ -1,5 +1,5 @@
 <template lang="html">
-  <div id="sidebar" class="absolute left-0 top-0 m1">
+  <div id="sidebar" class="absolute left-0 top-0 m2">
     <router-link class="overlay-control root"
       to="/"
       :class="buttonClass">
@@ -39,7 +39,6 @@ export default {
 #sidebar {
   z-index: 10;
   width: 24px;
-  height: 100vh;
 }
 
 .overlay-control {

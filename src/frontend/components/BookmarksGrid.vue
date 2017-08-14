@@ -1,5 +1,5 @@
 <template lang="html">
-  <div id="grid" class="col-10 mx-auto my4" v-if="hasBookmarks">
+  <div id="grid" class="col-10 mx-auto my2" v-if="hasBookmarks">
     <draggable :list="bookmarks" @change="onSort" :options="{ handle: '.move' }">
       <bookmark-tile v-for="bookmark in bookmarks"
         :key="bookmark.id"
@@ -36,6 +36,11 @@ export default {
 </script>
 
 <style lang="css">
+
+#grid {
+  height: calc(200px * 3 + 4em);
+  overflow-y: scroll;
+}
 
 .no-tiles-message h1 {
   font-size: 32px;

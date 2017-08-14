@@ -1,6 +1,6 @@
 <template lang="html">
-  <div id="app" :class="`theme-${theme} accent-${accent}`" class="pt2 border-box">
-    <div id="container" class="p0 overflow-hidden">
+  <div id="app" :class="`theme-${theme} accent-${accent}`">
+    <div id="container">
       <search-field></search-field>
       <items-list v-if="shouldDisplayBookmarksList"
         :bookmarks="bookmarks"></items-list>
