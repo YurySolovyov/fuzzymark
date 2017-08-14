@@ -28,7 +28,7 @@ export default new Vuex.Store({
         return matchedBookmarks.filter(state.bookmarks, state.inputValue, getters.settings);
       }
 
-      if (state.settings.initialComponent === 'my') {
+      if (getters.showGrid) {
         return state.tiles;
       } else {
         return recentBookmarks.filter(state.bookmarks, getters.settings);
@@ -54,11 +54,17 @@ export default new Vuex.Store({
     selectedBookmark(state, getters) {
       return getters.bookmarks[state.selectedIndex];
     },
+    showGrid(state) {
+      return state.settings.initialComponent === 'my';
+    },
+    showRecent(state) {
+      return state.settings.initialComponent === 'recent';
+    },
     initialComponent(state) {
       return state.settings.initialComponent;
     },
     shouldDisplayBookmarksList(state, getters) {
-      return state.settings.initialComponent === 'recent' || getters.hasInputValue;
+      return getters.showRecent || getters.hasInputValue;
     }
   },
   mutations: {

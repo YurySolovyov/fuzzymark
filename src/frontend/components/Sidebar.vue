@@ -15,6 +15,7 @@
       </svg>
     </router-link>
     <router-link class="overlay-control new-tile"
+      v-if="showGrid"
       to="/new-tile"
       :class="buttonClass">
       <svg style="width:24px;height:24px" viewBox="0 0 24 24">
@@ -25,12 +26,17 @@
 </template>
 
 <script>
+
+import { mapGetters } from 'vuex';
+
+const getters = mapGetters(['showGrid']);
+
 export default {
-  computed: {
+  computed: Object.assign({
     buttonClass() {
       return this.$route.name === 'root' ? 'is-root': 'non-root';
     }
-  }
+  }, getters)
 }
 </script>
 
