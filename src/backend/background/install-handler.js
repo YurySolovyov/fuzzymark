@@ -5,8 +5,4 @@ const SettingsStore = require('./settings-store.js');
 
 const Settings = new SettingsStore();
 
-module.exports = function() {
-  Settings.get('already_installed').then(function(value) {
-    defaultsInstaller.install(Settings);
-  });
-};
+module.exports = defaultsInstaller.install.bind(null, Settings);
