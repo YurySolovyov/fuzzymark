@@ -28,14 +28,6 @@
     "newtab": "static/index.html#/"
   },
 
-  "commands": {
-    "show-matcher": {
-      "suggested_key": {
-        "default": "Ctrl+P"
-      },
-      "description": "Open FuzzyMark"
-    }
-  },
   "background": {
     "scripts": [
       "dist/shared.bundle.js",
