@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "FuzzyMark",
   "short_name": "FuzzyMark",
-  "description": "Access your bookmarks with fuzzy search",
+  "description": "Gives access your bookmarks with fuzzy search and simple New Tab Page",
   "version": "2.0.0",
 
   "icons": {
