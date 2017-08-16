@@ -2,7 +2,6 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from './components/App.vue';
 import Settings from './components/Settings.vue';
-import GettingStarted from './components/GettingStarted.vue';
 import TileForm from './components/TileForm.vue';
 import DeleteTile from './components/DeleteTile.vue';
 
@@ -22,11 +21,6 @@ const router = new VueRouter({
       path: '/settings',
       name: 'settings',
       component: Settings
-    },
-    {
-      path: '/getting-started',
-      name: 'getting-started',
-      component: GettingStarted
     },
     {
       path: '/new-tile',
