@@ -59,12 +59,12 @@ export default {
     },
     async maybeSetColor() {
       const palettes = await getColors(this.$refs.image);
-      const palette = palettes.Vibrant ||
-                      palettes.DarkVibrant ||
+      const palette = palettes.Muted ||
+                      palettes.Vibrant ||
                       palettes.LightVibrant ||
-                      palettes.Muted ||
+                      palettes.LightMuted ||
                       palettes.DarkMuted ||
-                      palettes.LightMuted;
+                      palettes.DarkVibrant;
       const color = palette.getHex();
       this.color = color;
     }
