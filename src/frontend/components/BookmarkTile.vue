@@ -7,7 +7,7 @@
           height="16"
           width="16"
           ref="image"
-          :src="bookmark.favicon"
+          :src="favicon"
           @load="maybeSetColor"/>
         <div>{{ bookmark.title }}</div>
         <tile-controls
@@ -37,6 +37,7 @@ const getColors = function(image) {
 export default {
   data() {
     return {
+      favicon: '',
       color: null
     };
   },
@@ -57,7 +58,14 @@ export default {
         params: { id: this.bookmark.id }
       });
     },
-    async maybeSetColor() {
+    maybeSetColor() {
+      if (this.faviconValid()) {
+        this.setColor();
+      } else {
+        this.favicon = 'chrome://favicon/http://localhost/';
+      }
+    },
+    async setColor() {
       const palettes = await getColors(this.$refs.image);
       const palette = palettes.Muted ||
                       palettes.Vibrant ||
@@ -67,7 +75,18 @@ export default {
                       palettes.DarkVibrant;
       const color = palette.getHex();
       this.color = color;
+    },
+    faviconValid() {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const img = this.$refs.image;
+      ctx.drawImage(img, 0, 0);
+      // valid non-empty icons have some pixel values > 0
+      return ctx.getImageData(0, 0, 16, 16).data.some(val => val > 0);
     }
+  },
+  mounted() {
+    this.favicon = this.bookmark.favicon;
   }
 }
 </script>

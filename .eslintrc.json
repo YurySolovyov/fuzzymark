@@ -4,43 +4,27 @@
   },
   "rules": {
     "indent": ["error", 2],
-
     "quotes": ["error", "single"],
-
     "block-spacing": ["error", "always"],
-
     "semi": ["error", "always"],
-
     "dot-notation": ["error", { "allowKeywords": true }],
-
     "no-unused-vars": ["error", {
       "vars": "local",
       "args": "after-used",
       "argsIgnorePattern": "^_"
     }],
-
     "no-param-reassign": ["error", { "props": false }],
-
     "no-useless-concat": ["error"],
-
     "radix": ["error"],
-
+    "require-await": ["error"],
     "one-var": ["error", "never" ],
-
     "yoda": ["error", "never", { "exceptRange": true }],
-
     "comma-spacing": ["error", { "before": false, "after": true }],
-
     "comma-style": ["error", "last" ],
-
     "quote-props": ["error", "as-needed", { "keywords": true }],
-
     "object-curly-spacing": ["error", "always"],
-
     "space-before-blocks": ["error", "always"],
-
     "keyword-spacing": ["error", { "before": true, "after": true }],
-
     "linebreak-style": ["error", "unix"]
   },
   "env": {
