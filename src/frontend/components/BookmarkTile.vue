@@ -58,7 +58,7 @@ export default {
         params: { id: this.bookmark.id }
       });
     },
-    async maybeSetColor() {
+    maybeSetColor() {
       if (this.faviconValid()) {
         this.setColor();
       } else {
