@@ -76,8 +76,7 @@ a:hover {
   height: 80px;
   line-height: 80px;
   outline: none;
-  border-color: var(--theme-selected-start);
-  outline: none;
+  caret-color: var(--theme-selected-start);
 }
 
 .overlay-title {
