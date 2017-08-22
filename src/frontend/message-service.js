@@ -1,22 +1,24 @@
 'use strict';
 
-const listen = function(handlers) {
-  chrome.runtime.onMessage.addListener(function(request, _sender, _sendResponse) {
-    const handler = handlers[request.type];
-    if (typeof handler === 'function') {
-      handler();
-    }
-    return true;
-  });
+const EventEmitter = require('events');
+const emitter = new EventEmitter();
+
+chrome.runtime.onMessage.addListener(function(request, _sender, _sendResponse) {
+  emitter.emit(request.type);
+  return true;
+});
+
+const on = function(name, handler) {
+  emitter.on(name, handler);
 };
 
-const send = function(message) {
+const send = function(type, message) {
   return new Promise(function(resolve, _reject) {
-    chrome.runtime.sendMessage(message, resolve);
+    chrome.runtime.sendMessage(Object.assign({ type }, message), resolve);
   });
 };
 
 module.exports = {
-  listen,
+  on,
   send
 };

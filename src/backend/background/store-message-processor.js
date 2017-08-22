@@ -5,7 +5,7 @@ const createOrSelectTab = require('./tab-opener.js');
 
 const settingsStore = new SettingsStore;
 
-const settings = function(request, sender, sendResponse) {
+const fetchSettings = function(request, sender, sendResponse) {
   settingsStore.all().then(function(value) {
     sendResponse(value);
   });
@@ -33,16 +33,16 @@ const openTab = function(request, sender, sendResponse) {
   return createOrSelectTab(request.url, sendResponse);
 };
 
-const handlers = {
-  settings: settings,
-  set_setting: setSetting,
-  get_setting: getSetting,
-  remove_setting: removeSetting,
-  open_tab: openTab
-};
+const handlers = new Map([
+  ['fetch-settings', fetchSettings],
+  ['set-setting',    setSetting],
+  ['get-setting',    getSetting],
+  ['remove-setting', removeSetting],
+  ['open-tab',       openTab],
+]);
 
 module.exports = function(request, sender, sendResponse) {
-  const handler = handlers[request.type];
+  const handler = handlers.get(request.type);
 
   if (handler) {
     handler(request, sender, sendResponse);

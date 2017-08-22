@@ -2,15 +2,15 @@
 const messageService = require('./message-service');
 
 const fetchAll = function() {
-  return messageService.send({ type: 'settings' });
+  return messageService.send('fetch-settings');
 };
 
 const fetchSetting = function(key) {
-  return messageService.send({ type: 'get_setting', key });
+  return messageService.send('get-setting', { key });
 };
 
 const saveSetting = function(key, value) {
-  return messageService.send({ type: 'set_setting', key, value });
+  return messageService.send('set-setting', { key, value });
 };
 
 module.exports = {
