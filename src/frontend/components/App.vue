@@ -1,5 +1,5 @@
 <template lang="html">
-  <div id="app" :class="`theme-${theme} accent-${accent}`">
+  <div id="app" :class="`theme-${theme} accent-${accent}`" v-if="appLoaded">
     <div id="container">
       <search-field></search-field>
       <items-list v-if="shouldDisplayBookmarksList"
@@ -10,6 +10,7 @@
     <router-view></router-view>
     <sidebar></sidebar>
   </div>
+  <splash v-else></splash>
 </template>
 
 <script>
@@ -19,8 +20,14 @@ import SearchField from './SearchField.vue';
 import ItemsList from './ItemsList.vue';
 import BookmarksGrid from './BookmarksGrid.vue';
 import Sidebar from './Sidebar.vue';
+import Splash from './Splash.vue';
 
-const getters = mapGetters(['bookmarks', 'accent', 'shouldDisplayBookmarksList']);
+const getters = mapGetters([
+  'bookmarks',
+  'accent',
+  'shouldDisplayBookmarksList',
+  'appLoaded'
+]);
 const state = mapState(['theme']);
 
 export default {
@@ -29,6 +36,7 @@ export default {
     ItemsList,
     BookmarksGrid,
     Sidebar,
+    Splash,
   },
   computed: Object.assign({}, getters, state),
   mounted() {

@@ -13,8 +13,8 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     theme: 'light',
-    bookmarks: [],
-    tiles: [],
+    bookmarks: null,
+    tiles: null,
     inputValue: '',
     settings: {},
     selectedIndex: 0,
@@ -65,6 +65,9 @@ const store = new Vuex.Store({
     },
     shouldDisplayBookmarksList(state, getters) {
       return getters.showRecent || getters.hasInputValue;
+    },
+    appLoaded(state) {
+      return state.bookmarks !== null && state.tiles !== null;
     }
   },
   mutations: {
@@ -75,10 +78,10 @@ const store = new Vuex.Store({
       state.settings[key] = value;
     },
     setBookmarks(state, bookmarks) {
-      state.bookmarks = bookmarks;
+      state.bookmarks = bookmarks || [];
     },
     setTiles(state, tiles) {
-      state.tiles = tiles;
+      state.tiles = tiles || [];
     },
     setInputValue(state, value) {
       state.inputValue = value;
