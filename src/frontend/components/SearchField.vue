@@ -34,7 +34,7 @@ export default {
     onOpen() {
       const url = this.selectedBookmark.url;
       if (this.openNew) {
-        messageService.send({ type: 'open_tab', url: url });
+        messageService.send('open-tab', { url });
       } else {
         window.location.assign(url);
       }
@@ -49,7 +49,7 @@ export default {
   mounted() {
     this.onFocus();
     window.onfocus = () => this.onFocus();
-    messageService.listen({ focus: () => this.onFocus() });
+    messageService.on('focus', () => this.onFocus());
   }
 };
 </script>

@@ -10,7 +10,7 @@ import messageService from './message-service';
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
   state: {
     theme: 'light',
     bookmarks: [],
@@ -120,8 +120,7 @@ export default new Vuex.Store({
       commit('setTheme', themeNormalized);
     },
     async saveSetting({ commit }, { key, value }) {
-      const type = 'set_setting';
-      await messageService.send({ type, key, value });
+      await messageService.send('set-setting', { key, value });
       commit('setSetting', { key, value });
     },
     async setTheme({ commit, dispatch }, theme) {
@@ -146,3 +145,9 @@ export default new Vuex.Store({
     }
   }
 });
+
+messageService.on('storage-changed', function() {
+  store.dispatch('loadBookmarks');
+});
+
+export default store;
