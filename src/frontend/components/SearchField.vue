@@ -40,7 +40,7 @@ export default {
       }
     },
     onReset() {
-      this.$store.dispatch('updateInputValue', '');
+      this.$store.dispatch('resetInput');
     },
     onFocus() {
       this.$el.querySelector('input').focus();

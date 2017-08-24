@@ -86,3 +86,17 @@ a:hover {
 .big-link {
   font-size: 24px;
 }
+
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
+.icon path {
+  transition: fill 0.3s;
+  fill: var(--theme-bookmark-link-color);
+}
+
+.icon:hover path  {
+  fill: var(--theme-bookmark-link-hover-color);
+}
