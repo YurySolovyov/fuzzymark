@@ -2,22 +2,47 @@
   <li class="bookmark overflow-hidden border-box list-style-none"
     :class="{ selected: bookmark.selected }">
     <div class="bookmark-wrapper p1 container-background">
-      <div class="bookmark-header p1 overflow-hidden nowrap">
+      <div class="bookmark-header p1 flex">
         <span class="bookmark-score">{{ bookmark.score }}</span>
-        <span class="bookmark-title" v-html="bookmark.wrappedTitle"></span>
+        <span class="bookmark-title truncate" v-html="bookmark.wrappedTitle"></span>
         <span class="bookmark-path right">{{ bookmark.path }}</span>
       </div>
-      <div class="bookmark-footer p1 overflow-hidden nowrap">
-        <img class="bookmark-favicon inline-block" :src="bookmark.favicon" />
-        <a :href="bookmark.url" class="bookmark-url" v-html="bookmark.wrappedUrl"></a>
+      <div class="bookmark-footer p1 flex">
+        <img class="bookmark-favicon mr1" :src="bookmark.favicon" />
+        <a class="truncate bookmark-url"
+          :href="bookmark.url"
+          v-html="bookmark.wrappedUrl"></a>
+        <span class="item-controls">
+          <span title="Add to the New Tab page" @click="onAddClick">
+            <plus></plus>
+          </span>
+        </span>
       </div>
     </div>
   </li>
 </template>
 
 <script>
+import uuid from 'uuid/v4';
+import Plus from './icons/Plus.vue';
+
 export default {
-  props: ['bookmark']
+  components: {
+    Plus
+  },
+  props: ['bookmark'],
+  methods: {
+    onAddClick() {
+      this.$store.dispatch('resetInput');
+      this.$store.dispatch('saveNewTile', {
+        id: uuid(),
+        tile: {
+          title: this.bookmark.title,
+          url: this.bookmark.url
+        }
+      });
+    }
+  }
 }
 </script>
 
@@ -38,16 +63,17 @@ export default {
   background-color: var(--theme-selected-bg-color);
 }
 
+.bookmark.selected .item-controls,
+.bookmark:hover .item-controls {
+  visibility: visible;
+}
+
 .bookmark-wrapper {
   transition: 0.3s;
 }
 
-.bookmark-header, .bookmark-footer {
-  font-size: 16px;
-  text-overflow: ellipsis;
-}
-
 .bookmark-header {
+  align-items: center;
   color: var(--theme-header-color);
 }
 
@@ -56,7 +82,9 @@ export default {
 }
 
 .bookmark-footer {
+  align-items: center;
   border-top: 1px var(--theme-bookmark-divider-color) solid;
+  color: var(--theme-bookmark-link-color);
 }
 
 .bookmark-path {
@@ -69,8 +97,10 @@ export default {
   margin-right: 16px;
 }
 
+.bookmark-title,
 .bookmark-url {
-  color: var(--theme-bookmark-link-color);
+  flex: 1;
+  height: 24px;
 }
 
 .bookmark-url:hover {
@@ -81,7 +111,11 @@ export default {
 .bookmark-favicon {
   width: 16px;
   height: 16px;
-  margin: -4px 4px 0 -4px;
+}
+
+.item-controls {
+  visibility: hidden;
+  cursor: pointer;
 }
 
 </style>

@@ -111,6 +111,9 @@ const store = new Vuex.Store({
       commit('setInputValue', value);
       commit('setSelectedIndex', 0);
     },
+    resetInput({ dispatch }) {
+      dispatch('updateInputValue', '');
+    },
     updateSelectedIndex({ commit, state, getters }, delta) {
       const maybeIndex = Math.min(Math.max(state.selectedIndex + delta, 0), getters.maxResults - 1);
       const finalIndex = Number.isNaN(maybeIndex) ? 0 : maybeIndex;
