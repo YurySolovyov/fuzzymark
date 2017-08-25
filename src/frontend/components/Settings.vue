@@ -45,6 +45,13 @@
         :active-value="openNew"
         :values="[true, false]"
         :value-labels="['Yes', 'No']"></settings-section>
+
+      <settings-section title="Include Chrome Service URLs"
+        @save="saveSetting"
+        name="showChromeUrls"
+        :active-value="showChromeUrls"
+        :values="[true, false]"
+        :value-labels="['Yes', 'No']"></settings-section>
     </div>
   </div>
 </template>
@@ -57,6 +64,7 @@ const getters = mapGetters([
   'maxResults',
   'propertyKey',
   'openNew',
+  'showChromeUrls',
   'accent',
   'initialComponent'
 ]);

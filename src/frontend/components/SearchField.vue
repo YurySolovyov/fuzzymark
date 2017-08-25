@@ -33,11 +33,14 @@ export default {
     },
     onOpen() {
       const url = this.selectedBookmark.url;
-      if (this.openNew) {
+
+      // chrome://* urls are new-tab only because of security
+      if (this.openNew || url.startsWith('chrome://')) {
         messageService.send('open-tab', { url });
       } else {
         window.location.assign(url);
       }
+      this.onReset();
     },
     onReset() {
       this.$store.dispatch('resetInput');

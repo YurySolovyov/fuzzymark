@@ -1,5 +1,6 @@
 'use strict';
 
+const chromeUrls = require('./chrome-urls');
 const bookmarksBarId = '1';
 
 const getRawBookmarks = function() {
@@ -33,7 +34,8 @@ const processRawBookmarks = function(raw) {
 
 const simplifyBookmarks = function(list, settings) {
   const propertyKey = settings.propertyKey;
-  return list.map(function(bookmark) {
+  const bookmarks = settings.showChromeUrls ? list.concat(chromeUrls) : list;
+  return bookmarks.map(function(bookmark) {
     return Object.assign(bookmark, {
       title: bookmark[propertyKey] || getSimplifiedUrl(bookmark.url),
       favicon: 'chrome://favicon/' + bookmark.url

@@ -19,6 +19,9 @@ const defaults = [{
 }, {
   key: 'tiles',
   value: []
+}, {
+  key: 'showChromeUrls',
+  value: false
 }];
 
 const installIfNeeded = function(settings, item) {
