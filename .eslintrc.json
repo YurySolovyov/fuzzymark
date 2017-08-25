@@ -36,10 +36,14 @@
     "ecmaVersion": 8,
     "sourceType": "module"
   },
+  "plugins": ["vue"],
   "globals": {
     "require": true,
     "chrome": true,
     "module": true
   },
-  "extends": "eslint:recommended"
+  "extends": [
+    "eslint:recommended",
+    "plugin:vue/recommended"
+  ]
 }

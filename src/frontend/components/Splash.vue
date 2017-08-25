@@ -18,7 +18,7 @@ const state = mapState(['theme']);
 
 export default {
   computed: state
-}
+};
 </script>
 
 <style lang="css">

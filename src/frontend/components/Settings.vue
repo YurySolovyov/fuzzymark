@@ -83,5 +83,5 @@ export default {
       this.$store.dispatch('setTheme', name);
     },
   }
-}
+};
 </script>

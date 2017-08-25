@@ -29,7 +29,7 @@ export default {
       viewportWatcher.ensureInViewport(this.$el, selected);
     }
   }
-}
+};
 </script>
 
 

@@ -28,7 +28,7 @@ const getColors = function(image) {
   return new Promise(function(resolve, reject) {
     const vib = new Vibrant(image);
     vib.getPalette(function(err, pal) {
-      if (err) { reject(err) }
+      if (err) { reject(err); }
       resolve(pal);
     });
   });
@@ -88,7 +88,7 @@ export default {
   mounted() {
     this.favicon = this.bookmark.favicon;
   }
-}
+};
 </script>
 
 <style lang="css">

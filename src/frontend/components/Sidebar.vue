@@ -39,7 +39,7 @@ export default {
       return this.$route.name === 'root' ? 'is-root': 'non-root';
     }
   }, getters)
-}
+};
 </script>
 
 <style lang="css">
