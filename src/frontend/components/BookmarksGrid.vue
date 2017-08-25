@@ -32,7 +32,7 @@ export default {
       this.$store.dispatch('saveTileIds');
     }
   }
-}
+};
 </script>
 
 <style lang="css">

@@ -48,7 +48,7 @@ export default {
       this.$emit('delete');
     }
   }
-}
+};
 </script>
 
 <style lang="css">
