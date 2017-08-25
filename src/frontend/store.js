@@ -48,6 +48,9 @@ const store = new Vuex.Store({
     openNew(state) {
       return state.settings.openNew;
     },
+    showChromeUrls(state) {
+      return state.settings.showChromeUrls;
+    },
     accent(state) {
       return state.settings.accent;
     },
