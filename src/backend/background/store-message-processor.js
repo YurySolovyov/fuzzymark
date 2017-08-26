@@ -1,7 +1,7 @@
 'use strict';
 
-const SettingsStore = require('./settings-store.js');
-const createOrSelectTab = require('./tab-opener.js');
+const SettingsStore = require('./settings-store');
+const createOrSelectTab = require('./tab-opener');
 
 const settingsStore = new SettingsStore;
 
@@ -45,7 +45,7 @@ module.exports = function(request, sender, sendResponse) {
   const handler = handlers.get(request.type);
 
   if (handler) {
-    handler(request, sender, sendResponse);
+    handler(request.message, sender, sendResponse);
   }
   return true;
 };

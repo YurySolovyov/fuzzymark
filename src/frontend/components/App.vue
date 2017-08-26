@@ -1,6 +1,9 @@
 <template lang="html">
   <div id="app" :class="`theme-${theme} accent-${accent}`" v-if="appLoaded">
-    <div id="container">
+    <div class="absolute"
+      id="wallpaper"
+      :style="{ background: wallpaper }"></div>
+    <div id="container" class="absolute">
       <search-field></search-field>
       <items-list v-if="shouldDisplayBookmarksList"
         :bookmarks="bookmarks"></items-list>
@@ -22,6 +25,8 @@ import BookmarksGrid from './BookmarksGrid.vue';
 import Sidebar from './Sidebar.vue';
 import Splash from './Splash.vue';
 
+import wallpaperManager from '../wallpaper-manager';
+
 const getters = mapGetters([
   'bookmarks',
   'accent',
@@ -31,6 +36,11 @@ const getters = mapGetters([
 const state = mapState(['theme']);
 
 export default {
+  data() {
+    return {
+      wallpaper: null
+    };
+  },
   components: {
     SearchField,
     ItemsList,
@@ -39,8 +49,17 @@ export default {
     Splash,
   },
   computed: Object.assign({}, getters, state),
-  mounted() {
+  methods: {
+    async fetchWallpaper() {
+      const wallpaper = await wallpaperManager.get();
+      if (wallpaper) {
+        this.wallpaper = wallpaper;
+      }
+    }
+  },
+  async mounted() {
     this.$store.dispatch('loadApp');
+    await this.fetchWallpaper();
   }
 };
 </script>
@@ -54,7 +73,14 @@ export default {
 }
 
 #container {
-  height: calc(100vh - 32px);
+  height: 100vh;
+  width: 100vw;
+}
+
+#wallpaper {
+  width: 100vw;
+  height: 100vh;
+  opacity: 0.25;
 }
 
 </style>

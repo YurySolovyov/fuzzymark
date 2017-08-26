@@ -4,6 +4,7 @@ import App from './components/App.vue';
 import Settings from './components/Settings.vue';
 import TileForm from './components/TileForm.vue';
 import DeleteTile from './components/DeleteTile.vue';
+import BackgroundSettings from './components/BackgroundSettings.vue';
 
 import store from './store';
 
@@ -36,6 +37,11 @@ const router = new VueRouter({
       path: '/delete-tile/:id',
       name: 'delete-tile',
       component: DeleteTile
+    },
+    {
+      path: '/background',
+      name: 'background',
+      component: BackgroundSettings
     }
   ]
 });

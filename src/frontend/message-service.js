@@ -14,7 +14,7 @@ const on = function(name, handler) {
 
 const send = function(type, message) {
   return new Promise(function(resolve, _reject) {
-    chrome.runtime.sendMessage(Object.assign({ type }, message), resolve);
+    chrome.runtime.sendMessage({ type, message }, resolve);
   });
 };
 
