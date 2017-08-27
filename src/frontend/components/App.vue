@@ -2,7 +2,7 @@
   <div id="app" :class="`theme-${theme} accent-${accent}`" v-if="appLoaded">
     <div class="absolute"
       id="wallpaper"
-      :style="{ background: wallpaper }"></div>
+      :style="wallpaperStyle"></div>
     <div id="container" class="absolute">
       <search-field></search-field>
       <items-list v-if="shouldDisplayBookmarksList"
@@ -25,22 +25,15 @@ import BookmarksGrid from './BookmarksGrid.vue';
 import Sidebar from './Sidebar.vue';
 import Splash from './Splash.vue';
 
-import wallpaperManager from '../wallpaper-manager';
-
 const getters = mapGetters([
   'bookmarks',
   'accent',
   'shouldDisplayBookmarksList',
   'appLoaded'
 ]);
-const state = mapState(['theme']);
+const state = mapState(['theme', 'wallpaper', 'wallpaperOpacity']);
 
 export default {
-  data() {
-    return {
-      wallpaper: null
-    };
-  },
   components: {
     SearchField,
     ItemsList,
@@ -48,18 +41,16 @@ export default {
     Sidebar,
     Splash,
   },
-  computed: Object.assign({}, getters, state),
-  methods: {
-    async fetchWallpaper() {
-      const wallpaper = await wallpaperManager.get();
-      if (wallpaper) {
-        this.wallpaper = wallpaper;
-      }
+  computed: Object.assign({
+    wallpaperStyle() {
+      return {
+        backgroundImage: this.wallpaper,
+        opacity: this.wallpaperOpacity
+      };
     }
-  },
-  async mounted() {
+  }, getters, state),
+  mounted() {
     this.$store.dispatch('loadApp');
-    await this.fetchWallpaper();
   }
 };
 </script>
@@ -80,7 +71,9 @@ export default {
 #wallpaper {
   width: 100vw;
   height: 100vh;
-  opacity: 0.25;
+  background-position: center;
+  transition: opacity 0.3s;
+  will-change: opacity;
 }
 
 </style>

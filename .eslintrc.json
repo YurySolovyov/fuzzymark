@@ -11,7 +11,8 @@
     "no-unused-vars": ["error", {
       "vars": "local",
       "args": "after-used",
-      "argsIgnorePattern": "^_"
+      "argsIgnorePattern": "^_",
+      "varsIgnorePattern": "^_"
     }],
     "no-param-reassign": ["error", { "props": false }],
     "no-useless-concat": ["error"],

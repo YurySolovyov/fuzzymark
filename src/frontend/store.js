@@ -7,6 +7,7 @@ import matchedBookmarks from './bookmarks/matched';
 import recentBookmarks from './bookmarks/recent';
 import tileBookmarks from './bookmarks/tiles';
 import messageService from './message-service';
+import wallpaperManager from './wallpaper-manager';
 
 Vue.use(Vuex);
 
@@ -18,6 +19,8 @@ const store = new Vuex.Store({
     inputValue: '',
     settings: {},
     selectedIndex: 0,
+    wallpaper: '',
+    wallpaperOpacity: 0
   },
   getters: {
     hasInputValue(state) {
@@ -94,6 +97,12 @@ const store = new Vuex.Store({
     },
     setTheme(state, theme) {
       state.theme = theme;
+    },
+    setWallpaper(state, wallpaper) {
+      state.wallpaper = wallpaper;
+    },
+    setWallpaperOpacity(state, opacity) {
+      state.wallpaperOpacity = opacity;
     }
   },
   actions: {
@@ -101,6 +110,7 @@ const store = new Vuex.Store({
       const settingsAll = await settings.fetchAll();
       dispatch('updateSettings', settingsAll);
       dispatch('loadBookmarks');
+      dispatch('loadWallpaper');
     },
     async loadBookmarks({ commit, getters }) {
       const result = await bookmarksCollection.load();
@@ -109,6 +119,16 @@ const store = new Vuex.Store({
 
       const tiles = await tileBookmarks.fetchAll();
       commit('setTiles', tiles);
+    },
+    async loadWallpaper({ commit }) {
+      const [wallpaper, opacity] = await Promise.all([
+        wallpaperManager.get(),
+        wallpaperManager.getOpacity()
+      ]);
+      if (wallpaper) {
+        commit('setWallpaper', wallpaper);
+        commit('setWallpaperOpacity', opacity);
+      }
     },
     updateInputValue({ commit }, value) {
       commit('setInputValue', value);
@@ -151,6 +171,14 @@ const store = new Vuex.Store({
     async saveTileIds({ state }) {
       const ids = state.tiles.map(t => t.id);
       await tileBookmarks.saveTileIds(ids);
+    },
+    async saveWallpaper({ commit }, wallpaper) {
+      await wallpaperManager.save(wallpaper);
+      commit('setWallpaper', wallpaper);
+    },
+    async saveWallpaperOpacity({ commit }, value) {
+      await wallpaperManager.setOpacity(value);
+      commit('setWallpaperOpacity', value);
     }
   }
 });
