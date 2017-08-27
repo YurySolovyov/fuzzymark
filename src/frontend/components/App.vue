@@ -1,6 +1,9 @@
 <template lang="html">
   <div id="app" :class="`theme-${theme} accent-${accent}`" v-if="appLoaded">
-    <div id="container">
+    <div class="absolute"
+      id="wallpaper"
+      :style="wallpaperStyle"></div>
+    <div id="container" class="absolute">
       <search-field></search-field>
       <items-list v-if="shouldDisplayBookmarksList"
         :bookmarks="bookmarks"></items-list>
@@ -28,7 +31,7 @@ const getters = mapGetters([
   'shouldDisplayBookmarksList',
   'appLoaded'
 ]);
-const state = mapState(['theme']);
+const state = mapState(['theme', 'wallpaper', 'wallpaperOpacity']);
 
 export default {
   components: {
@@ -38,7 +41,14 @@ export default {
     Sidebar,
     Splash,
   },
-  computed: Object.assign({}, getters, state),
+  computed: Object.assign({
+    wallpaperStyle() {
+      return {
+        backgroundImage: this.wallpaper,
+        opacity: this.wallpaperOpacity
+      };
+    }
+  }, getters, state),
   mounted() {
     this.$store.dispatch('loadApp');
   }
@@ -54,7 +64,16 @@ export default {
 }
 
 #container {
-  height: calc(100vh - 32px);
+  height: 100vh;
+  width: 100vw;
+}
+
+#wallpaper {
+  width: 100vw;
+  height: 100vh;
+  background-position: center;
+  transition: opacity 0.3s;
+  will-change: opacity;
 }
 
 </style>

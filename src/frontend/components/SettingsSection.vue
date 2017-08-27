@@ -27,17 +27,3 @@ export default {
   }
 };
 </script>
-
-<style lang="css">
-
-.select {
-  cursor: pointer;
-  min-width: 64px;
-  background-color: var(--theme-selected-bg-color);
-}
-
-.select.active {
-  background-color: var(--theme-selected-start);
-}
-
-</style>

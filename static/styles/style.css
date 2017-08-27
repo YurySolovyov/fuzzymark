@@ -100,3 +100,15 @@ a:hover {
 .icon:hover path  {
   fill: var(--theme-bookmark-link-hover-color);
 }
+
+.select {
+  cursor: pointer;
+  min-width: 64px;
+  background-color: var(--theme-selected-bg-color);
+  transition: background-color 0.3s;
+}
+
+.select.active,
+.select:active {
+  background-color: var(--theme-selected-start);
+}
