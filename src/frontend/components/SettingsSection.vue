@@ -1,7 +1,7 @@
 <template lang="html">
-  <section class="overflow-hidden col-4 left mt1">
-    <h3 class="m0 mb1">{{ title }}</h3>
-    <span class="select p1 inline-block center" v-for="(value, index) in values"
+  <section class="overflow-hidden col-6 left mb2">
+    <h3 class="m0">{{ title }}</h3>
+    <span class="select big-link font-light mr1" v-for="(value, index) in values"
       :key="index"
       :class="{ active: isActiveSetting(name, value) }"
       @click="onClick(name, value)">{{ valueLabels[index] }}</span>
