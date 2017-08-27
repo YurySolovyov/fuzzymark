@@ -2,7 +2,7 @@
   <div class="overlay top-0 left-0">
     <div class="lg-col-6 md-col-8 sm-col-10 mx-auto">
       <h1 class="overlay-title font-light">Settings</h1>
-      <h2 class="left col-12 mt4 mb1">Appearance</h2>
+      <h2 class="left col-12 mt3">Appearance</h2>
       <settings-section title="Theme"
         @save="setTheme"
         name="theme"
@@ -17,7 +17,7 @@
         :values="['blue', 'red', 'purple']"
         :value-labels="['Blue', 'Red', 'Purple']"></settings-section>
 
-      <h2 class="left col-12 mt4 mb1">Behavior</h2>
+      <h2 class="left col-12 mt3">Behavior</h2>
       <settings-section title="Max Results"
         @save="saveSetting"
         name="maxResults"
