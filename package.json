@@ -4,7 +4,7 @@
     "type": "git",
     "url": "git://github.com/YuriSolovyov/fuzzymark.git"
   },
-  "version": "2.0.0",
+  "version": "2.1.0",
   "license": "MIT",
   "devDependencies": {
     "basscss": "8.0.3",
