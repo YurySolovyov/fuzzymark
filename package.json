@@ -1,13 +1,11 @@
 {
   "name": "FuzzyMark",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/YuriSolovyov/fuzzymark.git"
-  },
-  "version": "2.1.0",
+  "repository": "YurySolovyov/fuzzymark",
+  "version": "2.1.1",
   "license": "MIT",
   "devDependencies": {
     "basscss": "8.0.3",
+    "chrome-webstore-upload-cli": "1.1.1",
     "css-loader": "0.28.4",
     "dateformat": "2.0.0",
     "eslint": "4.4.1",
@@ -39,11 +37,12 @@
     "withinviewport": "2.0.0"
   },
   "scripts": {
-    "dev": "webpack --progress --colors --watch",
     "build": "webpack --progress --colors",
-    "test": "karma start --single-run --browsers Chrome",
+    "dev": "webpack --progress --colors --watch",
     "lint": "eslint src/** test/** --ext js,vue",
-    "lint:fix": "eslint src/** test/** --fix --ext js,vue"
+    "lint:fix": "eslint src/** test/** --fix --ext js,vue",
+    "publish": "npm run build && webstore upload --source=extension --auto-publish",
+    "test": "karma start --single-run --browsers Chrome"
   },
   "engines": {
     "node": "8.3.0"
