@@ -9,7 +9,7 @@ module.exports = {
   },
 
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'extension', 'dist'),
     filename: '[name].bundle.js'
   },
 
@@ -36,7 +36,7 @@ module.exports = {
 
   resolve: {
     alias: {
-      styles: path.resolve(__dirname, 'static/styles')
+      styles: path.resolve(__dirname, 'src/styles')
     }
   }
 };
