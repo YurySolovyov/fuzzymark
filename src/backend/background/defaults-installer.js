@@ -26,7 +26,7 @@ const defaults = [{
 
 const installIfNeeded = function(settings, item) {
   return settings.get(item.key).then(function(value) {
-    if (value[item.key]) { return; }
+    if (value[item.key] !== undefined) { return; }
     return settings.set(item.key, item.value);
   });
 };
