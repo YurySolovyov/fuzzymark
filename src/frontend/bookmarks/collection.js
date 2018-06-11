@@ -32,13 +32,18 @@ const processRawBookmarks = function(raw) {
   return flattenBookmarks(raw, [], []);
 };
 
+const getFaviconUrl = function({ url }) {
+  const isFirefox = typeof chrome !== "undefined" && typeof browser !== "undefined";
+  return isFirefox ? new URL(url).origin + '/favicon.ico' : 'chrome://favicon/' + url;
+};
+
 const simplifyBookmarks = function(list, settings) {
   const propertyKey = settings.propertyKey;
   const bookmarks = settings.showChromeUrls ? list.concat(chromeUrls) : list;
   return bookmarks.map(function(bookmark) {
     return Object.assign(bookmark, {
       title: bookmark[propertyKey] || getSimplifiedUrl(bookmark.url),
-      favicon: 'chrome://favicon/' + bookmark.url
+      favicon: getFaviconUrl(bookmark)
     });
   });
 };
