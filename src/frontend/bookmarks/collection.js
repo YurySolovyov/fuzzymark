@@ -33,7 +33,7 @@ const processRawBookmarks = function(raw) {
 };
 
 const getFaviconUrl = function({ url }) {
-  const isFirefox = typeof chrome !== "undefined" && typeof browser !== "undefined";
+  const isFirefox = typeof chrome !== 'undefined' && typeof browser !== 'undefined';
   return isFirefox ? new URL(url).origin + '/favicon.ico' : 'chrome://favicon/' + url;
 };
 
