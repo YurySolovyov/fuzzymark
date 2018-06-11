@@ -5,6 +5,13 @@
   "description": "Gives access your bookmarks with fuzzy search and simple New Tab Page",
   "version": "2.1.1",
 
+  "applications": {
+    "gecko": {
+      "id": "{ec684662-e26b-4308-82ea-1cdf2d3eb917}",
+      "strict_min_version": "57.0"
+    }
+  },
+
   "minimum_chrome_version": "59",
 
   "icons": {
