@@ -4,7 +4,7 @@
       <div class="grid-item-wrapper container-background px1 py2 border-box overflow-hidden flex flex-column"
         :style="{ 'border-color': color }">
         <favicon
-          custom-class="block mb1 bookmark-tile-icon"
+          classes="block mb1 bookmark-tile-icon"
           :url="favicon"
           @gotColor="setColor"></favicon>
         <div>{{ bookmark.title }}</div>

@@ -4,7 +4,7 @@
     width="16"
     ref="image"
     :src="url"
-    :class="customClass"
+    :class="classes"
     @load="onLoaded"
     @error="onError"/>
 </template>
@@ -30,7 +30,7 @@ const fallbackUrl = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAMAA
 export default {
   props: {
     url: String,
-    customClass: String
+    classes: String
   },
   methods: {
     onError() {
