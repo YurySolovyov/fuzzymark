@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       favicon: '',
-      color: null
+      color: 'transparent'
     };
   },
   components: {

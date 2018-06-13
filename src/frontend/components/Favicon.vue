@@ -1,5 +1,12 @@
 <template lang="html">
-  <img :src="url" alt="" :class="customClass" height="16" width="16" ref="image" @load="onLoaded" />
+  <img alt="Favicon"
+    height="16"
+    width="16"
+    ref="image"
+    :src="url"
+    :class="customClass"
+    @load="onLoaded"
+    @error="onError"/>
 </template>
 
 <script>
@@ -7,8 +14,8 @@
 import * as Vibrant from 'node-vibrant';
 
 const getColors = function(image) {
+  const vib = new Vibrant(image);
   return new Promise(function(resolve, reject) {
-    const vib = new Vibrant(image);
     vib.getPalette(function(err, pal) {
       if (err) { reject(err); return; }
       resolve(pal);
@@ -16,35 +23,36 @@ const getColors = function(image) {
   });
 };
 
+// Yellow star
+const fallbackColor = '#FDD835';
+const fallbackUrl = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAMAAABhEH5lAAAAkFBMVEUAAAD//wD//wD/zDP/2yT/4zn/zDP/2zf/1Dn/2zH/2zf/3DX/1DP/2jj/2Tb/1zX71zf71zb82TT81zT82TT81zT92TT91zT91zb92DX91zb92DX92DX92Tb92DX92DX91zX+2Db+2DX+2TX81zX82TX92DX92DX92DX92DX92Db92DX92DX92DX92DX92DX1S+NVAAAAL3RSTlMAAQIFBwkKDhIVHB0eKT0/RkdKU1hZa2xtb4CDkZOkpaersrPBx9PX2drg4fL1/WPUesYAAAB8SURBVHjajc3ZDoIwEIXhQRAQBaGVRXBlc4Xz/m8HSbElNTH+N5P5bg79yHG+KEt1MW6PhUYREGpUAaV8bD/gSdEDfZHwwLdHcmvMalY0Zp2VXJfTWv6Rg1o9TkKqi6DTjF6Cnko2wD3atsBaUtzlFpG5f+8kMU9cj9HfDTChD+RtCZhuAAAAAElFTkSuQmCC';
+
 export default {
   props: {
     url: String,
     customClass: String
   },
   methods: {
-    maybeSetColor() {
-      // TODO: Fix this
-      // if (this.faviconValid()) {
-      //   this.setColor();
-      // } else {
-      //   this.favicon = 'chrome://favicon/http://localhost/';
-      // }
+    onError() {
+      this.url = fallbackUrl;
+      this.color = fallbackColor;
+      this.emitColor(fallbackColor);
     },
-    onLoaded() {
-
+    async onLoaded() {
+      const color = this.isValid() ? await this.selectPaletteColor() : this.fallbackColor;
+      this.emitColor(color);
     },
-    selectPalette() {
+    async selectPaletteColor() {
       const palettes = await getColors(this.$refs.image);
-      const palette = palettes.Muted ||
-                      palettes.Vibrant ||
-                      palettes.LightVibrant ||
-                      palettes.LightMuted ||
-                      palettes.DarkMuted ||
-                      palettes.DarkVibrant;
-      const color = palette.getHex();
-    }
-    whenColorReady() {
-      this.$emit('gotColor');
+      return (palettes.Muted ||
+              palettes.Vibrant ||
+              palettes.LightVibrant ||
+              palettes.LightMuted ||
+              palettes.DarkMuted ||
+              palettes.DarkVibrant).getHex();
+    },
+    emitColor(color) {
+      this.$emit('gotColor', color);
     },
     isValid() {
       const canvas = document.createElement('canvas');
