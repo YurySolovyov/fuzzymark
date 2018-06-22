@@ -3,12 +3,10 @@
     <a :href="bookmark.url" class="block bookmark-tile-cell mx1 text-decoration-underline">
       <div class="grid-item-wrapper container-background px1 py2 border-box overflow-hidden flex flex-column"
         :style="{ 'border-color': color }">
-        <img class="block mb1 bookmark-tile-icon"
-          height="16"
-          width="16"
-          ref="image"
-          :src="favicon"
-          @load="maybeSetColor"/>
+        <favicon
+          classes="block mb1 bookmark-tile-icon"
+          :url="favicon"
+          @gotColor="setColor"></favicon>
         <div>{{ bookmark.title }}</div>
         <tile-controls
           @delete="onDelete"
@@ -21,28 +19,18 @@
 <script>
 
 import TileControls from './TileControls.vue';
-
-import * as Vibrant from 'node-vibrant';
-
-const getColors = function(image) {
-  return new Promise(function(resolve, reject) {
-    const vib = new Vibrant(image);
-    vib.getPalette(function(err, pal) {
-      if (err) { reject(err); }
-      resolve(pal);
-    });
-  });
-};
+import Favicon from './Favicon.vue';
 
 export default {
   data() {
     return {
       favicon: '',
-      color: null
+      color: 'transparent'
     };
   },
   components: {
-    TileControls
+    TileControls,
+    Favicon
   },
   props: ['bookmark'],
   methods: {
@@ -58,31 +46,8 @@ export default {
         params: { id: this.bookmark.id }
       });
     },
-    maybeSetColor() {
-      if (this.faviconValid()) {
-        this.setColor();
-      } else {
-        this.favicon = 'chrome://favicon/http://localhost/';
-      }
-    },
-    async setColor() {
-      const palettes = await getColors(this.$refs.image);
-      const palette = palettes.Muted ||
-                      palettes.Vibrant ||
-                      palettes.LightVibrant ||
-                      palettes.LightMuted ||
-                      palettes.DarkMuted ||
-                      palettes.DarkVibrant;
-      const color = palette.getHex();
+    setColor(color) {
       this.color = color;
-    },
-    faviconValid() {
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      const img = this.$refs.image;
-      ctx.drawImage(img, 0, 0);
-      // valid non-empty icons have some pixel values > 0
-      return ctx.getImageData(0, 0, 16, 16).data.some(val => val > 0);
     }
   },
   mounted() {

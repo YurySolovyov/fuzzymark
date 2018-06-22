@@ -8,7 +8,9 @@
         <span class="bookmark-path right">{{ bookmark.path }}</span>
       </div>
       <div class="bookmark-footer p1 flex">
-        <img class="bookmark-favicon mr1" :src="bookmark.favicon" />
+        <favicon
+          classes="bookmark-favicon mr1"
+          :url="bookmark.favicon"></favicon>
         <a class="truncate bookmark-url"
           :href="bookmark.url"
           v-html="bookmark.wrappedUrl"></a>
@@ -25,9 +27,11 @@
 <script>
 import uuid from 'uuid/v4';
 import Plus from './icons/Plus.vue';
+import Favicon from './Favicon.vue';
 
 export default {
   components: {
+    Favicon,
     Plus
   },
   props: ['bookmark'],
