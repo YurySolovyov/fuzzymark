@@ -39,7 +39,7 @@ export default {
 
 #grid {
   height: calc(200px * 3 + 4em);
-  overflow-y: scroll;
+  overflow-y: hidden;
 }
 
 .no-tiles-message h1 {
