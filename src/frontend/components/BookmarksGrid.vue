@@ -48,11 +48,7 @@ export default {
       return this.bookmarks.length > tilesPerPage;
     },
     bookmarksPaged() {
-      if (this.needsPagedGrid) {
-        return chunk(this.bookmarks, tilesPerPage);
-      } else {
-        return [this.bookmarks];
-      }
+      return chunk(this.bookmarks, tilesPerPage);
     },
     pagesCount() {
       return this.bookmarksPaged.length;
@@ -74,6 +70,11 @@ export default {
     },
     onPageClick(page) {
       this.currentPage = page - 1;
+    }
+  },
+  updated() {
+    if (this.pagesCount <= this.currentPage && this.currentPage !== 0) {
+      this.currentPage = this.pagesCount - 1;
     }
   }
 };

@@ -3,7 +3,7 @@
     height="16"
     width="16"
     ref="image"
-    :src="url"
+    :src="iconUrl"
     :class="classes"
     @load="onLoaded"
     @error="onError"/>
@@ -31,22 +31,29 @@ export default {
   props: {
     url: {
       type: String,
-      default: fallbackUrl
+      default: ''
     },
     classes: {
       type: String,
       default: ''
     }
   },
+  data() {
+    return {
+      iconUrl: this.url,
+      fetchedValidIcon: false
+    };
+  },
   methods: {
     onError() {
-      this.url = fallbackUrl;
-      this.color = fallbackColor;
-      this.emitColor(fallbackColor);
+      this.iconUrl = fallbackUrl;
+      this.onLoaded();
     },
     async onLoaded() {
-      const color = this.isValid() ? await this.selectPaletteColor() : this.fallbackColor;
-      this.emitColor(color);
+      const needsColorExtraction = this.iconUrl !== fallbackUrl && this.isValid();
+      const color = needsColorExtraction ? await this.selectPaletteColor() : fallbackColor;
+      this.fetchedValidIcon = color !== undefined;
+      this.emitColor(this.fetchedValidIcon ? color : fallbackColor);
     },
     async selectPaletteColor() {
       const palettes = await getColors(this.$refs.image);
@@ -64,9 +71,18 @@ export default {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
       const img = this.$refs.image;
-      ctx.drawImage(img, 0, 0);
-      // valid non-empty icons have some pixel values > 0
-      return ctx.getImageData(0, 0, 16, 16).data.some(val => val > 0);
+      if (img !== undefined) {
+        ctx.drawImage(img, 0, 0);
+        // valid non-empty icons have some pixel values > 0
+        return ctx.getImageData(0, 0, 16, 16).data.some(val => val > 0);
+      } else {
+        return false;
+      }
+    }
+  },
+  mounted() {
+    if (this.iconUrl === fallbackUrl) {
+      this.iconUrl = this.url;
     }
   }
 };

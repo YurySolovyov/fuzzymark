@@ -3,6 +3,7 @@
 const chromeUrls = require('./chrome-urls');
 const bookmarksBarId = '1';
 const rootIndex = 0;
+const isFirefox = typeof chrome !== 'undefined' && typeof browser !== 'undefined';
 
 const getRawBookmarks = function() {
   return new Promise(function(resolve, _reject) {
@@ -35,7 +36,6 @@ const processRawBookmarks = function(raw) {
 };
 
 const getFaviconUrl = function({ url }) {
-  const isFirefox = typeof chrome !== 'undefined' && typeof browser !== 'undefined';
   return isFirefox ? new URL(url).origin + '/favicon.ico' : 'chrome://favicon/' + url;
 };
 
