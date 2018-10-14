@@ -4,7 +4,7 @@
   "version": "2.1.1",
   "license": "MIT",
   "devDependencies": {
-    "basscss": "8.0.10",
+    "basscss": "8.0.4",
     "chrome-webstore-upload-cli": "1.1.1",
     "css-loader": "0.28.11",
     "dateformat": "3.0.3",
@@ -40,7 +40,7 @@
     "build": "webpack --progress --colors",
     "dev": "webpack --progress --colors --watch",
     "lint": "eslint src/frontend/** src/backend/** test/** --ext js,vue",
-    "lint:fix": "eslint src/** test/** --fix --ext js,vue",
+    "lint:fix": "eslint src/frontend/** src/backend/** --fix --ext js,vue",
     "publish": "npm run build && webstore upload --source=extension --auto-publish",
     "test": "karma start --single-run --browsers Chrome"
   },
