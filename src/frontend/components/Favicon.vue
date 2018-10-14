@@ -29,8 +29,14 @@ const fallbackUrl = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAMAA
 
 export default {
   props: {
-    url: String,
-    classes: String
+    url: {
+      type: String,
+      default: fallbackUrl
+    },
+    classes: {
+      type: String,
+      default: ''
+    }
   },
   methods: {
     onError() {
