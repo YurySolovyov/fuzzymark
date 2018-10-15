@@ -22,11 +22,17 @@
     "yoda": ["error", "never", { "exceptRange": true }],
     "comma-spacing": ["error", { "before": false, "after": true }],
     "comma-style": ["error", "last" ],
-    "quote-props": ["error", "as-needed", { "keywords": true }],
+    "quote-props": ["error", "as-needed"],
     "object-curly-spacing": ["error", "always"],
     "space-before-blocks": ["error", "always"],
     "keyword-spacing": ["error", { "before": true, "after": true }],
-    "linebreak-style": ["error", "unix"]
+    "linebreak-style": ["error", "unix"],
+    "vue/max-attributes-per-line": ["off"],
+    "vue/attributes-order": ["off"],
+    "vue/order-in-components": ["off"],
+    "vue/html-indent": ["off"],
+    "vue/html-self-closing": ["off"],
+    "vue/require-prop-types": ["warn"]
   },
   "env": {
     "browser": true,

@@ -5,7 +5,7 @@
         :style="{ 'border-color': color }">
         <favicon
           classes="block mb1 bookmark-tile-icon"
-          :url="favicon"
+          :url="bookmark.favicon"
           @gotColor="setColor"></favicon>
         <div>{{ bookmark.title }}</div>
         <tile-controls
@@ -24,7 +24,6 @@ import Favicon from './Favicon.vue';
 export default {
   data() {
     return {
-      favicon: '',
       color: 'transparent'
     };
   },
@@ -49,9 +48,6 @@ export default {
     setColor(color) {
       this.color = color;
     }
-  },
-  mounted() {
-    this.favicon = this.bookmark.favicon;
   }
 };
 </script>
