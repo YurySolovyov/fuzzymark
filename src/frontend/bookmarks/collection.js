@@ -1,9 +1,9 @@
 'use strict';
 
-const chromeUrls = require('./chrome-urls');
+const chromeUrls = require('./chrome-urls.js');
+const faviconUrl = require('./favicon-url.js');
 const bookmarksBarId = '1';
 const rootIndex = 0;
-const isFirefox = typeof chrome !== 'undefined' && typeof browser !== 'undefined';
 
 const getRawBookmarks = function() {
   return new Promise(function(resolve, _reject) {
@@ -35,10 +35,6 @@ const processRawBookmarks = function(raw) {
   return flattenBookmarks(raw, [], []);
 };
 
-const getFaviconUrl = function({ url }) {
-  return isFirefox ? new URL(url).origin + '/favicon.ico' : 'chrome://favicon/' + url;
-};
-
 const filterInvalidBookmarks = function(list) {
   const dummy = document.createElement('a');
   return list.filter(function(bookmark) {
@@ -53,7 +49,7 @@ const simplifyBookmarks = function(list, settings) {
   return bookmarks.map(function(bookmark) {
     return Object.assign(bookmark, {
       title: bookmark[propertyKey] || getSimplifiedUrl(bookmark.url),
-      favicon: getFaviconUrl(bookmark)
+      favicon: faviconUrl(bookmark.url)
     });
   });
 };

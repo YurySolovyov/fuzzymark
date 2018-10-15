@@ -4,6 +4,7 @@
       <div class="pager-button center"
            :class="{ current: currentPage + 1 === page }"
            v-for="page in pagesCount"
+           :key="page"
            @click="onPageClick(page)">{{ page }}</div>
     </div>
     <draggable :list="bookmarksPage" @change="onSort" :options="{ handle: '.move' }">
@@ -32,7 +33,7 @@ export default {
   props: {
     bookmarks: {
       type: Array,
-      default: []
+      default: () => []
     }
   },
   data() {

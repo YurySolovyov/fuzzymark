@@ -1,5 +1,7 @@
 'use strict';
 
+const faivconUrl = require('./favicon-url.js');
+
 const fetchFromStorage = function(key) {
   return new Promise(function(resolve) {
     chrome.storage.sync.get(key, resolve);
@@ -31,7 +33,7 @@ const fetchAll = async function() {
   return tileIds.map(function(id) {
     const tile = tiles[id];
     return Object.assign({
-      favicon: 'chrome://favicon/' + tile.url,
+      favicon: faivconUrl(tile.url),
       id
     }, tile);
   });
