@@ -1,7 +1,7 @@
 <template lang="html">
   <div id="grid" class="col-10 mx-auto my2" v-if="hasBookmarks" @mousewheel="onScroll">
     <div id="grid-pager" class="flex flex-column" v-if="needsPagedGrid">
-      <div class="pager-button center"
+      <div class="pager-button center my1"
            :class="{ current: currentPage + 1 === page }"
            v-for="page in pagesCount"
            :key="page"
@@ -96,18 +96,21 @@ export default {
 }
 
 #grid-pager .pager-button {
+  color: var(--input-text-color);
   height: 32px;
   width: 32px;
   line-height: 32px;
   cursor: pointer;
-  border: 1px transparent solid;
+  border: 2px transparent solid;
   border-radius: 100%;
   font-size: 16px;
-  transition: color 0.1s, border-color 0.3s;
+  transition: border-color 0.3s;
+  background-color: var(--container-bg-color);
 }
 
 
 #grid-pager .pager-button.current {
+  border-color: var(--theme-selected-start);
   color: var(--theme-selected-start);
 }
 
