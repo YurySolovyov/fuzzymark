@@ -38,8 +38,9 @@ const processRawBookmarks = function(raw) {
 const filterInvalidBookmarks = function(list) {
   const dummy = document.createElement('a');
   return list.filter(function(bookmark) {
+    const isActualBookmark = bookmark.type && bookmark.type !== 'separator';
     dummy.href = bookmark.url;
-    return dummy.host !== '';
+    return isActualBookmark && dummy.host !== '';
   });
 };
 
