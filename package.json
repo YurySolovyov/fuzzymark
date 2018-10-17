@@ -1,7 +1,7 @@
 {
   "name": "FuzzyMark",
   "repository": "YurySolovyov/fuzzymark",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "license": "MIT",
   "devDependencies": {
     "basscss": "8.0.4",

@@ -3,7 +3,7 @@
   "name": "FuzzyMark",
   "short_name": "FuzzyMark",
   "description": "Gives access your bookmarks with fuzzy search and simple New Tab Page",
-  "version": "2.1.1",
+  "version": "2.2.0",
 
   "applications": {
     "gecko": {
