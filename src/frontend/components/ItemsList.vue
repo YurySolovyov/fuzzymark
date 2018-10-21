@@ -36,7 +36,7 @@ export default {
 <style lang="css">
 
 #results {
-  max-height: calc(100% - 80px);
+  max-height: calc(100% - 96px);
   overflow-y: scroll;
   will-change: transform;
 }
