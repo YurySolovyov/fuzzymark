@@ -7,10 +7,10 @@
            :key="page"
            @click="onPageClick(page)">{{ page }}</div>
     </div>
-    <draggable :list="bookmarksPage" @change="onSort" :options="{ handle: '.move' }">
-      <bookmark-tile v-for="bookmark in bookmarksPage"
-        :key="bookmark.id"
-        :bookmark="bookmark"></bookmark-tile>
+    <draggable :list="bookmarksPage" @change="onSort" :options="{ handle: '.move' }" item-key="id">
+      <template #item="{element}">
+        <bookmark-tile :bookmark="element" />
+      </template>
     </draggable>
   </div>
   <div v-else class="no-tiles-message center pt4">

@@ -35,9 +35,10 @@ const store = createStore({
       }
     },
     settings(state) {
-      return Object.assign({}, state.settings, {
+      return {
+        ...state.settings,
         selectedIndex: state.selectedIndex
-      });
+      };
     },
     maxResults(state) {
       return state.settings.maxResults;

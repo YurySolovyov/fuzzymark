@@ -46,11 +46,12 @@ const filterInvalidBookmarks = function(list) {
 const simplifyBookmarks = function(list, settings) {
   const propertyKey = settings.propertyKey;
   const bookmarks = settings.showChromeUrls ? list.concat(chromeUrls) : list;
-  return bookmarks.map(function(bookmark) {
-    return Object.assign(bookmark, {
+  return bookmarks.map(bookmark => {
+    return {
+      ...bookmark,
       title: bookmark[propertyKey] || getSimplifiedUrl(bookmark.url),
       favicon: faviconUrl(bookmark.url)
-    });
+    };
   });
 };
 
