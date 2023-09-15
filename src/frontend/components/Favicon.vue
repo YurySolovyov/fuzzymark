@@ -11,10 +11,11 @@
 
 <script>
 
-import * as Vibrant from 'node-vibrant';
+import Vibrant from 'node-vibrant';
 
-const getColors = function(image) {
+const getColors = image => {
   const vib = new Vibrant(image);
+  
   return new Promise(function(resolve, reject) {
     vib.getPalette(function(err, pal) {
       if (err) { reject(err); return; }
@@ -71,13 +72,14 @@ export default {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
       const img = this.$refs.image;
-      if (img !== undefined) {
-        ctx.drawImage(img, 0, 0);
-        // valid non-empty icons have some pixel values > 0
-        return ctx.getImageData(0, 0, 16, 16).data.some(val => val > 0);
-      } else {
+
+      if (!img) {
         return false;
       }
+      
+      ctx.drawImage(img, 0, 0);
+      // valid non-empty icons have some pixel values > 0
+      return ctx.getImageData(0, 0, 16, 16).data.some(val => val > 0);
     }
   },
   mounted() {

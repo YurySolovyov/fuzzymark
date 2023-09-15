@@ -24,18 +24,21 @@ const defaults = [{
   value: false
 }];
 
-const installIfNeeded = function(settings, item) {
-  return settings.get(item.key).then(function(value) {
-    if (value[item.key] !== undefined) { return; }
+const installIfNeeded = (settings, item) => {
+  return settings.get(item.key).then(value => {
+    if (value[item.key] !== undefined) {
+      return;
+    }
+    
     return settings.set(item.key, item.value);
   });
 };
 
 const install = function(settings) {
-  const requests = defaults.map(installIfNeeded.bind(null, settings));
+  const requests = defaults.map(item => installIfNeeded(settings, item));
   return Promise.all(requests);
 };
 
-module.exports = {
+export default {
   install
 };

@@ -32,7 +32,8 @@ export default {
       }
     };
   },
-  computed: Object.assign({
+  
+  computed: {
     currentTile() {
       if (this.newTile) {
         return this.newTileStub;
@@ -41,6 +42,7 @@ export default {
         return this.tiles.find(t => t.id === id);
       }
     },
+    
     id() {
       if (this.newTile) {
         return uuid();
@@ -48,16 +50,22 @@ export default {
         return this.currentTile.id;
       }
     },
+    
     submitEvent() {
       return this.newTile ? 'saveNewTile' : 'saveTile';
     },
+    
     newTile() {
       return this.$route.name === 'new-tile';
     },
+    
     formTitle() {
       return this.newTile ? 'New Tile' : 'Edit Tile';
     },
-  }, state),
+    
+    ...state,
+  },
+  
   methods: {
     onSubmit() {
       this.$store.dispatch(this.submitEvent, {

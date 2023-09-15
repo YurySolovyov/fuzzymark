@@ -1,6 +1,4 @@
-'use strict';
-
-const faivconUrl = require('./favicon-url.js');
+import faivconUrl from './favicon-url.js';
 
 const fetchFromStorage = function(key) {
   return new Promise(function(resolve) {
@@ -62,7 +60,7 @@ const deleteTile = async function(id) {
   await deleteFromStorage(id);
 };
 
-module.exports = {
+export default {
   fetchAll,
   saveNewTile,
   saveTile,

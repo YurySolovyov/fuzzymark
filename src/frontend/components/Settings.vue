@@ -74,7 +74,7 @@ export default {
   components: {
     SettingsSection
   },
-  computed: Object.assign({}, getters, state),
+  computed: { ...getters, ...state },
   methods: {
     saveSetting(key, value) {
       this.$store.dispatch('saveSetting', { key, value });

@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = function highlight(modules, input, result) {
+export default function highlight(modules, input, result) {
   const matched = modules.match(result, input);
   const matchPattern = modules.reduce(matched).map(function(range) {
     return range.map(function(index) {

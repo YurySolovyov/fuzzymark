@@ -1,10 +1,10 @@
-'use strict';
+import FuzzaldrinPlus from 'fuzzaldrin-plus';
+import highlighter from '../match-highlighter';
+import reducer from '../ranges-reducer';
 
-const FuzzaldrinPlus = require('fuzzaldrin-plus');
-
-const highlight = require('../match-highlighter').bind(null, {
+const highlight = highlighter.bind(null, {
   match: FuzzaldrinPlus.match,
-  reduce: require('../ranges-reducer'),
+  reduce: reducer,
   wrap: (string) => '<b>' + string + '</b>'
 });
 
@@ -33,6 +33,6 @@ const filter = function(bookmarks, value, settings) {
   }).map(wrap.bind(null, propertyKey, value, selectedIndex));
 };
 
-module.exports = {
+export default {
   filter
 };

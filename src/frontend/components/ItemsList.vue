@@ -11,7 +11,7 @@
 
 <script>
 import SearchItem from './SearchItem.vue';
-import viewportWatcher from '../viewport-watcher';
+import ensureInViewport from '../viewport-watcher';
 
 export default {
   components: {
@@ -25,8 +25,9 @@ export default {
   props: ['bookmarks'],
   updated() {
     const selected = this.$el.querySelector('.selected');
+    
     if (selected !== null) {
-      viewportWatcher.ensureInViewport(this.$el, selected);
+      ensureInViewport(this.$el, selected);
     }
   }
 };

@@ -31,6 +31,7 @@ const getters = mapGetters([
   'shouldDisplayBookmarksList',
   'appLoaded'
 ]);
+
 const state = mapState(['theme', 'wallpaper', 'wallpaperOpacity']);
 
 export default {
@@ -41,14 +42,16 @@ export default {
     Sidebar,
     Splash,
   },
-  computed: Object.assign({
+  computed: {
     wallpaperStyle() {
       return {
         backgroundImage: this.wallpaper,
         opacity: this.wallpaperOpacity
       };
-    }
-  }, getters, state),
+    },
+    ...getters,
+    ...state
+  },
   mounted() {
     this.$store.dispatch('loadApp');
   }

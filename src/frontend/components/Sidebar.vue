@@ -45,11 +45,12 @@ export default {
     Mountain,
     X,
   },
-  computed: Object.assign({
+  computed: {
     buttonClass() {
       return this.$route.name === 'root' ? 'is-root': 'non-root';
-    }
-  }, getters)
+    },
+    ...getters
+  }
 };
 </script>
 

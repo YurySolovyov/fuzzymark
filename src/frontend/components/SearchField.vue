@@ -22,7 +22,7 @@ const state = mapState(['inputValue']);
 const getters = mapGetters(['selectedBookmark', 'openNew']);
 
 export default {
-  computed: Object.assign({}, getters, state),
+  computed: { ...getters, ...state },
   methods: {
     onInput(e) {
       this.$store.dispatch('updateInputValue', e.target.value);

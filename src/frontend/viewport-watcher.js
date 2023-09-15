@@ -1,12 +1,11 @@
-'use strict';
-
-const withinviewport = require('withinviewport');
-withinviewport.defaults.sides = 'top bottom';
+import { withinViewport } from 'withinviewport';
 
 const baseOffset = 25;
 const viewportOptions = {
   top: baseOffset,
-  bottom: baseOffset
+  bottom: baseOffset,
+  left: 'ignore',
+  right: 'ignore',
 };
 
 const startAtBottom = function(container, element) {
@@ -16,12 +15,10 @@ const startAtBottom = function(container, element) {
 };
 
 const ensureInViewport = function(container, element) {
-  const visible = withinviewport(element, viewportOptions);
+  const visible = withinViewport(element, viewportOptions);
   if (!visible) {
     element.scrollIntoView(startAtBottom(container, element));
   }
 };
 
-module.exports = {
-  ensureInViewport
-};
+export default ensureInViewport;

@@ -1,5 +1,5 @@
 node_modules/
-dist/
-extension/*.zip
+extension/
 .eslintcache
 *.log
+package-lock.json

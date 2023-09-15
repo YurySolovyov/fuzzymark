@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = function reduce(indexes) {
+export default function reduce(indexes) {
   return indexes.reduce(function(ranges, index, pos) {
     const prevIndex = indexes[pos - 1];
     const currentIndex = indexes[pos];

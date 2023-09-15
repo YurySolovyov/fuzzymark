@@ -1,7 +1,6 @@
-'use strict';
+import chromeUrls from './chrome-urls.js';
+import faviconUrl from './favicon-url.js';
 
-const chromeUrls = require('./chrome-urls.js');
-const faviconUrl = require('./favicon-url.js');
 const bookmarksBarId = '1';
 const rootIndex = 0;
 
@@ -72,7 +71,7 @@ const remove = function(id, callback) {
   chrome.bookmarks.remove(id.toString(), callback);
 };
 
-module.exports = {
+export default {
   transform,
   load,
   remove

@@ -1,5 +1,4 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import { createStore } from 'vuex'
 
 import settings from './settings';
 import bookmarksCollection from './bookmarks/collection';
@@ -9,9 +8,7 @@ import tileBookmarks from './bookmarks/tiles';
 import messageService from './message-service';
 import wallpaperManager from './wallpaper-manager';
 
-Vue.use(Vuex);
-
-const store = new Vuex.Store({
+const store = createStore({
   state: {
     theme: 'light',
     bookmarks: null,
