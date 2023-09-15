@@ -59,8 +59,8 @@ export default {
     }
   },
   methods: {
-    onSort() {
-      this.$store.dispatch('saveTileIds');
+    onSort({ moved }) {
+      this.$store.dispatch('saveMovedTiles', moved);
     },
     onScroll(e) {
       if (e.deltaY > 0) {

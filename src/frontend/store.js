@@ -166,8 +166,21 @@ const store = createStore({
       await tileBookmarks.deleteTile(id);
       dispatch('loadBookmarks');
     },
-    async saveTileIds({ state }) {
-      const ids = state.tiles.map(t => t.id);
+    async saveMovedTiles({ state, dispatch }, { element, oldIndex, newIndex }) {
+      const oldItem = state.tiles[oldIndex];
+      const newItem = state.tiles[newIndex];
+      const ids = state.tiles.map(tile => {
+        if (tile.id === oldItem.id) {
+          return newItem.id;
+        }
+
+        if (tile.id === newItem.id) {
+          return oldItem.id;
+        }
+
+        return tile.id;
+      });
+
       await tileBookmarks.saveTileIds(ids);
     },
     async saveWallpaper({ commit }, wallpaper) {
