@@ -1,8 +1,6 @@
-const reduce = require('./../src/frontend/ranges-reducer.js');
+import reduce from '../src/frontend/ranges-reducer.js';
 
 describe('RangesReducer', function() {
-  'use strict';
-
   it('leaves non-ranged indexes as is', function() {
     const reduced = reduce([2, 4, 9]);
     expect(reduced).toEqual([[2], [4], [9]]);

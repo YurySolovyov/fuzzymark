@@ -1,8 +1,5 @@
-'use strict';
-
-const collection = require('../src/frontend/bookmarks/collection');
-const helper = require('./helpers/collection-helper');
-const _ = require('lodash');
+import collection from '../src/frontend/bookmarks/collection';
+import helper from './helpers/collection-helper';
 
 describe('Bookmarks collection', function() {
 
@@ -24,7 +21,7 @@ describe('Bookmarks collection', function() {
     });
 
     it('creates titles from urls if title is empty', function() {
-      const titles = _.map(transformed, 'title');
+      const titles = transformed.map(t => t.title);
       expect(titles).toBeArrayOfStrings();
       expect(titles).toEqual([
         'twitter.com',
@@ -34,9 +31,9 @@ describe('Bookmarks collection', function() {
     });
 
     it('assigns paths to bookmarks', function() {
-      const titles = _.map(transformed, 'path');
-      expect(titles).toBeArrayOfStrings();
-      expect(titles).toEqual([
+      const paths = transformed.map(t => t.path);
+      expect(paths).toBeArrayOfStrings();
+      expect(paths).toEqual([
         'social',
         'social/nested',
         'social/nested'
@@ -57,9 +54,17 @@ describe('Bookmarks collection', function() {
   describe('Bookmarks loading', function() {
 
     beforeAll(function() {
-      window.chrome.bookmarks = {
-        getTree: function(callback) {
-          _.defer(callback, helper.bookmarks);
+      window.chrome = window.chrome || {
+        runtime: {
+          getURL(postfix) {
+            return `${window.location.origin}${postfix}`;
+          },
+        },
+
+        bookmarks: {
+          getTree: function(callback) {
+            window.setTimeout(() => callback(helper.bookmarks), 1);
+          }
         }
       };
     });
@@ -68,7 +73,7 @@ describe('Bookmarks collection', function() {
       spyOn(window.chrome.bookmarks, 'getTree').and.callThrough();
 
       collection.load().then(function(data) {
-        expect(window.charome.bookmarks.getTree).toHaveBeenCalled();
+        expect(window.chrome.bookmarks.getTree).toHaveBeenCalled();
         expect(data).toBeArrayOfObjects();
       });
     });

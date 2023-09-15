@@ -1,5 +1,5 @@
-const _ = require('lodash');
-const highlighter = require('./../src/frontend/match-highlighter.js');
+import _ from 'lodash';
+import highlighter from '../src/frontend/match-highlighter.js';
 
 describe('matchHighlighter', function() {
   'use strict';

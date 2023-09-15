@@ -33,6 +33,6 @@ const bookmarks = [{
   parentId: '0',
 }];
 
-module.exports = {
+export default {
   bookmarks
 };

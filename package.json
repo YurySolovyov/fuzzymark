@@ -24,13 +24,15 @@
     "chrome-webstore-upload-cli": "1.1.1",
     "eslint": "5.7.0",
     "eslint-plugin-vue": "4.7.1",
-    "jasmine-core": "3.2.1",
-    "karma": "3.0.0",
-    "karma-chrome-launcher": "2.2.0",
-    "karma-jasmine": "1.1.2",
-    "karma-jasmine-matchers": "3.8.3",
-    "karma-mocha-reporter": "2.2.5",
-    "karma-sourcemap-loader": "0.3.7",
+    "jasmine-core": "^5.1.1",
+    "karma": "^6.4.2",
+    "karma-chrome-launcher": "^3.2.0",
+    "karma-jasmine": "^5.1.0",
+    "karma-jasmine-matchers": "^5.0.0",
+    "karma-mocha-reporter": "^2.2.5",
+    "karma-vite": "^1.0.4",
+    "minimist": "^1.2.8",
+    "puppeteer": "^21.2.1",
     "vite": "^4.4.9"
   },
   "scripts": {
@@ -40,6 +42,6 @@
     "lint": "eslint src/frontend/** src/backend/** test/** --ext js,vue",
     "lint:fix": "eslint src/frontend/** src/backend/** --fix --ext js,vue",
     "publish:chrome": "npm run build && webstore upload --source=extension/chrome --auto-publish",
-    "test": "karma start --single-run --browsers Chrome"
+    "test": "karma start ./karma.conf.cjs --single-run"
   }
 }
