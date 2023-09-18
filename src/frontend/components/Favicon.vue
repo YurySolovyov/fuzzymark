@@ -11,19 +11,7 @@
 </template>
 
 <script>
-
 import Vibrant from 'node-vibrant';
-
-const getColors = image => {
-  const vib = new Vibrant(image);
-  
-  return new Promise(function(resolve, reject) {
-    vib.getPalette(function(err, pal) {
-      if (err) { reject(err); return; }
-      resolve(pal);
-    });
-  });
-};
 
 // Yellow star
 const fallbackColor = '#FDD835';
@@ -58,13 +46,14 @@ export default {
       this.emitColor(this.fetchedValidIcon ? color : fallbackColor);
     },
     async selectPaletteColor() {
-      const palettes = await getColors(this.$refs.image);
-      return (palettes.Muted ||
-              palettes.Vibrant ||
-              palettes.LightVibrant ||
-              palettes.LightMuted ||
-              palettes.DarkMuted ||
-              palettes.DarkVibrant).getHex();
+      const palette = await Vibrant.from(this.$refs.image).getPalette();
+      
+      return (palette.Vibrant ||
+              palette.LightVibrant ||
+              palette.Muted ||
+              palette.LightMuted ||
+              palette.DarkMuted ||
+              palette.DarkVibrant).getHex();
     },
     emitColor(color) {
       this.$emit('gotColor', color);
