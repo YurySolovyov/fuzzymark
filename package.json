@@ -30,7 +30,6 @@
   "scripts": {
     "dev": "vite build --watch",
     "build": "vite build && node copy-ff.js",
-    "preview": "vite preview",
     "lint": "eslint src/frontend/** src/backend/** test/** --ext js,vue",
     "lint:fix": "eslint src/frontend/** src/backend/** test/** --fix --ext js,vue",
     "publish:chrome": "npm run build && webstore upload --source=extension/chrome --auto-publish",
