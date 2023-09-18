@@ -13,12 +13,12 @@ jobs:
         with:
           node-version: 18.x
 
-      - name: Run install
+      - name: Install packages
         uses: borales/actions-yarn@v4
         with:
           cmd: install
       
-      - name: Test the app
+      - name: Run tests
         uses: borales/actions-yarn@v4
         with:
           cmd: test
