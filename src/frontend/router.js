@@ -1,4 +1,4 @@
-import { createRouter, createMemoryHistory } from 'vue-router'
+import { createRouter, createMemoryHistory } from 'vue-router';
 
 import Settings from './components/Settings.vue';
 import TileForm from './components/TileForm.vue';

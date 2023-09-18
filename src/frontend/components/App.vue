@@ -1,19 +1,22 @@
 <template lang="html">
   <div id="app" :class="`theme-${theme} accent-${accent}`" v-if="appLoaded">
-    <div class="absolute"
+    <div
+      class="absolute"
       id="wallpaper"
-      :style="wallpaperStyle"></div>
+      :style="wallpaperStyle" />
     <div id="container" class="absolute">
-      <search-field></search-field>
-      <items-list v-if="shouldDisplayBookmarksList"
-        :bookmarks="bookmarks"></items-list>
-      <bookmarks-grid v-else
-        :bookmarks="bookmarks"></bookmarks-grid>
+      <search-field />
+      <items-list
+        v-if="shouldDisplayBookmarksList"
+        :bookmarks="bookmarks" />
+      <bookmarks-grid
+        v-else
+        :bookmarks="bookmarks" />
     </div>
-    <router-view></router-view>
-    <sidebar></sidebar>
+    <router-view />
+    <sidebar />
   </div>
-  <splash v-else></splash>
+  <splash v-else />
 </template>
 
 <script>

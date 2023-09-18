@@ -1,29 +1,33 @@
 <template lang="html">
   <div id="sidebar" class="absolute left-0 top-0 m2">
-    <router-link class="overlay-control root"
+    <router-link
+      class="overlay-control root"
       title="Close"
       to="/"
       :class="buttonClass">
-      <x></x>
+      <x />
     </router-link>
-    <router-link class="overlay-control settings"
+    <router-link
+      class="overlay-control settings"
       title="Settings"
       to="/settings"
       :class="buttonClass">
-      <menu-lines></menu-lines>
+      <menu-lines />
     </router-link>
-    <router-link class="overlay-control new-tile"
+    <router-link
+      class="overlay-control new-tile"
       title="New tile"
       v-if="showGrid"
       to="/new-tile"
       :class="buttonClass">
-      <plus></plus>
+      <plus />
     </router-link>
-    <router-link class="overlay-control background"
+    <router-link
+      class="overlay-control background"
       title="Set background"
       to="/background"
       :class="buttonClass">
-      <mountain></mountain>
+      <mountain />
     </router-link>
   </div>
 </template>

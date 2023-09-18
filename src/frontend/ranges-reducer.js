@@ -21,4 +21,4 @@ export default function reduce(indexes) {
 
     return ranges;
   }, []);
-};
+}

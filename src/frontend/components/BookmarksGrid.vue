@@ -1,11 +1,14 @@
 <template lang="html">
   <div id="grid" class="col-10 mx-auto my2" v-if="hasBookmarks" @mousewheel="onScroll">
     <div id="grid-pager" class="flex flex-column" v-if="needsPagedGrid">
-      <div class="pager-button center my1"
-           :class="{ current: currentPage + 1 === page }"
-           v-for="page in pagesCount"
-           :key="page"
-           @click="onPageClick(page)">{{ page }}</div>
+      <div
+        class="pager-button center my1"
+        :class="{ current: currentPage + 1 === page }"
+        v-for="page in pagesCount"
+        :key="page"
+        @click="onPageClick(page)">
+        {{ page }}
+      </div>
     </div>
     <draggable :list="bookmarksPage" @change="onSort" :options="{ handle: '.move' }" item-key="id">
       <template #item="{element}">
@@ -14,7 +17,9 @@
     </draggable>
   </div>
   <div v-else class="no-tiles-message center pt4">
-    <h1 class="font-light">No pinned tiles yet, try adding one by clicking plus icon on the left</h1>
+    <h1 class="font-light">
+      No pinned tiles yet, try adding one by clicking plus icon on the left
+    </h1>
   </div>
 </template>
 

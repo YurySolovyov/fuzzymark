@@ -1,22 +1,23 @@
 <template lang="html">
   <div class="overlay top-0 left-0">
     <div class="lg-col-6 md-col-8 sm-col-10 mx-auto" v-if="currentTile">
-      <h1 class="overlay-title font-light">{{ formTitle }}</h1>
+      <h1 class="overlay-title font-light">
+        {{ formTitle }}
+      </h1>
       <input
         class="col-8 my2 p1 block border-none font-family-inherit container-background input font-light px2"
         type="text"
         v-model="currentTile.title"
         placeholder="Title"
-        name="title"
-      />
+        name="title">
       <input
         class="col-8 my2 p1 block border-none font-family-inherit container-background input font-light px2"
         type="text"
         v-model="currentTile.url"
         placeholder="Url"
-        name="url"
-      />
-      <a class="big-link text-decoration-none font-light inline-block mt3"
+        name="url">
+      <a
+        class="big-link text-decoration-none font-light inline-block mt3"
         href="#"
         @click.prevent="onSubmit">Looks Good</a>
     </div>

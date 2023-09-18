@@ -1,12 +1,13 @@
 <template lang="html">
-  <img alt="Favicon"
+  <img
+    alt="Favicon"
     height="16"
     width="16"
     ref="image"
     :src="iconUrl"
     :class="classes"
     @load="onLoaded"
-    @error="onError"/>
+    @error="onError">
 </template>
 
 <script>

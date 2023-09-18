@@ -1,4 +1,4 @@
-import { createStore } from 'vuex'
+import { createStore } from 'vuex';
 
 import settings from './settings';
 import bookmarksCollection from './bookmarks/collection';
@@ -166,7 +166,7 @@ const store = createStore({
       await tileBookmarks.deleteTile(id);
       dispatch('loadBookmarks');
     },
-    async saveMovedTiles({ state, dispatch }, { element, oldIndex, newIndex }) {
+    async saveMovedTiles({ state }, { oldIndex, newIndex }) {
       const oldItem = state.tiles[oldIndex];
       const newItem = state.tiles[newIndex];
       const ids = state.tiles.map(tile => {

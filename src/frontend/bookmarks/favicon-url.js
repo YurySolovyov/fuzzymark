@@ -6,9 +6,9 @@ const handlers = {
       return `${origin}/favicon.ico`;
     }
     
-    const url = new URL(globalThis.chrome.runtime.getURL("/_favicon/"));
-    url.searchParams.set("pageUrl", origin);
-    url.searchParams.set("size", "32");
+    const url = new URL(globalThis.chrome.runtime.getURL('/_favicon/'));
+    url.searchParams.set('pageUrl', origin);
+    url.searchParams.set('size', '32');
     return url.toString();
 
   },

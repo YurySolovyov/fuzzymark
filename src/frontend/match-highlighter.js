@@ -8,4 +8,4 @@ export default function highlight(modules, input, result) {
 
   const matcher = new RegExp(matchPattern, 'gi');
   return result.replace(matcher, modules.wrap);
-};
+}

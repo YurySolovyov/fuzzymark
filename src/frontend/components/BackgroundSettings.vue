@@ -1,9 +1,12 @@
 <template lang="html">
   <div class="overlay top-0 left-0 overflow-scroll">
     <div class="lg-col-6 md-col-8 sm-col-10 mx-auto">
-      <h1 class="overlay-title font-light">Background</h1>
-      <input type="file" class="hide" ref="input" @change="onFileSelect" />
-      <a class="big-link text-decoration-none font-light mt3"
+      <h1 class="overlay-title font-light">
+        Background
+      </h1>
+      <input type="file" class="hide" ref="input" @change="onFileSelect">
+      <a
+        class="big-link text-decoration-none font-light mt3"
         href="#"
         @click.prevent="onSelectClick">
         <template v-if="showSelectButton">
@@ -24,9 +27,10 @@
         </h2>
       </div>
       <div class="preview py2" :style="{ opacity }">
-        <img class="fit" :src="previewUrl" v-if="showPreview" ref="preview" />
+        <img class="fit" :src="previewUrl" v-if="showPreview" ref="preview">
       </div>
-      <a class="big-link text-decoration-none font-light mt3"
+      <a
+        class="big-link text-decoration-none font-light mt3"
         href="#"
         v-if="showAcceptButton"
         @click.prevent="onSet">Looks Good</a>
