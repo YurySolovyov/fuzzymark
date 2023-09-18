@@ -29,6 +29,10 @@ export default {
     valueLabels: {
       type: Array,
       required: true,
+    },
+    activeValue: {
+      type: [String, Number, Boolean],
+      required: true,
     }
   },
   methods: {
