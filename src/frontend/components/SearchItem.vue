@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 import Plus from './icons/Plus.vue';
 import Favicon from './Favicon.vue';
 

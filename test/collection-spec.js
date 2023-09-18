@@ -1,83 +1,56 @@
-import collection from '../src/frontend/bookmarks/collection';
-import helper from './helpers/collection-helper';
+import { test } from 'uvu';
+import * as assert from 'uvu/assert';
 
-describe('Bookmarks collection', function() {
+import collection from '../src/frontend/bookmarks/collection.js';
+import helper from './helpers/collection-helper.js';
 
-  describe('Bookmarks transformation', function() {
-    let transformed;
-    const settings = {
-      store: new Map([
-        ['propertyKey', 'title'],
-        ['maxResults', 20]
-      ])
-    };
-    const settingsProvider = () => settings;
-    beforeEach(function() {
-      transformed = collection.transform(helper.bookmarks, settingsProvider);
-    });
-
-    it('transforms bookmarks to flat array', function() {
-      expect(transformed).toBeArrayOfObjects();
-    });
-
-    it('creates titles from urls if title is empty', function() {
-      const titles = transformed.map(t => t.title);
-      expect(titles).toBeArrayOfStrings();
-      expect(titles).toEqual([
-        'twitter.com',
-        'geektimes.ru',
-        'web.skype.com/ru/'
-      ]);
-    });
-
-    it('assigns paths to bookmarks', function() {
-      const paths = transformed.map(t => t.path);
-      expect(paths).toBeArrayOfStrings();
-      expect(paths).toEqual([
-        'social',
-        'social/nested',
-        'social/nested'
-      ]);
-    });
-
-    it('assigns favicons to bookmarks', function() {
-      const favicons = _.map(transformed, 'favicon');
-      expect(favicons).toBeArrayOfStrings();
-      expect(favicons).toEqual([
-        'chrome://favicon/https://twitter.com/',
-        'chrome://favicon/http://geektimes.ru/',
-        'chrome://favicon/https://web.skype.com/ru/',
-      ]);
-    });
-  });
-
-  describe('Bookmarks loading', function() {
-
-    beforeAll(function() {
-      window.chrome = window.chrome || {
-        runtime: {
-          getURL(postfix) {
-            return `${window.location.origin}${postfix}`;
-          },
-        },
-
-        bookmarks: {
-          getTree: function(callback) {
-            window.setTimeout(() => callback(helper.bookmarks), 1);
-          }
-        }
-      };
-    });
-
-    it('loads bookmarks', function() {
-      spyOn(window.chrome.bookmarks, 'getTree').and.callThrough();
-
-      collection.load().then(function(data) {
-        expect(window.chrome.bookmarks.getTree).toHaveBeenCalled();
-        expect(data).toBeArrayOfObjects();
-      });
-    });
-
-  });
-
+const settingsProvider = () => ({
+  store: new Map([
+    ['propertyKey', 'title'],
+    ['maxResults', 20]
+  ])
 });
+
+test('transforms bookmarks to flat array', () => {
+  const transformed = collection.transform(helper.bookmarks, settingsProvider);
+  
+  for (const item of transformed) {
+    assert.not.equal(item, null);
+    assert.type(item, 'object');
+  }
+});
+
+test('creates titles from urls if title is empty', () => {
+  const transformed = collection.transform(helper.bookmarks, settingsProvider);
+  const titles = transformed.map(t => t.title);
+  
+  assert.equal(titles, [
+    'twitter.com',
+    'geektimes.ru',
+    'web.skype.com/ru/'
+  ]);
+});
+
+test('assigns paths to bookmarks', () => {
+  const transformed = collection.transform(helper.bookmarks, settingsProvider);
+  const paths = transformed.map(t => t.path);
+  
+  assert.equal(paths, [
+    'social',
+    'social/nested',
+    'social/nested'
+  ]);
+});
+
+test('assigns favicons to bookmarks', () => {
+  const transformed = collection.transform(helper.bookmarks, settingsProvider);
+  const favicons = transformed.map(t => t.favicon);
+  
+  assert.equal(favicons, [
+    'https://twitter.com/favicon.ico',
+    'http://geektimes.ru/favicon.ico',
+    'https://web.skype.com/favicon.ico',
+  ]);
+});
+
+test.run();

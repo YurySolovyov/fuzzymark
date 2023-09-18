@@ -22,7 +22,7 @@
 
 import BookmarkTile from './BookmarkTile.vue';
 import draggable from 'vuedraggable';
-import { chunk } from 'lodash';
+import { chunk } from 'lodash'; // TODO: write our chunk
 const tilesPerPage = 12;
 
 export default {

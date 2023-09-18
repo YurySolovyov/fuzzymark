@@ -1,4 +1,5 @@
 import faivconUrl from './favicon-url.js';
+import browser from './browser.js';
 
 const fetchFromStorage = key => {
   return new Promise(resolve => {
@@ -27,12 +28,13 @@ const fetchIds = async () => {
 const fetchAll = async () => {
   const tileIds = await fetchIds();
   const tiles = await fetchFromStorage(tileIds);
+  const kind = browser();
 
   return tileIds.map(id => {
     const tile = tiles[id];
     
     return {
-      favicon: faivconUrl(tile.url),
+      favicon: faivconUrl(tile.url, kind),
       id,
       ...tile,
     };
