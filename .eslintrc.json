@@ -24,6 +24,7 @@
     "space-before-blocks": ["error", "always"],
     "keyword-spacing": ["error", { "before": true, "after": true }],
     "linebreak-style": ["error", "unix"],
+    "eol-last": ["error", "always"],
     "vue/max-attributes-per-line": ["off"],
     "vue/attributes-order": ["off"],
     "vue/order-in-components": ["off"],
