@@ -1,16 +1,17 @@
 <template lang="html">
   <div class="bookmark-tile col-3 left overflow-hidden border-box my1">
     <a :href="bookmark.url" class="block bookmark-tile-cell mx1 text-decoration-underline">
-      <div class="grid-item-wrapper container-background px1 py2 border-box overflow-hidden flex flex-column"
+      <div
+        class="grid-item-wrapper container-background px1 py2 border-box overflow-hidden flex flex-column"
         :style="{ 'border-color': color }">
         <favicon
           classes="block mb1 bookmark-tile-icon"
           :url="bookmark.favicon"
-          @gotColor="setColor"></favicon>
+          @gotColor="setColor" />
         <div>{{ bookmark.title }}</div>
         <tile-controls
           @delete="onDelete"
-          @edit="onEdit"></tile-controls>
+          @edit="onEdit" />
       </div>
     </a>
   </div>
@@ -31,7 +32,12 @@ export default {
     TileControls,
     Favicon
   },
-  props: ['bookmark'],
+  props: {
+    bookmark: {
+      type: Object,
+      required: true,
+    }
+  },
   methods: {
     onDelete() {
       this.$router.push({

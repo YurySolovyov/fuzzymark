@@ -1,4 +1,4 @@
-module.exports = [
+export default [
   { url: 'chrome://about', title: 'chrome:about'  },
   { url: 'chrome://accessibility', title: 'chrome:accessibility'  },
   { url: 'chrome://appcache-internals', title: 'chrome:appcache-internals'  },

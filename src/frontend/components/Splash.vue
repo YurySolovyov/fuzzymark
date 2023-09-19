@@ -1,5 +1,6 @@
 <template lang="html">
-  <div class="overlay top-0 left-0 flex flex-column"
+  <div
+    class="overlay top-0 left-0 flex flex-column"
     :class="`theme-${theme}`"
     id="splash">
     <h1 class="font-light overlay-title">

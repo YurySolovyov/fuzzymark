@@ -1,6 +1,4 @@
-'use strict';
-
-const dateFormat = require('dateformat');
+import dateFormat from 'dateformat';
 
 const formatDate = function(item) {
   return dateFormat(new Date(item.dateAdded), 'dd mmm yy');
@@ -22,6 +20,6 @@ const filter = function(bookmarks, settings) {
   }).slice(0, maxResults).map(wrap.bind(null, selectedIndex));
 };
 
-module.exports = {
+export default {
   filter
 };

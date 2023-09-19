@@ -1,5 +1,4 @@
-'use strict';
-const messageService = require('./message-service');
+import messageService from './message-service';
 
 const fetchAll = function() {
   return messageService.send('fetch-settings');
@@ -13,7 +12,7 @@ const saveSetting = function(key, value) {
   return messageService.send('set-setting', { key, value });
 };
 
-module.exports = {
+export default {
   fetchAll,
   fetchSetting,
   saveSetting,

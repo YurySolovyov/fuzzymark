@@ -1,16 +1,16 @@
 <template lang="html">
   <div class="tile-controls flex flex-column" @click.prevent.stop @mouseleave="collapse">
     <div class="edit" v-if="expanded" @click="onEdit" title="Edit Tile">
-      <edit></edit>
+      <edit />
     </div>
     <div class="delete" v-if="expanded" @click="onDelete" title="Delete Tile">
-      <trash></trash>
+      <trash />
     </div>
     <div class="move" v-if="expanded" title="Move Tile">
-      <move></move>
+      <move />
     </div>
     <div class="dots" @click="toggle">
-      <dots></dots>
+      <dots />
     </div>
   </div>
 </template>

@@ -1,6 +1,4 @@
-'use strict';
-
-const EventEmitter = require('events');
+import EventEmitter from 'eventemitter3';
 const emitter = new EventEmitter();
 
 chrome.runtime.onMessage.addListener(function(request, _sender, _sendResponse) {
@@ -18,7 +16,7 @@ const send = function(type, message) {
   });
 };
 
-module.exports = {
+export default {
   on,
   send
 };

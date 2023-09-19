@@ -1,34 +1,29 @@
-'use strict';
+const storage = chrome.storage.sync;
 
-function SettingsStore() {
-
-  const storage = chrome.storage.sync;
-
-  this.get = function(key) {
+class SettingsStore {
+  get(key) {
     return new Promise(function(resolve, _reject) {
       storage.get(key, resolve);
     });
-  };
+  }
 
-  this.set = function(key, value) {
+  set(key, value) {
     return new Promise(function(resolve, _reject) {
       storage.set({ [key]: value }, resolve);
     });
-  };
+  }
 
-  this.remove = function(key) {
+  remove(key) {
     return new Promise(function(resolve, _reject) {
       storage.remove(key, resolve);
     });
-  };
+  }
 
-  this.all = function() {
+  all() {
     return new Promise(function(resolve, _reject) {
       storage.get(null, resolve);
     });
-  };
-
-  return this;
+  }
 }
 
-module.exports = SettingsStore;
+export default SettingsStore;

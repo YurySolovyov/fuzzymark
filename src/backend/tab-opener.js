@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = function(url, callback) {
+export default (url, callback) => {
   chrome.tabs.query({ url: url }, function(tabs) {
     if (tabs && tabs.length) {
       chrome.tabs.update(tabs[0].id, { active: true });
@@ -8,9 +6,11 @@ module.exports = function(url, callback) {
     } else {
       chrome.tabs.create({ url: url });
     }
+    
     if (typeof callback === 'function') {
       callback();
     }
   });
+  
   return true;
 };

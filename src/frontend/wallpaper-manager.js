@@ -1,5 +1,3 @@
-'use strict';
-
 // local one does not perform sync
 const storage = chrome.storage.local;
 
@@ -33,7 +31,7 @@ const setOpacity = function(value) {
   });
 };
 
-module.exports = {
+export default {
   save,
   get,
   clear,

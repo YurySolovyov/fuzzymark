@@ -1,7 +1,4 @@
 {
-  "parserOptions": {
-    "ecmaVersion": 6
-  },
   "rules": {
     "indent": ["error", 2],
     "quotes": ["error", "single"],
@@ -27,20 +24,23 @@
     "space-before-blocks": ["error", "always"],
     "keyword-spacing": ["error", { "before": true, "after": true }],
     "linebreak-style": ["error", "unix"],
+    "eol-last": ["error", "always"],
     "vue/max-attributes-per-line": ["off"],
     "vue/attributes-order": ["off"],
     "vue/order-in-components": ["off"],
-    "vue/html-indent": ["off"],
-    "vue/html-self-closing": ["off"],
+    "vue/multi-word-component-names": ["off"],
+    "vue/html-closing-bracket-newline": ["error", {
+      "singleline": "never",
+      "multiline": "never"
+    }],
     "vue/require-prop-types": ["warn"]
   },
   "env": {
     "browser": true,
-    "es6": true,
-    "jasmine": true
+    "es2021": true
   },
   "parserOptions": {
-    "ecmaVersion": 8,
+    "ecmaVersion": 12,
     "sourceType": "module"
   },
   "plugins": ["vue"],
@@ -51,6 +51,6 @@
   },
   "extends": [
     "eslint:recommended",
-    "plugin:vue/recommended"
+    "plugin:vue/strongly-recommended"
   ]
 }

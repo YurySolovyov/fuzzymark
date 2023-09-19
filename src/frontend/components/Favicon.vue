@@ -1,27 +1,17 @@
 <template lang="html">
-  <img alt="Favicon"
+  <img
+    alt="Favicon"
     height="16"
     width="16"
     ref="image"
     :src="iconUrl"
     :class="classes"
     @load="onLoaded"
-    @error="onError"/>
+    @error="onError">
 </template>
 
 <script>
-
-import * as Vibrant from 'node-vibrant';
-
-const getColors = function(image) {
-  const vib = new Vibrant(image);
-  return new Promise(function(resolve, reject) {
-    vib.getPalette(function(err, pal) {
-      if (err) { reject(err); return; }
-      resolve(pal);
-    });
-  });
-};
+import Vibrant from 'node-vibrant';
 
 // Yellow star
 const fallbackColor = '#FDD835';
@@ -56,13 +46,14 @@ export default {
       this.emitColor(this.fetchedValidIcon ? color : fallbackColor);
     },
     async selectPaletteColor() {
-      const palettes = await getColors(this.$refs.image);
-      return (palettes.Muted ||
-              palettes.Vibrant ||
-              palettes.LightVibrant ||
-              palettes.LightMuted ||
-              palettes.DarkMuted ||
-              palettes.DarkVibrant).getHex();
+      const palette = await Vibrant.from(this.$refs.image).getPalette();
+      
+      return (palette.Vibrant ||
+              palette.LightVibrant ||
+              palette.Muted ||
+              palette.LightMuted ||
+              palette.DarkMuted ||
+              palette.DarkVibrant).getHex();
     },
     emitColor(color) {
       this.$emit('gotColor', color);
@@ -71,13 +62,14 @@ export default {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
       const img = this.$refs.image;
-      if (img !== undefined) {
-        ctx.drawImage(img, 0, 0);
-        // valid non-empty icons have some pixel values > 0
-        return ctx.getImageData(0, 0, 16, 16).data.some(val => val > 0);
-      } else {
+
+      if (!img) {
         return false;
       }
+      
+      ctx.drawImage(img, 0, 0);
+      // valid non-empty icons have some pixel values > 0
+      return ctx.getImageData(0, 0, 16, 16).data.some(val => val > 0);
     }
   },
   mounted() {

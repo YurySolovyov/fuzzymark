@@ -1,68 +1,64 @@
-'use strict';
+import faivconUrl from './favicon-url.js';
+import browser from './browser.js';
 
-const faivconUrl = require('./favicon-url.js');
-
-const fetchFromStorage = function(key) {
-  return new Promise(function(resolve) {
+const fetchFromStorage = key => {
+  return new Promise(resolve => {
     chrome.storage.sync.get(key, resolve);
   });
 };
 
-const setInStorage = function(key, value) {
-  return new Promise(function(resolve) {
+const setInStorage = (key, value) => {
+  return new Promise(resolve => {
     const obj = { [key]: value };
     chrome.storage.sync.set(obj, resolve);
   });
 };
 
-const deleteFromStorage = function(key) {
-  return new Promise(function(resolve) {
+const deleteFromStorage = key => {
+  return new Promise(resolve => {
     chrome.storage.sync.remove(key, resolve);
   });
 };
 
-const fetchIds = async function() {
-  const ids = (await fetchFromStorage('tiles')).tiles;
-  return ids || [];
+const fetchIds = async () => {
+  const result = await fetchFromStorage('tiles');
+  return result.tiles || [];
 };
 
-const fetchAll = async function() {
+const fetchAll = async () => {
   const tileIds = await fetchIds();
   const tiles = await fetchFromStorage(tileIds);
+  const kind = browser();
 
-  return tileIds.map(function(id) {
+  return tileIds.map(id => {
     const tile = tiles[id];
-    return Object.assign({
-      favicon: faivconUrl(tile.url),
-      id
-    }, tile);
+    
+    return {
+      favicon: faivconUrl(tile.url, kind),
+      id,
+      ...tile,
+    };
   });
 };
 
-const saveTileIds = function(ids) {
-  return setInStorage('tiles', ids);
-};
+const saveTileIds = ids => setInStorage('tiles', ids);
+const saveTile = (id, tile) => setInStorage(id, tile);
 
-const saveTile = function(id, tile) {
-  return setInStorage(id, tile);
-};
-
-const saveNewTile = async function(id, tile) {
+const saveNewTile = async (id, tile) => {
   const ids = await fetchIds();
   await saveTileIds(ids.concat(id));
   await saveTile(id, tile);
 };
 
-const deleteTile = async function(id) {
-  const newIds = (await fetchIds()).filter(function(tileId) {
-    return id !== tileId;
-  });
+const deleteTile = async id => {
+  const ids = await fetchIds();
+  const newIds = ids.filter(tileId => tileId !== id);
 
   await saveTileIds(newIds);
   await deleteFromStorage(id);
 };
 
-module.exports = {
+export default {
   fetchAll,
   saveNewTile,
   saveTile,

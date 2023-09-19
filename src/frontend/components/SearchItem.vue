@@ -1,22 +1,24 @@
 <template lang="html">
-  <li class="bookmark overflow-hidden border-box list-style-none"
+  <li
+    class="bookmark overflow-hidden border-box list-style-none"
     :class="{ selected: bookmark.selected }">
     <div class="bookmark-wrapper p1 container-background">
       <div class="bookmark-header p1 flex">
         <span class="bookmark-score">{{ bookmark.score }}</span>
-        <span class="bookmark-title truncate" v-html="bookmark.wrappedTitle"></span>
+        <span class="bookmark-title truncate" v-html="bookmark.wrappedTitle" />
         <span class="bookmark-path right">{{ bookmark.path }}</span>
       </div>
       <div class="bookmark-footer p1 flex">
         <favicon
           classes="bookmark-favicon mr1"
-          :url="bookmark.favicon"></favicon>
-        <a class="truncate bookmark-url"
+          :url="bookmark.favicon" />
+        <a
+          class="truncate bookmark-url"
           :href="bookmark.url"
-          v-html="bookmark.wrappedUrl"></a>
+          v-html="bookmark.wrappedUrl" />
         <span class="item-controls">
           <span title="Add to the New Tab page" @click="onAddClick">
-            <plus></plus>
+            <plus />
           </span>
         </span>
       </div>
@@ -25,7 +27,7 @@
 </template>
 
 <script>
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 import Plus from './icons/Plus.vue';
 import Favicon from './Favicon.vue';
 
@@ -34,7 +36,12 @@ export default {
     Favicon,
     Plus
   },
-  props: ['bookmark'],
+  props: {
+    bookmark: {
+      type: Object,
+      required: true,
+    }
+  },
   methods: {
     onAddClick() {
       this.$store.dispatch('resetInput');

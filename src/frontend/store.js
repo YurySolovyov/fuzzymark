@@ -1,5 +1,4 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import { createStore } from 'vuex';
 
 import settings from './settings';
 import bookmarksCollection from './bookmarks/collection';
@@ -9,9 +8,7 @@ import tileBookmarks from './bookmarks/tiles';
 import messageService from './message-service';
 import wallpaperManager from './wallpaper-manager';
 
-Vue.use(Vuex);
-
-const store = new Vuex.Store({
+const store = createStore({
   state: {
     theme: 'light',
     bookmarks: null,
@@ -38,9 +35,10 @@ const store = new Vuex.Store({
       }
     },
     settings(state) {
-      return Object.assign({}, state.settings, {
+      return {
+        ...state.settings,
         selectedIndex: state.selectedIndex
-      });
+      };
     },
     maxResults(state) {
       return state.settings.maxResults;
@@ -168,8 +166,21 @@ const store = new Vuex.Store({
       await tileBookmarks.deleteTile(id);
       dispatch('loadBookmarks');
     },
-    async saveTileIds({ state }) {
-      const ids = state.tiles.map(t => t.id);
+    async saveMovedTiles({ state }, { oldIndex, newIndex }) {
+      const oldItem = state.tiles[oldIndex];
+      const newItem = state.tiles[newIndex];
+      const ids = state.tiles.map(tile => {
+        if (tile.id === oldItem.id) {
+          return newItem.id;
+        }
+
+        if (tile.id === newItem.id) {
+          return oldItem.id;
+        }
+
+        return tile.id;
+      });
+
       await tileBookmarks.saveTileIds(ids);
     },
     async saveWallpaper({ commit }, wallpaper) {
