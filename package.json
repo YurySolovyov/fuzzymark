@@ -27,8 +27,8 @@
     "vite": "^4.4.9"
   },
   "engines": {
-    "node": ">=v18.18.2",
-    "yarn": "1.22.19"
+    "node": "^18.18.2",
+    "yarn": "^1.22.19"
   },
   "scripts": {
     "build": "vite build && node copy-ff.js",
