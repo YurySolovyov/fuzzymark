@@ -20,7 +20,7 @@ import messageService from '../message-service';
 import { mapState, mapGetters } from 'vuex';
 
 const state = mapState(['inputValue']);
-const getters = mapGetters(['selectedBookmark', 'openNew']);
+const getters = mapGetters(['selectedBookmark', 'openNew', 'initialFocus']);
 
 export default {
   computed: { ...getters, ...state },
@@ -48,11 +48,20 @@ export default {
     },
     onFocus() {
       this.$el.querySelector('input').focus();
-    }
+    },
   },
   mounted() {
-    this.onFocus();
-    window.onfocus = () => this.onFocus();
+    const search = new URLSearchParams(window.location.search);
+
+    if (this.initialFocus === 'bookmarks') {
+      if (search.get('bookmarks') === null) {
+        window.location.search = '?bookmarks';
+      } else {
+        this.onFocus();
+      }
+    }
+
+    window.addEventListener('focus', () => this.onFocus());
     messageService.on('focus', () => this.onFocus());
   }
 };

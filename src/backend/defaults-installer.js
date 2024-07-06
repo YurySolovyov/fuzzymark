@@ -17,6 +17,9 @@ const defaults = [{
   key: 'initialComponent',
   value: 'my'
 }, {
+  key: 'initialFocus',
+  value: 'bookmarks'
+}, {
   key: 'tiles',
   value: []
 }, {
@@ -29,7 +32,7 @@ const installIfNeeded = (settings, item) => {
     if (value[item.key] !== undefined) {
       return;
     }
-    
+
     return settings.set(item.key, item.value);
   });
 };

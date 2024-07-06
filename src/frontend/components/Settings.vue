@@ -51,6 +51,14 @@
         :value-labels="['Recent Bookmarks', 'My Bookmarks']" />
 
       <settings-section
+        title="On New tab open"
+        @save="saveSetting"
+        name="initialFocus"
+        :active-value="initialFocus"
+        :values="['url', 'bookmarks']"
+        :value-labels="['Browser URL', 'Bookmarks Filter']" />
+
+      <settings-section
         title="Open In The New Tab"
         @save="saveSetting"
         name="openNew"
@@ -79,7 +87,8 @@ const getters = mapGetters([
   'openNew',
   'showChromeUrls',
   'accent',
-  'initialComponent'
+  'initialComponent',
+  'initialFocus'
 ]);
 const state = mapState(['theme']);
 
