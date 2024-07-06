@@ -6,11 +6,11 @@ export default (url, callback) => {
     } else {
       chrome.tabs.create({ url: url });
     }
-    
+
     if (typeof callback === 'function') {
       callback();
     }
   });
-  
+
   return true;
 };

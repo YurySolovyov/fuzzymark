@@ -67,6 +67,9 @@ const store = createStore({
     initialComponent(state) {
       return state.settings.initialComponent;
     },
+    initialFocus(state) {
+      return state.settings.initialFocus;
+    },
     shouldDisplayBookmarksList(state, getters) {
       return getters.showRecent || getters.hasInputValue;
     },
