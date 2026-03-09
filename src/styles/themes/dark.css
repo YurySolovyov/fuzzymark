@@ -4,7 +4,13 @@
   --input-text-color: #fff;
   --theme-selected-bg-color: #495057;
   --theme-header-color: #e9ecef;
-  --theme-bookmark-link-color: #adb5bd;
+  --theme-bookmark-link-color: #f1f3f5;
   --theme-bookmark-link-hover-color: #ced4da;
   --theme-bookmark-divider-color: rgba(255, 255, 255, 0.1);
+  --bookmark-surface-solid-bg: #343a40;
+  --bookmark-surface-blur-bg: rgba(23, 28, 36, 0.28);
+  --bookmark-surface-blur-active-bg: rgba(30, 36, 44, 0.44);
+  --bookmark-surface-blur-border: rgba(255, 255, 255, 0.1);
+  --bookmark-surface-blur-active-border: rgba(255, 255, 255, 0.18);
+  --bookmark-surface-shadow: rgba(0, 0, 0, 0.38);
 }

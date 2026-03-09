@@ -14,9 +14,15 @@ Chrome and Firefox extension for accessing bookmarks with fuzzy search.
 
 ![](https://github.com/YuriSolovyov/fuzzymark/blob/master/screenshot.png)
 
+## Build
+```sh
+pnpm install
+pnpm build
+```
+
 ## Testing
 ```
-npm t
+pnpm test
 ```
 
 ## License

@@ -1,0 +1,9 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "indentStyle": "space",
+  "indentWidth": 2,
+  "lineEnding": "lf",
+  "singleAttributePerLine": true,
+  "bracketSameLine": true,
+  "singleQuote": true
+}

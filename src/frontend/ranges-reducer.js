@@ -1,5 +1,5 @@
 export default function reduce(indexes) {
-  return indexes.reduce(function(ranges, index, pos) {
+  return indexes.reduce(function (ranges, index, pos) {
     const prevIndex = indexes[pos - 1];
     const currentIndex = indexes[pos];
     const nextIndex = indexes[pos + 1];
