@@ -1,55 +1,70 @@
 <template lang="html">
-  <div class="overlay top-0 left-0">
-    <div class="lg-col-6 md-col-8 sm-col-10 mx-auto" v-if="currentTile">
-      <h1 class="overlay-title font-light">
+  <div class="overlay-page">
+    <div
+      class="overlay-container"
+      v-if="currentTile">
+      <h1 class="page-title">
         {{ formTitle }}
       </h1>
       <input
-        class="col-8 my2 p1 block border-none font-family-inherit container-background input font-light px2"
+        class="form-input my-4 md:w-2/3"
         type="text"
         v-model="currentTile.title"
         placeholder="Title"
-        name="title">
+        name="title" />
       <input
-        class="col-8 my2 p1 block border-none font-family-inherit container-background input font-light px2"
+        class="form-input my-4 md:w-2/3"
         type="text"
         v-model="currentTile.url"
         placeholder="Url"
-        name="url">
-      <a
-        class="big-link text-decoration-none font-light inline-block mt3"
-        href="#"
-        @click.prevent="onSubmit">Looks Good</a>
+        name="url" />
+      <div
+        class="mt-2 text-(--theme-selected-start)"
+        v-if="currentTile.url && !isUrlValid">
+        Enter a valid bookmark URL.
+      </div>
+      <metro-button
+        type="button"
+        class="mt-6 inline-flex items-center"
+        :disabled="!isUrlValid"
+        @click="onSubmit">
+        Looks Good
+      </metro-button>
     </div>
   </div>
 </template>
 
 <script>
-import { v4 as uuid } from 'uuid';
-import { mapState } from 'vuex';
+import { mapActions, mapState } from 'pinia';
 
-const state = mapState(['tiles']);
+import { v4 as uuid } from 'uuid';
+import MetroButton from './MetroButton.vue';
+import { useAppStore } from '../stores/app';
+import { parseInputUrl } from '../../shared/bookmark-url.js';
 
 export default {
+  components: {
+    MetroButton,
+  },
   data() {
     return {
       newTileStub: {
         title: '',
-        url: ''
-      }
+        url: '',
+      },
     };
   },
-  
+
   computed: {
     currentTile() {
       if (this.newTile) {
         return this.newTileStub;
       } else {
         const id = this.$route.params.id;
-        return this.tiles.find(t => t.id === id);
+        return this.tiles.find((t) => t.id === id);
       }
     },
-    
+
     id() {
       if (this.newTile) {
         return uuid();
@@ -57,34 +72,49 @@ export default {
         return this.currentTile.id;
       }
     },
-    
+
     submitEvent() {
       return this.newTile ? 'saveNewTile' : 'saveTile';
     },
-    
+
     newTile() {
       return this.$route.name === 'new-tile';
     },
-    
+
     formTitle() {
       return this.newTile ? 'New Tile' : 'Edit Tile';
     },
-    
-    ...state,
+
+    parsedUrl() {
+      return parseInputUrl(this.currentTile?.url);
+    },
+
+    isUrlValid() {
+      return this.parsedUrl[0];
+    },
+
+    ...mapState(useAppStore, ['tiles']),
   },
-  
+
   methods: {
-    onSubmit() {
-      this.$store.dispatch(this.submitEvent, {
+    ...mapActions(useAppStore, ['saveNewTile', 'saveTile']),
+    async onSubmit() {
+      if (!this.isUrlValid) {
+        return;
+      }
+
+      const saved = await this[this.submitEvent]({
         id: this.id,
         tile: {
           title: this.currentTile.title,
-          url: this.currentTile.url,
-        }
+          url: this.parsedUrl[1],
+        },
       });
 
-      this.$router.push({ name: 'root' });
-    }
-  }
+      if (saved !== false) {
+        this.$router.push({ name: 'root' });
+      }
+    },
+  },
 };
 </script>

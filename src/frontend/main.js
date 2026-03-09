@@ -2,14 +2,14 @@ import { createApp } from 'vue';
 
 import App from './components/App.vue';
 
-import store from './store';
+import pinia from './stores';
 import router from './router';
 
 import '../styles/style.css';
 
 const app = createApp(App);
 
-app.use(store);
+app.use(pinia);
 app.use(router);
 
 app.mount('#app');

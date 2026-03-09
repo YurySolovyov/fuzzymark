@@ -1,5 +1,2 @@
-export default () => (
-  typeof globalThis.chrome !== 'undefined' && typeof browser !== 'undefined'
-    ? 'firefox'
-    : 'chrome'
-);
+export default () =>
+  typeof globalThis.chrome !== 'undefined' && typeof browser !== 'undefined' ? 'firefox' : 'chrome';

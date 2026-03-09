@@ -5,10 +5,10 @@ import reducer from '../ranges-reducer';
 const highlight = highlighter.bind(null, {
   match: FuzzaldrinPlus.match,
   reduce: reducer,
-  wrap: (string) => '<b>' + string + '</b>'
+  wrap: (string) => '<b>' + string + '</b>',
 });
 
-const wrap = function(key, value, selectedIndex, item, index) {
+const wrap = (key, value, selectedIndex, item, index) => {
   const property = item[key].toLowerCase();
 
   const wrappedTitle = highlight(value, item.title);
@@ -20,19 +20,19 @@ const wrap = function(key, value, selectedIndex, item, index) {
     selected: index === selectedIndex,
     score: score,
     wrappedTitle: wrappedTitle,
-    wrappedUrl: wrappedUrl
+    wrappedUrl: wrappedUrl,
   });
 };
 
-const filter = function(bookmarks, value, settings) {
+const filter = (bookmarks, value, settings) => {
   const { propertyKey, maxResults, selectedIndex } = settings;
 
   return FuzzaldrinPlus.filter(bookmarks, value, {
     key: propertyKey,
-    maxResults: maxResults
+    maxResults: maxResults,
   }).map(wrap.bind(null, propertyKey, value, selectedIndex));
 };
 
 export default {
-  filter
+  filter,
 };

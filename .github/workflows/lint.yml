@@ -3,7 +3,7 @@ on: [push]
 
 jobs:
   build:
-    name: Test
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -18,7 +18,7 @@ jobs:
         with:
           cmd: install
 
-      - name: Run ESLint
+      - name: Run oxlint
         uses: borales/actions-yarn@v5
         with:
           cmd: lint

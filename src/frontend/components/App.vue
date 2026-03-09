@@ -1,10 +1,18 @@
 <template lang="html">
-  <div id="app" :class="`theme-${effectiveTheme} accent-${accent}`" v-if="appLoaded">
+  <div
+    id="app"
+    :class="appClasses"
+    :style="appStyle"
+    class="relative h-screen w-screen overflow-hidden bg-(--main-bg-color) font-sans"
+    v-if="appLoaded">
     <div
-      class="absolute"
+      class="absolute inset-0 transition-opacity duration-300 will-change-[opacity]"
+      :class="wallpaperFitClasses"
       id="wallpaper"
       :style="wallpaperStyle" />
-    <div id="container" class="absolute">
+    <div
+      id="container"
+      class="absolute inset-0 flex flex-col">
       <search-field />
       <items-list
         v-if="shouldDisplayBookmarksList"
@@ -20,23 +28,32 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
+import { mapActions, mapState } from 'pinia';
 
 import SearchField from './SearchField.vue';
 import ItemsList from './ItemsList.vue';
 import BookmarksGrid from './BookmarksGrid.vue';
 import Sidebar from './Sidebar.vue';
 import Splash from './Splash.vue';
+import { useAppStore } from '../stores/app';
 
-const getters = mapGetters([
-  'bookmarks',
-  'accent',
-  'effectiveTheme',
-  'shouldDisplayBookmarksList',
-  'appLoaded'
-]);
-
-const state = mapState(['wallpaper', 'wallpaperOpacity']);
+const accentVarsByName = Object.freeze({
+  blue: {
+    '--theme-selected-start': '#4dadf7',
+    '--theme-selected-end': '#3bc9db',
+    '--bookmark-accent-color': '#4dadf7',
+  },
+  red: {
+    '--theme-selected-start': '#ff6b6b',
+    '--theme-selected-end': '#f06595',
+    '--bookmark-accent-color': '#ff6b6b',
+  },
+  purple: {
+    '--theme-selected-start': '#cc5de8',
+    '--theme-selected-end': '#f06595',
+    '--bookmark-accent-color': '#cc5de8',
+  },
+});
 
 export default {
   components: {
@@ -47,40 +64,37 @@ export default {
     Splash,
   },
   computed: {
+    appClasses() {
+      return {
+        'theme-dark': this.effectiveTheme === 'dark',
+        'theme-light': this.effectiveTheme === 'light',
+      };
+    },
+    appStyle() {
+      return accentVarsByName[this.accent] ?? accentVarsByName.blue;
+    },
     wallpaperStyle() {
       return {
         backgroundImage: this.wallpaper,
-        opacity: this.wallpaperOpacity
+        opacity: this.wallpaperOpacity,
       };
     },
-    ...getters,
-    ...state
+    ...mapState(useAppStore, [
+      'bookmarks',
+      'accent',
+      'effectiveTheme',
+      'shouldDisplayBookmarksList',
+      'appLoaded',
+      'wallpaper',
+      'wallpaperOpacity',
+      'wallpaperFitClasses',
+    ]),
+  },
+  methods: {
+    ...mapActions(useAppStore, ['loadApp']),
   },
   mounted() {
-    this.$store.dispatch('loadApp');
-  }
+    this.loadApp();
+  },
 };
 </script>
-
-<style lang="css">
-
-#app {
-  height: 100vh;
-  width: 100vw;
-  background: var(--main-bg-color);
-}
-
-#container {
-  height: 100vh;
-  width: 100vw;
-}
-
-#wallpaper {
-  width: 100vw;
-  height: 100vh;
-  background-position: center;
-  transition: opacity 0.3s;
-  will-change: opacity;
-}
-
-</style>

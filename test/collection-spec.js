@@ -1,5 +1,4 @@
-import { test } from 'uvu';
-import * as assert from 'uvu/assert';
+import { describe, it, expect } from 'vitest';
 
 import collection from '../src/frontend/bookmarks/collection.js';
 import helper from './helpers/collection-helper.js';
@@ -7,50 +6,65 @@ import helper from './helpers/collection-helper.js';
 const settingsProvider = () => ({
   store: new Map([
     ['propertyKey', 'title'],
-    ['maxResults', 20]
-  ])
+    ['maxResults', 20],
+  ]),
 });
 
-test('transforms bookmarks to flat array', () => {
-  const transformed = collection.transform(helper.bookmarks, settingsProvider);
-  
-  for (const item of transformed) {
-    assert.not.equal(item, null);
-    assert.type(item, 'object');
-  }
-});
+describe('collection', () => {
+  it('transforms bookmarks to flat array', () => {
+    const transformed = collection.transform(helper.bookmarks, settingsProvider);
 
-test('creates titles from urls if title is empty', () => {
-  const transformed = collection.transform(helper.bookmarks, settingsProvider);
-  const titles = transformed.map(t => t.title);
-  
-  assert.equal(titles, [
-    'twitter.com',
-    'geektimes.ru',
-    'web.skype.com/ru/'
-  ]);
-});
+    for (const item of transformed) {
+      expect(item).not.toBeNull();
+      expect(typeof item).toBe('object');
+    }
+  });
 
-test('assigns paths to bookmarks', () => {
-  const transformed = collection.transform(helper.bookmarks, settingsProvider);
-  const paths = transformed.map(t => t.path);
-  
-  assert.equal(paths, [
-    'social',
-    'social/nested',
-    'social/nested'
-  ]);
-});
+  it('creates titles from urls if title is empty', () => {
+    const transformed = collection.transform(helper.bookmarks, settingsProvider);
+    const titles = transformed.map((t) => t.title);
 
-test('assigns favicons to bookmarks', () => {
-  const transformed = collection.transform(helper.bookmarks, settingsProvider);
-  const favicons = transformed.map(t => t.favicon);
-  
-  assert.equal(favicons, [
-    'https://twitter.com/favicon.ico',
-    'http://geektimes.ru/favicon.ico',
-    'https://web.skype.com/favicon.ico',
-  ]);
-});
+    expect(titles).toEqual(['twitter.com', 'geektimes.ru', 'web.skype.com/ru/']);
+  });
 
-test.run();
+  it('assigns paths to bookmarks', () => {
+    const transformed = collection.transform(helper.bookmarks, settingsProvider);
+    const paths = transformed.map((t) => t.path);
+
+    expect(paths).toEqual(['social', 'social/nested', 'social/nested']);
+  });
+
+  it('assigns favicons to bookmarks', () => {
+    const transformed = collection.transform(helper.bookmarks, settingsProvider);
+    const favicons = transformed.map((t) => t.favicon);
+
+    expect(favicons).toEqual([
+      'https://twitter.com/favicon.ico',
+      'http://geektimes.ru/favicon.ico',
+      'https://web.skype.com/favicon.ico',
+    ]);
+  });
+
+  it('tolerates invalid bookmark urls', () => {
+    const transformed = collection.transform(
+      helper.bookmarks.concat([
+        {
+          dateAdded: 1344519750406,
+          id: '10',
+          index: 2,
+          parentId: '1',
+          title: 'Broken',
+          url: 'notaurl',
+        },
+      ]),
+      settingsProvider,
+    );
+
+    expect(transformed.at(-1)).toMatchObject({
+      favicon: '',
+      title: 'notaurl',
+      url: 'notaurl',
+      valid: false,
+    });
+  });
+});

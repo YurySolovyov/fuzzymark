@@ -1,98 +1,80 @@
 <template lang="html">
-  <div class="bookmark-tile col-3 left overflow-hidden border-box my1">
-    <a :href="bookmark.url" class="block bookmark-tile-cell mx1 text-decoration-underline">
-      <div
-        class="grid-item-wrapper container-background px1 py2 border-box overflow-hidden flex flex-column"
-        :style="{ 'border-color': color }">
-        <favicon
-          classes="block mb1 bookmark-tile-icon"
-          :url="bookmark.favicon"
-          @gotColor="setColor" />
-        <div>{{ bookmark.title }}</div>
-        <tile-controls
-          @delete="onDelete"
-          @edit="onEdit" />
+  <tile-link
+    :href="bookmark.valid ? bookmark.url : '#'"
+    :invalid="!bookmark.valid">
+    <bookmark-surface
+      class="flex h-full flex-col gap-2 px-3 pt-4 pb-1"
+      :class="bookmark.valid ? 'group-hover/tile:border-transparent' : 'opacity-65'"
+      :tint-color="faviconColor">
+      <favicon
+        classes="mb-2 block size-6 shrink-0"
+        :url="bookmark.favicon"
+        @gotColor="onFaviconColor" />
+      <div class="min-h-0 flex-1 wrap-break-word">
+        {{ bookmark.title }}
       </div>
-    </a>
-  </div>
+      <div
+        class="mt-2 text-sm text-(--theme-selected-start)"
+        v-if="!bookmark.valid">
+        Invalid URL
+      </div>
+      <tile-controls
+        :dragging="dragging"
+        :move-handle-ref="dragHandleRef"
+        @delete="onDelete"
+        @edit="onEdit" />
+    </bookmark-surface>
+  </tile-link>
 </template>
 
 <script>
-
+import TileLink from './TileLink.vue';
 import TileControls from './TileControls.vue';
 import Favicon from './Favicon.vue';
+import BookmarkSurface from './BookmarkSurface.vue';
 
 export default {
-  data() {
-    return {
-      color: 'transparent'
-    };
-  },
   components: {
+    TileLink,
     TileControls,
-    Favicon
+    Favicon,
+    BookmarkSurface,
   },
   props: {
     bookmark: {
       type: Object,
       required: true,
-    }
+    },
+    dragHandleRef: {
+      type: [Function, Object],
+      default: undefined,
+    },
+    dragging: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  data() {
+    return {
+      faviconColor: null,
+    };
   },
   methods: {
+    onFaviconColor(color) {
+      this.faviconColor = color;
+    },
     onDelete() {
       this.$router.push({
         name: 'delete-tile',
-        params: { id: this.bookmark.id }
+        params: { id: this.bookmark.id },
       });
     },
     onEdit() {
       this.$router.push({
         name: 'edit-tile',
-        params: { id: this.bookmark.id }
+        params: { id: this.bookmark.id },
       });
     },
-    setColor(color) {
-      this.color = color;
-    }
-  }
+  },
 };
 </script>
-
-<style lang="css">
-
-.bookmark-tile {
-  height: 200px;
-}
-
-.bookmark-tile-cell {
-  padding: 2px;
-  font-size: 16px;
-  height: 100%;
-  color: var(--theme-bookmark-link-color);
-}
-
-.bookmark-tile-cell:hover {
-  background-image: linear-gradient(to right, var(--theme-selected-start) 0%,var(--theme-selected-end) 100%);
-}
-.bookmark-tile-cell:hover .grid-item-wrapper {
-  background-color: var(--theme-selected-bg-color);
-  border-color: transparent!important;
-}
-
-.grid-item-wrapper {
-  transition: 0.3s;
-  height: calc(100% - 0.25em);
-  border-top: 2px transparent solid;
-}
-
-.grid-item-deleting button {
-  background: transparent;
-  font-size: 16px;
-  color: var(--theme-bookmark-link-color);
-}
-
-.grid-item-deleting button:hover {
-  text-decoration: underline;
-}
-
-</style>

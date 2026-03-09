@@ -1,18 +1,28 @@
 <template lang="html">
-  <section class="overflow-hidden col-6 left mb2">
-    <h3 class="m0">
+  <section class="mb-6 w-full pr-0 md:w-1/2 md:pr-6">
+    <h3 class="mb-3 text-base font-thin">
       {{ title }}
     </h3>
-    <span
-      class="select big-link font-light mr1" v-for="(value, index) in values"
-      :key="index"
-      :class="{ active: isActiveSetting(name, value) }"
-      @click="onClick(name, value)">{{ valueLabels[index] }}</span>
+    <div class="flex flex-wrap gap-x-4 gap-y-3">
+      <metro-button
+        type="button"
+        v-for="(value, index) in values"
+        :key="index"
+        :active="isActiveSetting(name, value)"
+        @click="onClick(name, value)">
+        {{ valueLabels[index] }}
+      </metro-button>
+    </div>
   </section>
 </template>
 
 <script>
+import MetroButton from './MetroButton.vue';
+
 export default {
+  components: {
+    MetroButton,
+  },
   props: {
     title: {
       type: String,
@@ -33,7 +43,7 @@ export default {
     activeValue: {
       type: [String, Number, Boolean],
       required: true,
-    }
+    },
   },
   methods: {
     isActiveSetting(key, value) {
@@ -41,7 +51,7 @@ export default {
     },
     onClick(name, value) {
       this.$emit('save', name, value);
-    }
-  }
+    },
+  },
 };
 </script>

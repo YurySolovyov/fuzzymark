@@ -1,0 +1,31 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["import", "node", "promise", "vue"],
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "globals": {
+    "chrome": "readonly",
+    "require": "readonly",
+    "module": "readonly"
+  },
+  "rules": {
+    "dot-notation": "error",
+    "func-style": ["error", "expression", { "allowArrowFunctions": true }],
+    "no-unused-vars": ["error", {
+      "argsIgnorePattern": "^_",
+      "varsIgnorePattern": "^_"
+    }],
+    "no-param-reassign": ["error", { "props": false }],
+    "no-useless-concat": "error",
+    "radix": "error",
+    "require-await": "error",
+    "one-var": ["error", "never"],
+    "yoda": ["error", "never", { "exceptRange": true }]
+  },
+  "ignorePatterns": [
+    "extension/**",
+    "node_modules/**"
+  ]
+}

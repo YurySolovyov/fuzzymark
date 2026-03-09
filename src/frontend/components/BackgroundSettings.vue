@@ -1,113 +1,229 @@
 <template lang="html">
-  <div class="overlay top-0 left-0 overflow-scroll">
-    <div class="lg-col-6 md-col-8 sm-col-10 mx-auto">
-      <h1 class="overlay-title font-light">
-        Background
-      </h1>
-      <input type="file" class="hide" ref="input" @change="onFileSelect">
-      <a
-        class="big-link text-decoration-none font-light mt3"
-        href="#"
-        @click.prevent="onSelectClick">
-        <template v-if="showSelectButton">
-          Select image
-        </template>
-        <template v-else-if="showAcceptButton">
-          Select other image
-        </template>
-      </a>
-      <div class="opacity-control" v-if="showAcceptButton">
-        <h2 class="font-light">
-          Opacity:
-          <span :class="{ active: opacity === 0.1 }" @click="setOpacity(0.1)">0.1</span>
-          <span :class="{ active: opacity === 0.25 }" @click="setOpacity(0.25)">0.25</span>
-          <span :class="{ active: opacity === 0.5 }" @click="setOpacity(0.5)">0.5</span>
-          <span :class="{ active: opacity === 0.75 }" @click="setOpacity(0.75)">0.75</span>
-          <span :class="{ active: opacity === 1 }" @click="setOpacity(1)">opaque</span>
-        </h2>
+  <div class="overlay-page">
+    <div class="overlay-container">
+      <h1 class="page-title">Background</h1>
+      <input
+        type="file"
+        class="hidden"
+        ref="input"
+        @change="onFileSelect" />
+      <metro-button
+        type="button"
+        class="mt-6 inline-flex items-center"
+        v-if="showCurrentWallpaper"
+        @click="onClear">
+        Clear current image
+      </metro-button>
+      <metro-button
+        type="button"
+        class="mt-6 inline-flex items-center"
+        v-else
+        @click="onSelectClick">
+        <template v-if="showSelectButton"> Select image </template>
+        <template v-else-if="showAcceptButton"> Select other image </template>
+      </metro-button>
+      <div
+        class="mt-6 grid grid-cols-2 gap-6"
+        v-if="showAcceptButton || showCurrentWallpaper">
+        <div>
+          <h2 class="section-title mb-3">Opacity</h2>
+          <div class="flex flex-wrap gap-x-4 gap-y-3">
+            <metro-button
+              type="button"
+              v-for="option in opacityOptions"
+              :key="option.value"
+              :active="opacity === option.value"
+              @click="setOpacity(option.value)">
+              {{ option.label }}
+            </metro-button>
+          </div>
+        </div>
+        <div>
+          <h2 class="section-title mb-3">Fit</h2>
+          <div class="flex flex-wrap gap-x-4 gap-y-3">
+            <metro-button
+              type="button"
+              v-for="option in fitModeOptions"
+              :key="option.value"
+              :active="fitMode === option.value"
+              @click="setFitMode(option.value)">
+              {{ option.label }}
+            </metro-button>
+          </div>
+        </div>
       </div>
-      <div class="preview py2" :style="{ opacity }">
-        <img class="fit" :src="previewUrl" v-if="showPreview" ref="preview">
+      <div
+        v-if="showCurrentWallpaper"
+        class="mt-6 py-2"
+        :style="{ opacity: wallpaperOpacity }">
+        <img
+          class="block h-auto w-full"
+          :src="currentWallpaperUrl" />
       </div>
-      <a
-        class="big-link text-decoration-none font-light mt3"
-        href="#"
+      <div
+        v-if="showPreview"
+        class="mt-6 py-2 transition-opacity duration-300 will-change-[opacity]"
+        :style="{ opacity }">
+        <img
+          class="block h-auto w-full"
+          :src="previewUrl"
+          ref="preview" />
+      </div>
+      <metro-button
+        type="button"
+        class="mt-6 inline-flex items-center"
         v-if="showAcceptButton"
-        @click.prevent="onSet">Looks Good</a>
+        @click="onSet">
+        Looks Good
+      </metro-button>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions, mapState } from 'pinia';
+
+import MetroButton from './MetroButton.vue';
+import { useAppStore } from '../stores/app';
+
+const opacityOptions = [
+  { value: 0.1, label: '0.1' },
+  { value: 0.25, label: '0.25' },
+  { value: 0.5, label: '0.5' },
+  { value: 0.75, label: '0.75' },
+  { value: 1, label: 'opaque' },
+];
+
+const fitModeOptions = [
+  { value: 'center', label: 'Center' },
+  { value: 'fill', label: 'Fill' },
+  { value: 'fit', label: 'Fit' },
+  { value: 'tile', label: 'Tile' },
+];
+
 export default {
+  components: {
+    MetroButton,
+  },
   data() {
     return {
+      opacityOptions,
+      fitModeOptions,
       opacity: 0.75,
+      fitMode: 'fill',
       showPreview: false,
-      previewUrl: ''
+      previewUrl: '',
     };
   },
   computed: {
+    ...mapState(useAppStore, ['hasWallpaper', 'wallpaper', 'wallpaperOpacity', 'wallpaperFitMode']),
+    currentWallpaperUrl() {
+      if (!this.wallpaper) return '';
+      return this.wallpaper.replace(/^url\(/, '').replace(/\)$/, '');
+    },
+    showCurrentWallpaper() {
+      return this.hasWallpaper && !this.showPreview;
+    },
     showSelectButton() {
       return this.previewUrl.length === 0;
     },
     showAcceptButton() {
       return !this.showSelectButton;
+    },
+  },
+  created() {
+    if (this.wallpaperFitMode) {
+      this.fitMode = this.wallpaperFitMode;
+    }
+    if (this.wallpaperOpacity) {
+      this.opacity = this.wallpaperOpacity;
     }
   },
+  beforeUnmount() {
+    this.revokePreviewUrl();
+  },
   methods: {
+    ...mapActions(useAppStore, [
+      'saveWallpaper',
+      'saveWallpaperOpacity',
+      'saveWallpaperFitMode',
+      'clearWallpaper',
+    ]),
+    loadImage(url) {
+      return new Promise((resolve, reject) => {
+        const image = new Image();
+
+        image.onload = () => resolve(image);
+        image.onerror = () => reject(new Error('Failed to load selected image.'));
+        image.src = url;
+      });
+    },
+    revokePreviewUrl() {
+      if (this.previewUrl !== '') {
+        URL.revokeObjectURL(this.previewUrl);
+      }
+    },
     setOpacity(value) {
       this.opacity = value;
+      if (this.hasWallpaper && !this.showPreview) {
+        this.saveWallpaperOpacity(value);
+      }
+    },
+    setFitMode(value) {
+      this.fitMode = value;
+      if (this.hasWallpaper && !this.showPreview) {
+        this.saveWallpaperFitMode(value);
+      }
     },
     onSelectClick() {
       this.$refs.input.click();
     },
     onFileSelect(e) {
       const [file, ..._rest] = e.target.files;
-      if (!file) { return; }
+      if (!file) {
+        return;
+      }
 
+      this.revokePreviewUrl();
       this.showPreview = true;
       this.previewUrl = URL.createObjectURL(file);
     },
-    onSet() {
+    async onClear() {
+      await this.clearWallpaper();
+    },
+    async onSet() {
+      if (this.previewUrl === '') {
+        return;
+      }
+
       const { width, height } = window.screen;
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
-      const image = new Image();
 
-      image.width = width;
-      image.height = height;
-      image.src = this.previewUrl;
+      if (!ctx) {
+        return;
+      }
 
       canvas.width = width;
       canvas.height = height;
+
+      const image = await this.loadImage(this.previewUrl);
 
       ctx.drawImage(image, 0, 0, width, height);
 
       const dataURL = canvas.toDataURL('image/webp');
       const wallpaper = `url(${dataURL})`;
 
-      this.$store.dispatch('saveWallpaper', wallpaper);
-      this.$store.dispatch('saveWallpaperOpacity', this.opacity);
+      await Promise.all([
+        this.saveWallpaper(wallpaper),
+        this.saveWallpaperOpacity(this.opacity),
+        this.saveWallpaperFitMode(this.fitMode),
+      ]);
+      this.revokePreviewUrl();
+      this.previewUrl = '';
+      this.showPreview = false;
       this.$router.push({ name: 'root' });
-    }
-  }
+    },
+  },
 };
 </script>
-
-<style lang="css">
-
-.preview {
-  transition: opacity 0.3s;
-  will-change: opacity;
-}
-
-.opacity-control span {
-  color: var(--theme-bookmark-link-color);
-  cursor: pointer;
-}
-
-.opacity-control .active {
-  color: var(--theme-selected-start);
-}
-</style>

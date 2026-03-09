@@ -1,132 +1,102 @@
 <template lang="html">
   <li
-    class="bookmark overflow-hidden border-box list-style-none"
-    :class="{ selected: bookmark.selected }">
-    <div class="bookmark-wrapper p1 container-background">
-      <div class="bookmark-header p1 flex">
-        <span class="bookmark-score">{{ bookmark.score }}</span>
-        <span class="bookmark-title truncate" v-html="bookmark.wrappedTitle" />
-        <span class="bookmark-path right">{{ bookmark.path }}</span>
+    class="group mb-1.25 mr-1.25 list-none p-0.5 text-base"
+    :class="
+      bookmark.selected
+        ? 'selected bg-linear-to-r from-(--theme-selected-start) to-(--theme-selected-end)'
+        : ''
+    ">
+    <bookmark-surface
+      :active="bookmark.selected"
+      class="p-2 [&_b]:font-inherit [&_b]:text-(--theme-selected-start)"
+      :class="{ 'opacity-80': !bookmark.valid }">
+      <div class="flex items-center gap-4 p-2 text-(--theme-header-color)">
+        <span class="text-(--theme-selected-start)">{{ bookmark.score }}</span>
+        <span
+          class="h-6 min-w-0 flex-1 truncate"
+          v-html="bookmark.wrappedTitle" />
+        <span
+          class="hidden max-w-[40%] shrink-0 truncate text-sm text-(--theme-bookmark-link-color) sm:block">
+          {{ bookmark.path }}
+        </span>
       </div>
-      <div class="bookmark-footer p1 flex">
+      <div
+        class="flex items-center gap-2 border-t border-(--theme-bookmark-divider-color) p-2 text-(--theme-bookmark-link-color)">
         <favicon
-          classes="bookmark-favicon mr1"
+          classes="mr-1 size-4 shrink-0"
           :url="bookmark.favicon" />
         <a
-          class="truncate bookmark-url"
-          :href="bookmark.url"
+          class="h-6 min-w-0 flex-1 truncate"
+          :class="
+            bookmark.valid
+              ? 'hover:text-(--theme-bookmark-link-hover-color) hover:underline'
+              : 'line-through'
+          "
+          :href="bookmark.valid ? bookmark.url : '#'"
+          :aria-disabled="bookmark.valid ? 'false' : 'true'"
+          @click="onUrlClick"
           v-html="bookmark.wrappedUrl" />
-        <span class="item-controls">
-          <span title="Add to the New Tab page" @click="onAddClick">
+        <span
+          class="mr-1 shrink-0 text-xs text-(--theme-selected-start)"
+          v-if="!bookmark.valid">
+          Invalid URL
+        </span>
+        <span class="shrink-0 cursor-pointer">
+          <span
+            title="Add to the New Tab page"
+            class="transition-opacity duration-300"
+            :class="!bookmark.valid ? 'cursor-not-allowed opacity-40' : ''"
+            @click="onAddClick">
             <plus />
           </span>
         </span>
       </div>
-    </div>
+    </bookmark-surface>
   </li>
 </template>
 
 <script>
+import { mapActions } from 'pinia';
+
 import { v4 as uuid } from 'uuid';
 import Plus from './icons/Plus.vue';
 import Favicon from './Favicon.vue';
+import BookmarkSurface from './BookmarkSurface.vue';
+import { useAppStore } from '../stores/app';
 
 export default {
   components: {
     Favicon,
-    Plus
+    Plus,
+    BookmarkSurface,
   },
   props: {
     bookmark: {
       type: Object,
       required: true,
-    }
+    },
   },
   methods: {
+    ...mapActions(useAppStore, ['resetInput', 'saveNewTile']),
+    onUrlClick(event) {
+      if (!this.bookmark.valid) {
+        event.preventDefault();
+      }
+    },
     onAddClick() {
-      this.$store.dispatch('resetInput');
-      this.$store.dispatch('saveNewTile', {
+      if (!this.bookmark.valid) {
+        return;
+      }
+
+      this.resetInput();
+      this.saveNewTile({
         id: uuid(),
         tile: {
           title: this.bookmark.title,
-          url: this.bookmark.url
-        }
+          url: this.bookmark.url,
+        },
       });
-    }
-  }
+    },
+  },
 };
 </script>
-
-<style lang="css">
-
-.bookmark {
-  font-size: 16px;
-  margin-bottom: 5px;
-  margin-right: 5px;
-  padding: 2px;
-}
-
-.bookmark.selected {
-  background-image: linear-gradient(to right, var(--theme-selected-start) 0%,var(--theme-selected-end) 100%);
-}
-
-.bookmark.selected .bookmark-wrapper {
-  background-color: var(--theme-selected-bg-color);
-}
-
-.bookmark.selected .item-controls,
-.bookmark:hover .item-controls {
-  visibility: visible;
-}
-
-.bookmark-wrapper {
-  transition: 0.3s;
-}
-
-.bookmark-header {
-  align-items: center;
-  color: var(--theme-header-color);
-}
-
-.bookmark-header b {
-  color: var(--theme-selected-start);
-}
-
-.bookmark-footer {
-  align-items: center;
-  border-top: 1px var(--theme-bookmark-divider-color) solid;
-  color: var(--theme-bookmark-link-color);
-}
-
-.bookmark-path {
-  color: var(--theme-bookmark-link-color);
-  font-size: 14px;
-}
-
-.bookmark-score {
-  color: var(--theme-selected-start);
-  margin-right: 16px;
-}
-
-.bookmark-title,
-.bookmark-url {
-  flex: 1;
-  height: 24px;
-}
-
-.bookmark-url:hover {
-  color: var(--theme-bookmark-link-hover-color);
-  text-decoration: underline;
-}
-
-.bookmark-favicon {
-  width: 16px;
-  height: 16px;
-}
-
-.item-controls {
-  visibility: hidden;
-  cursor: pointer;
-}
-
-</style>

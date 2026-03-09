@@ -15,29 +15,29 @@ const router = createRouter({
     {
       path: '/settings',
       name: 'settings',
-      component: Settings
+      component: Settings,
     },
     {
       path: '/new-tile',
       name: 'new-tile',
-      component: TileForm
+      component: TileForm,
     },
     {
       path: '/edit-tile/:id',
       name: 'edit-tile',
-      component: TileForm
+      component: TileForm,
     },
     {
       path: '/delete-tile/:id',
       name: 'delete-tile',
-      component: DeleteTile
+      component: DeleteTile,
     },
     {
       path: '/background',
       name: 'background',
-      component: BackgroundSettings
-    }
-  ]
+      component: BackgroundSettings,
+    },
+  ],
 });
 
 export default router;

@@ -1,113 +1,96 @@
-@import "basscss/css/basscss.css";
+@layer theme, base, components, utilities;
+@import "tailwindcss";
+
+@source "../frontend";
+@source "../../public";
+
 @import "./themes/dark.css";
 @import "./themes/light.css";
 
-@import "./accents/blue.css";
-@import "./accents/red.css";
-@import "./accents/purple.css";
+@custom-variant solid-active (&:not(.blurred).active);
+@custom-variant blurred (&.blurred);
+@custom-variant blurred-active (&.blurred.active);
+@custom-variant in-blurred (.blurred > &);
 
-@font-face {
-  font-family: OpenSans;
-  src: url('open-sans-fontface/fonts/Regular/OpenSans-Regular.woff2');
-}
-
-@font-face {
-  font-family: OpenSans;
-  src: url('open-sans-fontface/fonts/Light/OpenSans-Light.woff2');
-  font-weight: 100;
+@theme {
+  --font-sans: OpenSans, sans-serif;
 }
 
 :root {
-  --font-family: OpenSans, sans-serif;
+  --bookmark-surface-text-gradient: linear-gradient(
+    0deg,
+    rgba(15, 18, 22, 0) 0%,
+    rgba(15, 18, 22, 0.12) 62%,
+    rgba(15, 18, 22, 0.48) 100%
+  );
 }
 
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-thumb {
-  background-color: var(--theme-selected-start);
-  background-clip: content-box;
-  border: 2px transparent solid;
-  border-radius: 4px;
+@layer base {
+  @font-face {
+    font-family: OpenSans;
+    src: url('open-sans-fontface/fonts/Regular/OpenSans-Regular.woff2');
+  }
+
+  @font-face {
+    font-family: OpenSans;
+    src: url('open-sans-fontface/fonts/Light/OpenSans-Light.woff2');
+    font-weight: 100;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--theme-selected-start);
+    background-clip: content-box;
+    border: 2px transparent solid;
+  }
+
+  ::-webkit-scrollbar-thumb:hover,
+  ::-webkit-scrollbar-thumb:active {
+    border-color: var(--theme-selected-start);
+  }
 }
 
-::-webkit-scrollbar-thumb:hover,
-::-webkit-scrollbar-thumb:active {
-  border-color: var(--theme-selected-start);
-  border-radius: 0;
+@layer components {
+  .overlay-page {
+    @apply absolute inset-0 z-20 overflow-y-auto bg-(--main-bg-color) text-(--theme-header-color);
+  }
+
+  .overlay-container {
+    @apply mx-auto w-5/6 py-10 md:w-2/3 lg:w-1/2;
+  }
+
+  .page-title {
+    @apply m-0 text-3xl font-thin leading-none;
+  }
+
+  .section-title {
+    @apply text-2xl font-thin leading-tight;
+  }
+
+  .sidebar-link {
+    @apply block text-(--theme-bookmark-link-color) no-underline transition-colors duration-300 hover:text-(--theme-bookmark-link-hover-color);
+  }
+
+  .icon-button {
+    @apply appearance-none border-0 bg-transparent p-0 text-(--theme-bookmark-link-color) transition-colors duration-300 hover:text-(--theme-bookmark-link-hover-color);
+  }
+
+  .form-input {
+    @apply block h-20 w-full appearance-none border-0 bg-(--container-bg-color) px-4 font-thin text-2xl leading-[80px] text-(--input-text-color) outline-none caret-(--theme-selected-start);
+  }
 }
 
-body, html {
-  font-family: var(--font-family);
-}
+@layer utilities {
+  @keyframes splash-spin {
+    from {
+      transform: rotate(0deg);
+    }
 
-h1, h2 {
-  font-weight: normal;
-}
-
-a {
-  color: var(--theme-bookmark-link-color);
-}
-
-a:hover {
-  color: var(--theme-bookmark-link-hover-color);
-}
-
-.container-background {
-  background: var(--container-bg-color);
-}
-
-.overlay {
-  position: absolute;
-  z-index: 2;
-  height: 100vh;
-  width: 100vw;
-  background: var(--main-bg-color);
-  color: var(--theme-header-color);
-}
-
-.font-light {
-  font-weight: 100;
-}
-
-.input {
-  color: var(--input-text-color);
-  font-size: 24px;
-  height: 80px;
-  line-height: 80px;
-  outline: none;
-  caret-color: var(--theme-selected-start);
-}
-
-.overlay-title {
-  font-size: 32px;
-}
-
-.big-link {
-  font-size: 24px;
-}
-
-.icon {
-  width: 24px;
-  height: 24px;
-}
-
-.icon path {
-  transition: fill 0.3s;
-  fill: var(--theme-bookmark-link-color);
-}
-
-.icon:hover path  {
-  fill: var(--theme-bookmark-link-hover-color);
-}
-
-.select {
-  cursor: pointer;
-  transition: color 0.3s;
-  color: var(--theme-bookmark-link-color);
-}
-
-.select.active,
-.select:active {
-  color: var(--theme-selected-start);
+    to {
+      transform: rotate(720deg);
+    }
+  }
 }

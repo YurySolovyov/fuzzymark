@@ -1,7 +1,9 @@
 <template lang="html">
-  <div id="inputWrapper" class="lg-col-6 md-col-8 sm-col-10 mx-auto pt2">
+  <div
+    class="mx-auto w-5/6 pt-4 md:w-2/3 lg:w-1/2"
+    id="inputWrapper">
     <input
-      class="col-12 border-box border-none font-family-inherit font-light container-background input px2"
+      class="form-input h-20 leading-20"
       id="input"
       type="text"
       placeholder="Type to search for bookmarks..."
@@ -11,28 +13,34 @@
       @keydown.down.prevent="onSelect('next')"
       @keydown.up.prevent="onSelect('prev')"
       @keydown.enter="onOpen"
-      @keydown.esc="onReset">
+      @keydown.esc="onReset" />
   </div>
 </template>
 
 <script>
-import messageService from '../message-service';
-import { mapState, mapGetters } from 'vuex';
+import { mapActions, mapState } from 'pinia';
 
-const state = mapState(['inputValue']);
-const getters = mapGetters(['selectedBookmark', 'openNew', 'initialFocus']);
+import messageService from '../message-service';
+import { useAppStore } from '../stores/app';
 
 export default {
-  computed: { ...getters, ...state },
+  computed: {
+    ...mapState(useAppStore, ['inputValue', 'selectedBookmark', 'openNew', 'initialFocus']),
+  },
   methods: {
+    ...mapActions(useAppStore, ['updateInputValue', 'updateSelectedIndex', 'resetInput']),
     onInput(e) {
-      this.$store.dispatch('updateInputValue', e.target.value);
+      this.updateInputValue(e.target.value);
     },
     onSelect(direction) {
       const delta = direction === 'next' ? 1 : -1;
-      this.$store.dispatch('updateSelectedIndex', delta);
+      this.updateSelectedIndex(delta);
     },
     onOpen() {
+      if (!this.selectedBookmark || !this.selectedBookmark.valid) {
+        return;
+      }
+
       const url = this.selectedBookmark.url;
 
       // chrome://* urls are new-tab only because of security
@@ -44,7 +52,7 @@ export default {
       this.onReset();
     },
     onReset() {
-      this.$store.dispatch('resetInput');
+      this.resetInput();
     },
     onFocus() {
       this.$el.querySelector('input').focus();
@@ -63,6 +71,6 @@ export default {
 
     window.addEventListener('focus', () => this.onFocus());
     messageService.on('focus', () => this.onFocus());
-  }
+  },
 };
 </script>

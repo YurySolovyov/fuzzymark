@@ -5,35 +5,39 @@
   "license": "MIT",
   "type": "module",
   "dependencies": {
-    "basscss": "8.1.0",
+    "@dnd-kit/helpers": "0.3.2",
+    "@dnd-kit/vue": "0.3.2",
     "dateformat": "5.0.3",
-    "eventemitter3": "^5.0.1",
+    "eventemitter3": "5.0.4",
     "fuzzaldrin-plus": "0.6.0",
-    "lodash": "4.17.21",
-    "node-vibrant": "3.1.6",
+    "lodash": "4.17.23",
+    "node-vibrant": "4.0.4",
     "open-sans-fontface": "1.4.0",
-    "uuid": "9.0.1",
-    "vue": "3.3.4",
-    "vue-router": "4.2.4",
-    "vuedraggable": "4.1.0",
-    "vuex": "4.1.0",
-    "withinviewport": "3.0.1"
+    "pinia": "3.0.4",
+    "uuid": "13.0.0",
+    "vue": "3.5.30",
+    "vue-router": "5.0.3"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^4.2.3",
-    "eslint": "8.49.0",
-    "eslint-plugin-vue": "9.17.0",
-    "uvu": "^0.5.6",
-    "vite": "v5.4.21"
+    "@tailwindcss/vite": "4.2.2",
+    "@vitejs/plugin-vue": "6.0.5",
+    "oxfmt": "0.41.0",
+    "oxlint": "1.56.0",
+    "tailwindcss": "4.2.2",
+    "vite": "8.0.0",
+    "vitest": "4.1.0"
   },
   "engines": {
     "node": ">= 24.14.0",
     "yarn": "^1.22.19"
   },
   "scripts": {
-    "build": "vite build && node copy-ff.js",
-    "lint": "eslint src/frontend/** src/backend/** test/** --ext js,vue",
-    "lint:fix": "eslint src/frontend/** src/backend/** test/** --fix --ext js,vue",
-    "test": "uvu test"
+    "dev:frontend": "vite build --watch",
+    "build": "vite build",
+    "lint": "oxlint src/frontend src/backend test",
+    "lint:fix": "oxlint src/frontend src/backend test --fix",
+    "format": "oxfmt --write src/**/*.{js,vue} test/**/*.js",
+    "format:check": "oxfmt --check src/**/*.{js,vue} test/**/*.js",
+    "test": "vitest"
   }
 }
