@@ -1,5 +1,5 @@
 <template lang="html">
-  <div id="app" :class="`theme-${theme} accent-${accent}`" v-if="appLoaded">
+  <div id="app" :class="`theme-${effectiveTheme} accent-${accent}`" v-if="appLoaded">
     <div
       class="absolute"
       id="wallpaper"
@@ -31,11 +31,12 @@ import Splash from './Splash.vue';
 const getters = mapGetters([
   'bookmarks',
   'accent',
+  'effectiveTheme',
   'shouldDisplayBookmarksList',
   'appLoaded'
 ]);
 
-const state = mapState(['theme', 'wallpaper', 'wallpaperOpacity']);
+const state = mapState(['wallpaper', 'wallpaperOpacity']);
 
 export default {
   components: {

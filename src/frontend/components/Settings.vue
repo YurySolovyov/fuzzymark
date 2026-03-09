@@ -12,8 +12,8 @@
         @save="setTheme"
         name="theme"
         :active-value="theme"
-        :values="['light', 'dark']"
-        :value-labels="['Light', 'Dark']" />
+        :values="['light', 'dark', 'system']"
+        :value-labels="['Light', 'Dark', 'System']" />
 
       <settings-section
         title="Accent"

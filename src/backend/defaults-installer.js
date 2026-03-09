@@ -6,7 +6,7 @@ const defaults = [{
   value: 'title'
 }, {
   key: 'activeTheme',
-  value: 'light'
+  value: 'system'
 }, {
   key: 'accent',
   value: 'blue'
