@@ -11,6 +11,7 @@ import wallpaperManager from './wallpaper-manager';
 const store = createStore({
   state: {
     theme: 'light',
+    systemTheme: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light',
     bookmarks: null,
     tiles: null,
     inputValue: '',
@@ -55,6 +56,12 @@ const store = createStore({
     accent(state) {
       return state.settings.accent;
     },
+    effectiveTheme(state) {
+      if (state.theme === 'system') {
+        return state.systemTheme;
+      }
+      return state.theme;
+    },
     selectedBookmark(state, getters) {
       return getters.bookmarks[state.selectedIndex];
     },
@@ -98,6 +105,9 @@ const store = createStore({
     },
     setTheme(state, theme) {
       state.theme = theme;
+    },
+    setSystemTheme(state, systemTheme) {
+      state.systemTheme = systemTheme;
     },
     setWallpaper(state, wallpaper) {
       state.wallpaper = wallpaper;
@@ -199,6 +209,17 @@ const store = createStore({
 
 messageService.on('storage-changed', function() {
   store.dispatch('loadBookmarks');
+});
+
+const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+darkModeMediaQuery.addEventListener('change', (e) => {
+  const matches =
+    e?.matches ??
+    e?.target?.matches ??
+    window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  store.commit('setSystemTheme', matches ? 'dark' : 'light');
 });
 
 export default store;
