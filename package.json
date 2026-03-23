@@ -16,7 +16,7 @@
     "pinia": "3.0.4",
     "uuid": "13.0.0",
     "vue": "3.5.30",
-    "vue-router": "5.0.3"
+    "vue-router": "5.0.4"
   },
   "devDependencies": {
     "@tailwindcss/vite": "4.2.2",
@@ -24,8 +24,8 @@
     "oxfmt": "0.41.0",
     "oxlint": "1.56.0",
     "tailwindcss": "4.2.2",
-    "vite": "8.0.0",
-    "vitest": "4.1.0"
+    "vite": "8.0.2",
+    "vitest": "4.1.1"
   },
   "engines": {
     "node": ">= 24.14.0",
@@ -38,6 +38,6 @@
     "lint:fix": "oxlint src/frontend src/backend test --fix",
     "format": "oxfmt --write src/**/*.{js,vue} test/**/*.js",
     "format:check": "oxfmt --check src/**/*.{js,vue} test/**/*.js",
-    "test": "vitest"
+    "test": "vitest run"
   }
 }
