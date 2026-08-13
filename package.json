@@ -31,10 +31,11 @@
   "scripts": {
     "dev:frontend": "vite build --watch",
     "build": "vite build",
-    "lint": "oxlint src/frontend src/backend test",
-    "lint:fix": "oxlint src/frontend src/backend test --fix",
-    "format": "oxfmt --write src/**/*.{js,vue} test/**/*.js",
-    "format:check": "oxfmt --check src/**/*.{js,vue} test/**/*.js",
-    "test": "vitest run"
+    "lint": "oxlint src/frontend src/backend test scripts",
+    "lint:fix": "oxlint src/frontend src/backend test scripts --fix",
+    "format": "oxfmt --write src/**/*.{js,vue} test/**/*.js scripts/**/*.js",
+    "format:check": "oxfmt --check src/**/*.{js,vue} test/**/*.js scripts/**/*.js",
+    "test": "vitest run",
+    "version": "node scripts/sync-version.js"
   }
 }

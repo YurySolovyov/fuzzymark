@@ -1,0 +1,158 @@
+name: Publish release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing vX.Y.Z tag to publish
+        required: true
+        type: string
+
+concurrency:
+  group: publish-${{ inputs.tag || github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build release artifacts
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      artifact: ${{ steps.release.outputs.artifact }}
+      firefox-addon-guid: ${{ steps.release.outputs.firefox-addon-guid }}
+      tag: ${{ steps.release.outputs.tag }}
+      version: ${{ steps.release.outputs.version }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.tag || github.ref }}
+          fetch-depth: 0
+
+      - name: Resolve release
+        id: release
+        env:
+          TAG: ${{ inputs.tag || github.ref_name }}
+        run: |
+          VERSION="$(jq --raw-output .version package.json)"
+          test "$TAG" = "v$VERSION"
+          echo "artifact=release-$VERSION" >> "$GITHUB_OUTPUT"
+          echo "firefox-addon-guid=$(jq --raw-output .browser_specific_settings.gecko.id public/manifest.json)" >> "$GITHUB_OUTPUT"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - uses: ./.github/actions/setup
+
+      - name: Build release
+        run: pnpm build
+
+      - name: Package release
+        env:
+          TAG: ${{ steps.release.outputs.tag }}
+          VERSION: ${{ steps.release.outputs.version }}
+        run: |
+          mkdir dist
+          (cd extension/chrome && zip -X -q -r "../../dist/fuzzymark-$VERSION-chrome.zip" .)
+          (cd extension/firefox && zip -X -q -r "../../dist/fuzzymark-$VERSION-firefox.zip" .)
+          git archive \
+            --format=zip \
+            --output="dist/fuzzymark-$VERSION-source.zip" \
+            "$TAG"
+
+      - name: Store release artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ steps.release.outputs.artifact }}
+          path: dist/*.zip
+          if-no-files-found: error
+          retention-days: 14
+
+  github-release:
+    name: Create GitHub release
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ needs.build.outputs.tag }}
+          fetch-depth: 0
+
+      - name: Download release artifacts
+        uses: actions/download-artifact@v8
+        with:
+          name: ${{ needs.build.outputs.artifact }}
+          path: dist
+
+      - name: Create or update release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ needs.build.outputs.tag }}
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" dist/*.zip --clobber
+            exit 0
+          fi
+
+          PREVIOUS_TAG="$(git describe --tags --abbrev=0 --match 'v*' "$TAG^")"
+          gh release create "$TAG" dist/*.zip \
+            --verify-tag \
+            --title "$TAG" \
+            --generate-notes \
+            --notes-start-tag "$PREVIOUS_TAG"
+
+  chrome:
+    name: Submit Chrome
+    needs:
+      - build
+      - github-release
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: production
+    permissions:
+      contents: read
+    steps:
+      - name: Download release artifacts
+        uses: actions/download-artifact@v8
+        with:
+          name: ${{ needs.build.outputs.artifact }}
+          path: dist
+
+      - name: Publish Chrome
+        uses: wdzeng/chrome-extension@v2
+        with:
+          extension-id: ${{ vars.CHROME_EXTENSION_ID }}
+          publisher-id: ${{ vars.CHROME_PUBLISHER_ID }}
+          zip-path: dist/fuzzymark-${{ needs.build.outputs.version }}-chrome.zip
+          client-id: ${{ secrets.CHROME_CLIENT_ID }}
+          client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
+          refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}
+
+  firefox:
+    name: Submit Firefox
+    needs:
+      - build
+      - github-release
+    runs-on: ubuntu-latest
+    environment: production
+    permissions:
+      contents: read
+    steps:
+      - name: Download release artifacts
+        uses: actions/download-artifact@v8
+        with:
+          name: ${{ needs.build.outputs.artifact }}
+          path: dist
+
+      - name: Publish Firefox
+        uses: wdzeng/firefox-addon@v1
+        with:
+          addon-guid: ${{ needs.build.outputs.firefox-addon-guid }}
+          xpi-path: dist/fuzzymark-${{ needs.build.outputs.version }}-firefox.zip
+          source-file-path: dist/fuzzymark-${{ needs.build.outputs.version }}-source.zip
+          jwt-issuer: ${{ secrets.AMO_JWT_ISSUER }}
+          jwt-secret: ${{ secrets.AMO_JWT_SECRET }}

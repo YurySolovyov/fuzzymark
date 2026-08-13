@@ -14,8 +14,7 @@ export default defineConfig({
     target: ['chrome144', 'firefox144'],
     assetsInlineLimit: (filePath) => inlineFontExtensions.has(extname(filePath)),
     outDir: './extension/chrome',
-    // TODO: make a release mode
-    emptyOutDir: false,
+    emptyOutDir: true,
     rolldownOptions: {
       input: {
         main: './src/frontend/main.js',

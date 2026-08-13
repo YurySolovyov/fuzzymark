@@ -1,0 +1,25 @@
+name: Setup project
+description: Install Node.js, pnpm, and project dependencies
+
+inputs:
+  install-dependencies:
+    description: Install dependencies from the lockfile
+    required: false
+    default: 'true'
+
+runs:
+  using: composite
+  steps:
+    - name: Install pnpm
+      uses: pnpm/action-setup@v6
+
+    - name: Set Node.js 26.x
+      uses: actions/setup-node@v7
+      with:
+        node-version: 26.x
+        cache: pnpm
+
+    - name: Install packages
+      if: ${{ inputs.install-dependencies == 'true' }}
+      shell: bash
+      run: pnpm install --frozen-lockfile
