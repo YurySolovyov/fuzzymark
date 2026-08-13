@@ -9,6 +9,7 @@
           :url="bookmark.favicon"
           @gotColor="setColor" />
         <div>{{ bookmark.title }}</div>
+        <div class="font-light" style="font-size: 12px; margin-top: 4px;">{{ formattedDate }}</div>
         <tile-controls
           @delete="onDelete"
           @edit="onEdit" />
@@ -19,6 +20,7 @@
 
 <script>
 
+import dateFormat from 'dateformat';
 import TileControls from './TileControls.vue';
 import Favicon from './Favicon.vue';
 
@@ -31,6 +33,11 @@ export default {
   components: {
     TileControls,
     Favicon
+  },
+  computed: {
+    formattedDate() {
+      return this.bookmark.dateAdded ? dateFormat(new Date(this.bookmark.dateAdded), 'dd mmm yy') : '';
+    }
   },
   props: {
     bookmark: {
