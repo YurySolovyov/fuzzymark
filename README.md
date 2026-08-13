@@ -25,5 +25,14 @@ pnpm build
 pnpm test
 ```
 
+## Release
+
+Fill `.env` using `.env.example`, then run:
+
+```sh
+pnpm release:prepare major
+pnpm release:perform
+```
+
 ## License
 The MIT License (MIT)

@@ -1,5 +1,7 @@
 node_modules/
 extension/
+release/
+.env
 .eslintcache
 .DS_Store
 *.log

@@ -18,11 +18,13 @@
   "devDependencies": {
     "@tailwindcss/vite": "4.3.3",
     "@vitejs/plugin-vue": "6.0.8",
+    "chrome-webstore-upload-cli": "4.0.1",
     "oxfmt": "0.63.0",
     "oxlint": "1.78.0",
     "tailwindcss": "4.3.3",
     "vite": "8.2.1",
-    "vitest": "4.1.10"
+    "vitest": "4.1.10",
+    "web-ext": "10.6.0"
   },
   "engines": {
     "node": ">= 26.0.0",
@@ -35,6 +37,8 @@
     "lint:fix": "oxlint src/frontend src/backend test scripts --fix",
     "format": "oxfmt --write src/**/*.{js,vue} test/**/*.js scripts/**/*.js",
     "format:check": "oxfmt --check src/**/*.{js,vue} test/**/*.js scripts/**/*.js",
+    "release:perform": "node scripts/release.js perform",
+    "release:prepare": "node scripts/release.js prepare",
     "test": "vitest run",
     "version": "node scripts/sync-version.js"
   }
