@@ -1,46 +1,46 @@
 <template lang="html">
-  <div id="sidebar" class="absolute left-0 top-0 m2">
+  <div
+    id="sidebar"
+    class="absolute left-0 top-0 z-30 m-2 flex w-6 flex-col gap-3">
     <router-link
-      class="overlay-control root"
+      v-if="!isRootRoute"
+      class="sidebar-link"
       title="Close"
-      to="/"
-      :class="buttonClass">
+      to="/">
       <x />
     </router-link>
     <router-link
-      class="overlay-control settings"
+      v-if="isRootRoute"
+      class="sidebar-link"
       title="Settings"
-      to="/settings"
-      :class="buttonClass">
+      to="/settings">
       <menu-lines />
     </router-link>
     <router-link
-      class="overlay-control new-tile"
+      v-if="isRootRoute && showGrid"
+      class="sidebar-link"
       title="New tile"
-      v-if="showGrid"
-      to="/new-tile"
-      :class="buttonClass">
+      to="/new-tile">
       <plus />
     </router-link>
     <router-link
-      class="overlay-control background"
+      v-if="isRootRoute"
+      class="sidebar-link"
       title="Set background"
-      to="/background"
-      :class="buttonClass">
+      to="/background">
       <mountain />
     </router-link>
   </div>
 </template>
 
 <script>
+import { mapState } from 'pinia';
 
-import { mapGetters } from 'vuex';
 import Plus from './icons/Plus.vue';
 import MenuLines from './icons/MenuLines.vue';
 import Mountain from './icons/Mountain.vue';
 import X from './icons/X.vue';
-
-const getters = mapGetters(['showGrid']);
+import { useAppStore } from '../stores/app';
 
 export default {
   components: {
@@ -50,40 +50,10 @@ export default {
     X,
   },
   computed: {
-    buttonClass() {
-      return this.$route.name === 'root' ? 'is-root': 'non-root';
+    isRootRoute() {
+      return this.$route.name === 'root';
     },
-    ...getters
-  }
+    ...mapState(useAppStore, ['showGrid']),
+  },
 };
 </script>
-
-<style lang="css">
-
-#sidebar {
-  z-index: 10;
-  width: 24px;
-}
-
-.overlay-control {
-  color: var(--theme-bookmark-link-color);
-  display: none;
-}
-
-.root.non-root {
-  display: block;
-}
-
-.settings.is-root {
-  display: block;
-}
-
-.new-tile.is-root {
-  display: block;
-}
-
-.background.is-root {
-  display: block;
-}
-
-</style>
